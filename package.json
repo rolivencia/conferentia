@@ -8,11 +8,11 @@
     "test": "nx test"
   },
   "private": true,
-  "dependencies": {},
   "devDependencies": {
     "@nrwl/cli": "13.10.5",
     "@nrwl/nx-cloud": "latest",
     "@nrwl/workspace": "13.10.5",
+    "@nxtend/ionic-angular": "^13.1.0",
     "@types/node": "16.11.7",
     "nx": "13.10.5",
     "prettier": "^2.5.1",
