@@ -4,6 +4,8 @@
 
 export const environment = {
   production: false,
+  //TODO: Move this configuration to .env file and consume it from there
+  apiUrl: 'http://localhost:3333/api',
 };
 
 /*
