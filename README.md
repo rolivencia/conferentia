@@ -1,94 +1,60 @@
-
-
 # Conferentia
 
-This project was generated using [Nx](https://nx.dev).
+Conferentia is a web-based platform used to manage academic, professional and community-driven conferences and events.
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+## Workspace structure
 
-🔎 **Smart, Fast and Extensible Build System**
+- `/db` folder contains the data sources used to feed the applications.
+- `/apps` folder contains the source of all the apps in the workspace.
+  - `/apps/app` folder contains the source code of an Ionic hybrid app, which can be deployed to multiple platforms, be it iOS, Android or as a PWA. This app provides the main user experience in the platform.
+  - `/apps/api` folder contains the source code of a NestJS app that is used as the backend server for the platform. This app provides web services that interact with the Ionic app and the data sources.
+- `/libs` folder groups the TypeScript libraries used in the workspace.
 
-## Adding capabilities to your workspace
+## Scripts
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+### Development server
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+- `nx serve api`: executes NestJS server.
+- `nx serve app`: executes Ionic app.
 
-Below are our core plugins:
+### Build apps
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+- `nx build api`: build NestJS server dist.
+- `nx build app`: build Ionic app dist.
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+### Running unit tests
 
-## Generate an application
+- `nx test api`: executes unit tests via Jest for NestJS server project.
+- `nx test app`: executes unit tests via Jest for Ionic app project.
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
+### Running end-to-end tests
 
-> You can use any of the plugins above to generate applications as well.
+- `nx e2e app` to execute the end-to-end tests in Ionic app via Cypress.
+- `nx affected:e2e` to execute the end-to-end tests affected by a change.
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+### Scaffolding
 
-## Generate a library
+#### Generate modules, controllers and services in NestJS api project:
 
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
+- `nx g @nrwl/nest:module --project=api`
+- `nx g @nrwl/nest:controller --project=api`
+- `nx g @nrwl/nest:service --project=api`
 
-> You can also use any of the plugins above to generate libraries as well.
+#### Generate modules, components and services in Ionic app project:
 
-Libraries are shareable across libraries and applications. They can be imported from `@conferentia/mylib`.
+- `nx generate @nrwl/angular:module MyModule --project app`
+- `nx generate @nrwl/angular:component MyComponent --project app`
+- `nx generate @nrwl/angular:service MyService --project app`
 
-## Development server
+#### Generate modules, components, etc. in lib project:
 
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+- `nx generate @nrwl/angular:interface MyInterface --project lib`
+- `nx generate @nrwl/angular:component MyComponent --project lib`
 
-## Code scaffolding
+Libraries are shareable across libraries and applications. They can be imported from `@conferentia/lib`.When using Nx, you can create multiple applications and libraries in the same workspace.
 
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
+New libraries can be generated using `nx g @nrwl/angular:lib my-lib`.
 
-## Build
-
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `nx e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
+## Workspace dependencies diagram
 
 Run `nx graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
