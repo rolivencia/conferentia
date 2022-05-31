@@ -11,7 +11,8 @@
     "serve:fe": "nx serve app",
     "serve:be": "nx serve api",
     "test:fe": "nx test --project=app --watch",
-    "test:be": "nx test --project=api --watch"
+    "test:be": "nx test --project=api --watch",
+    "test:libs:models": "nx test --project=models --watch"
   },
   "private": true,
   "devDependencies": {
