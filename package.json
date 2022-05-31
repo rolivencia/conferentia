@@ -6,7 +6,7 @@
     "start": "nx serve",
     "dev": "concurrently -p=\"{name}\" -n=\"NestJS,Ionic\" -c=\"red,green\" \"npm run serve:be\" \"npm run serve:fe\"",
     "build": "nx build",
-    "test": "concurrently -p=\"{name}\" -n=\"NestJS Tests, Ionic Tests\" -c=\"red,green\" \"npm run test:be\" \"npm run test:fe\"",
+    "test": "concurrently -p=\"{name}\" -n=\"NestJS Tests, Ionic Tests, Lib Tests\" -c=\"red,green,cyan\" \"npm run test:be\" \"npm run test:fe\" \"npm run test:libs:models\" ",
     "postinstall": "ngcc --properties es2015 browser module main",
     "serve:fe": "nx serve app",
     "serve:be": "nx serve api",
