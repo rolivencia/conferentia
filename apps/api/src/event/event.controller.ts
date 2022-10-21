@@ -8,7 +8,8 @@ export class EventController {
 
   @Get(':id')
   get(@Param() params): IEvent {
-    return this.eventService.get(params.id);
+    const id: number = parseInt(params.id)
+    return this.eventService.get(id);
   }
 }
 
