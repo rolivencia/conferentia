@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { IEvent } from '@conferentia/models';
 
-// TODO: Get rid of this array once the connection with Sanity CMS is made
+// ToDo: Get rid of this array once the connection with Sanity CMS is made (INF - #1)
 const events = [
   {
     id: 1,
