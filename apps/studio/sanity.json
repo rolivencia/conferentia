@@ -1,10 +1,10 @@
 {
   "root": true,
   "project": {
-    "name": "seashell-viper"
+    "name": "conferentia"
   },
   "api": {
-    "projectId": "2lse3ufz",
+    "projectId": "jbrm7n1d",
     "dataset": "production"
   },
   "plugins": [
@@ -24,10 +24,6 @@
     {
       "name": "part:@sanity/base/schema",
       "path": "./schemas/schema"
-    },
-    {
-      "implements": "part:@sanity/base/root",
-      "path": "plugins/sanity-plugin-tutorial/CustomDefaultLayout"
     }
   ]
 }

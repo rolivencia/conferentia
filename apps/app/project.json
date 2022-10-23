@@ -1,6 +1,6 @@
 {
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "root": "apps/app",
   "sourceRoot": "apps/app/src",
   "prefix": "conferentia",
   "targets": {
@@ -89,9 +89,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/app"],
+      "outputs": ["{workspaceRoot}/coverage/apps/app"],
       "options": {
-        "jestConfig": "apps/app/jest.config.js",
+        "jestConfig": "apps/app/jest.config.ts",
         "passWithNoTests": true
       }
     },
