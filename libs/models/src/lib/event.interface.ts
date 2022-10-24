@@ -1,7 +1,7 @@
 import { IActivity } from './activity.interface';
+import { IAudit } from './audit.interface';
 
-export interface IEvent {
-  id: string;
+export interface IEvent extends IAudit {
   name: string;
   logo: string;
   startDate: string | Date;
