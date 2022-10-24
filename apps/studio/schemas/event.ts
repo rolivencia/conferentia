@@ -9,6 +9,7 @@ export default {
       type: 'string',
       description:
         'Nombre asignado a cada uno de los eventos gestionados por la plataforma.',
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'image',
@@ -34,6 +35,7 @@ export default {
         dateFormat: 'YYYY-MM-DD',
         calendarTodayLabel: 'Hoy',
       },
+      validation: (Rule) => Rule.required(),
     },
     {
       title: 'Fecha de Finalización',
@@ -44,6 +46,11 @@ export default {
         dateFormat: 'YYYY-MM-DD',
         calendarTodayLabel: 'Hoy',
       },
+      validation: (Rule) => Rule.required(),
     },
   ],
+  initialValue: {
+    start_date: new Date(),
+    end_date: new Date()
+  }
 };
