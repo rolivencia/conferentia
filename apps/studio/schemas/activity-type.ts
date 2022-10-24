@@ -24,7 +24,7 @@ export default {
       title: 'Color de fuente',
       type: 'color',
       description:
-        'Color de la fuente asignada al badge de tipo de actividad en la app',
+        'Color de la fuente asignada al pill de tipo de actividad en la app',
       options: {
         disableAlpha: true,
       },
@@ -35,7 +35,7 @@ export default {
       title: 'Color de badge',
       type: 'color',
       description:
-        'Color de fondo asignado al badge de tipo de actividad en la app',
+        'Color de fondo asignado al pill de tipo de actividad en la app',
       options: {
         disableAlpha: true,
       },
