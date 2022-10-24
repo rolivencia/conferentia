@@ -1,7 +1,10 @@
 import { IActivity } from './activity.interface';
 
 export interface IEvent {
-  id: number;
+  id: string;
   name: string;
-  activities: IActivity[];
+  logo: string;
+  startDate: string | Date;
+  endDate: string | Date;
+  activities?: IActivity[];
 }

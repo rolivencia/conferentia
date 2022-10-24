@@ -1,4 +1,7 @@
+import { IEvent } from './event.interface';
+
 export interface IActivity {
-  id: number;
+  id: string;
   title: string;
+  event: IEvent;
 }
