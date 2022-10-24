@@ -4,10 +4,10 @@ Conferentia is a web-based platform used to manage academic, professional and co
 
 ## Workspace structure
 
-- `/db` folder contains the data sources used to feed the applications.
 - `/apps` folder contains the source of all the apps in the workspace.
   - `/apps/app` folder contains the source code of an Ionic hybrid app, which can be deployed to multiple platforms, be it iOS, Android or as a PWA. This app provides the main user experience in the platform.
   - `/apps/api` folder contains the source code of a NestJS app that is used as the backend server for the platform. This app provides web services that interact with the Ionic app and the data sources.
+  - `apps/studio` folder contains the local environment of Sanity Studio used to feed event-related data to the applications.
 - `/libs` folder groups the TypeScript libraries used in the workspace.
 
 ## Scripts
