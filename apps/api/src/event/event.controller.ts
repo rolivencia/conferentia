@@ -7,9 +7,15 @@ export class EventController {
   constructor(private eventService: EventService) {}
 
   @Get(':id')
-  get(@Param() params): IEvent {
-    const id: number = parseInt(params.id)
+  get(@Param() params): Promise<IEvent> {
+    const id: number = params.id;
     return this.eventService.get(id);
   }
+
+  @Get()
+  getAll(): Promise<IEvent[]> {
+    return this.eventService.getAll();
+  }
+
 }
 
