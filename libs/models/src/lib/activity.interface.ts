@@ -12,4 +12,5 @@ export interface IActivity extends IAudit {
   startDate: Date | string;
   endDate: Date | string;
   type: IActivityType;
+  image: string;
 }

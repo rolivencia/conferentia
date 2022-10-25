@@ -6,4 +6,5 @@ export interface IActivityType extends IAudit {
   color: string;
   backgroundColor: string;
   event?: IEvent;
+  image: string;
 }
