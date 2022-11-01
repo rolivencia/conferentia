@@ -6,13 +6,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Inbox', url: '/folder/Inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
+    { title: 'Home', url: '/folder/Home', icon: 'home' },
+    { title: 'General Information', url: '/folder/General Information', icon: 'information-circle' },
+    { title: 'Abstract Submision', url: '/folder/Abstract Submision', icon: 'newspaper' },
+    { title: 'Keynote Speakers', url: '/folder/Keynote Speakers', icon: 'school' },
+    { title: 'Oral Presentations', url: '/folder/Oral Presentations', icon: 'mic' },
+    { title: 'Poster Programme', url: '/folder/Poster Programme', icon: 'calendar' },
+    { title: 'Committees', url: '/folder/Committees', icon: 'people' },
+    { title: 'Registration', url: '/folder/Registration', icon: 'id-card' },
+    { title: 'Travel Information', url: '/folder/Travel Information', icon: 'airplane' },
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+  // public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor() {}
 }
