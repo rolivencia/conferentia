@@ -1,0 +1,7 @@
+{
+  "name": "landing-unl-seminar-v1",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
