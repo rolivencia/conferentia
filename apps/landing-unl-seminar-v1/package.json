@@ -1,0 +1,6 @@
+{
+  "name": "landing-unl-seminar-v1",
+  "devDependencies": {
+    "@capacitor/cli": "^4.4.0"
+  }
+}
