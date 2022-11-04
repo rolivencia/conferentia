@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  //TODO: Move this configuration to .env file and consume it from there
+  //TODO: Move these configuration to .env file and consume it from there (2022/11/04 - RO - #39)
   apiUrl: 'http://localhost:3334/api',
+  eventId: 'c848063b-a2d3-4817-b248-51bef7453fce'
 };
 
 /*
