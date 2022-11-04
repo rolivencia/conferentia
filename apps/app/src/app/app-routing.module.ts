@@ -31,6 +31,13 @@ const routes: Routes = [
         (m) => m.ParticipantsPageModule
       ),
   },
+  {
+    path: 'sponsors',
+    loadChildren: () =>
+      import('./sponsors/sponsors.module').then(
+        (m) => m.SponsorsPageModule
+      ),
+  },
 ];
 
 @NgModule({
