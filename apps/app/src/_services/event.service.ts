@@ -1,17 +1,24 @@
 import { BehaviorSubject, Observable, of, switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { HttpService } from './http.service';
-import { IEvent } from '@conferentia/models';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
+
+// Models
+import { IEvent } from '@conferentia/models';
+
+// Services
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventService extends HttpService {
+  get currentEvent$(): BehaviorSubject<IEvent | null> {
+    return this._currentEvent$;
+  }
   protected prefix = `${environment.apiUrl}/event`;
 
-  private currentEvent$: BehaviorSubject<IEvent | null> =
+  private _currentEvent$: BehaviorSubject<IEvent | null> =
     new BehaviorSubject<IEvent | null>(null);
 
   constructor(protected override http: HttpClient) {
@@ -28,7 +35,7 @@ export class EventService extends HttpService {
   public setFromEnvironment(): Observable<IEvent> {
     return this.get(environment.eventId).pipe(
       switchMap((event) => {
-        this.currentEvent$.next(event);
+        this._currentEvent$.next(event);
         return of(event);
       })
     );
