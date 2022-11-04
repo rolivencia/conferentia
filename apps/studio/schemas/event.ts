@@ -4,11 +4,19 @@ export default {
   type: 'document',
   fields: [
     {
-      title: 'Nombre',
+      title: 'Título',
       name: 'title',
       type: 'string',
       description:
-        'Nombre asignado a cada uno de los eventos gestionados por la plataforma.',
+        'Título breve, en siglas, asignado a cada uno de los eventos gestionados por la plataforma.',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      title: 'Nombre',
+      name: 'name',
+      type: 'string',
+      description:
+        'Nombre en detalle asignado a cada uno de los eventos gestionados por la plataforma.',
       validation: (Rule) => Rule.required(),
     },
     {

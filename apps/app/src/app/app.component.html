@@ -3,8 +3,10 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
+          <ng-container *ngIf="currentEvent$ | async as currentEvent">
+            <ion-list-header>{{ currentEvent.title }}</ion-list-header>
+            <ion-note>{{ currentEvent.name }}</ion-note>
+          </ng-container>
 
           <ion-menu-toggle
             auto-hide="false"
@@ -26,21 +28,17 @@
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
-
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
-
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon
-              slot="start"
-              ios="bookmark-outline"
-              md="bookmark-sharp"
-            ></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
-        </ion-list>
       </ion-content>
     </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
+    <div id="main-content">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title *ngIf="currentRoute$ | async as currentPage">
+            {{ currentPage.data.title }}</ion-title
+          >
+        </ion-toolbar>
+      </ion-header>
+      <ion-router-outlet></ion-router-outlet>
+    </div>
   </ion-split-pane>
 </ion-app>
