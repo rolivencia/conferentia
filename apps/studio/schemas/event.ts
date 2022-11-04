@@ -5,7 +5,7 @@ export default {
   fields: [
     {
       title: 'Nombre',
-      name: 'title',
+      name: 'name',
       type: 'string',
       description:
         'Nombre asignado a cada uno de los eventos gestionados por la plataforma.',
