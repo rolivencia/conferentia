@@ -1,6 +1,12 @@
-import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
 import { filter, map, Observable, of } from 'rxjs';
+
+// Models
+import { IEvent } from '@conferentia/models';
+
+// Services
+import { EventService } from '../_services/event.service';
 
 @Component({
   selector: 'conferentia-root',
@@ -16,8 +22,14 @@ export class AppComponent implements OnInit {
     { title: 'Disertantes', url: '/participants', icon: 'people' },
     { title: 'Patrocinadores', url: '/sponsors', icon: 'storefront' },
   ];
+  // TODO: Assign type to currentRoute$ observable and content (2022/11/04 - RO - #43)
   public currentRoute$: Observable<any> = of(null);
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  public currentEvent$: Observable<IEvent | null> = of(null);
+
+  constructor(private route: ActivatedRoute, private router: Router) {
+    const eventService = inject(EventService);
+    this.currentEvent$ = eventService.currentEvent$;
+  }
 
   ngOnInit() {
     // TODO: Improve solution to determine the active route and assign the corresponding header (2022/11/04 - RO - #43)
