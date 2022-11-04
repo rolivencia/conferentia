@@ -15,6 +15,8 @@ import { EventService } from '../_services/event.service';
 })
 export class AppComponent implements OnInit {
   // TODO: Assign the navigable pages info reading the routes data (2022/11/04 - RO - #43)
+  // TODO: Assign type to appPage objects (2022/11/04 - RO - #43)
+
   public appPages = [
     { title: 'Inicio', url: '/home', icon: 'home' },
     { title: 'Acreditación', url: '/registration', icon: 'qr-code' },
