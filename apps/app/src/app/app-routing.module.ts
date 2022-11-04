@@ -8,9 +8,28 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'folder/:id',
+    path: 'home',
     loadChildren: () =>
-      import('./folder/folder.module').then((m) => m.FolderPageModule),
+      import('./home/home.module').then((m) => m.HomePageModule),
+  },
+  {
+    path: 'registration',
+    loadChildren: () =>
+      import('./registration/registration.module').then(
+        (m) => m.RegistrationPageModule
+      ),
+  },
+  {
+    path: 'schedule',
+    loadChildren: () =>
+      import('./schedule/schedule.module').then((m) => m.SchedulePageModule),
+  },
+  {
+    path: 'participants',
+    loadChildren: () =>
+      import('./participants/participants.module').then(
+        (m) => m.ParticipantsPageModule
+      ),
   },
 ];
 
