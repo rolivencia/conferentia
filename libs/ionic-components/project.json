@@ -1,15 +1,15 @@
 {
-  "name": "models",
+  "name": "ionic-components",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/models/src",
+  "sourceRoot": "libs/ionic-components/src",
   "prefix": "conferentia",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/models"],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/models/jest.config.ts",
+        "jestConfig": "libs/ionic-components/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -17,8 +17,8 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/models/src/**/*.ts",
-          "libs/models/src/**/*.html"
+          "libs/ionic-components/**/*.ts",
+          "libs/ionic-components/**/*.html"
         ]
       }
     }
