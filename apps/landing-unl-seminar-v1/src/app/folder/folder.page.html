@@ -15,16 +15,18 @@
   </ion-header>
 
   <div id="container">
-    <strong class="capitalize">{{ folder }}</strong>
-    <h1>Welcome landing-unl-seminar-v1!</h1>
-    <p>
-      Explore
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://ionicframework.com/docs/components"
-        >UI Components</a
-      >
-    </p>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <conferentia-activity-card></conferentia-activity-card>
+        </ion-col>
+        <ion-col>
+          <conferentia-activity-card></conferentia-activity-card>
+        </ion-col>
+        <ion-col>
+          <conferentia-activity-card></conferentia-activity-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-content>
