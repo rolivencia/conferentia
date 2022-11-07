@@ -6,7 +6,7 @@ import { filter, map, Observable, of } from 'rxjs';
 import { IEvent } from '@conferentia/models';
 
 // Services
-import { EventService } from '../_services/event.service';
+import { EventService } from '@conferentia/angular-services';
 
 @Component({
   selector: 'conferentia-root',
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
   public currentEvent$: Observable<IEvent | null> = of(null);
 
   constructor(private route: ActivatedRoute, private router: Router) {
-    const eventService = inject(EventService);
+    const eventService: EventService = inject(EventService);
     this.currentEvent$ = eventService.currentEvent$;
   }
 
