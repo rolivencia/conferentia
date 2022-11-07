@@ -3,10 +3,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { filter, map, Observable, of } from 'rxjs';
 
 // Models
-import { IEvent } from '@conferentia/models';
+import {
+  ConferentiaRouteData,
+  IEvent,
+} from '@conferentia/models';
 
 // Services
-import { EventService } from '../_services/event.service';
+import { EventService } from '@conferentia/angular-services';
+import { appRoutes } from './app-routing.module';
 
 @Component({
   selector: 'conferentia-root',
@@ -17,19 +21,16 @@ export class AppComponent implements OnInit {
   // TODO: Assign the navigable pages info reading the routes data (2022/11/04 - RO - #43)
   // TODO: Assign type to appPage objects (2022/11/04 - RO - #43)
 
-  public appPages = [
-    { title: 'Inicio', url: '/home', icon: 'home' },
-    { title: 'Acreditación', url: '/registration', icon: 'qr-code' },
-    { title: 'Actividades', url: '/schedule', icon: 'calendar' },
-    { title: 'Disertantes', url: '/participants', icon: 'people' },
-    { title: 'Patrocinadores', url: '/sponsors', icon: 'storefront' },
-  ];
+  public appPages: ConferentiaRouteData[] = appRoutes
+    .filter((route) => !!route.data)
+    .map((route) => route.data) as ConferentiaRouteData[];
+
   // TODO: Assign type to currentRoute$ observable and content (2022/11/04 - RO - #43)
   public currentRoute$: Observable<any> = of(null);
   public currentEvent$: Observable<IEvent | null> = of(null);
 
   constructor(private route: ActivatedRoute, private router: Router) {
-    const eventService = inject(EventService);
+    const eventService: EventService = inject(EventService);
     this.currentEvent$ = eventService.currentEvent$;
   }
 

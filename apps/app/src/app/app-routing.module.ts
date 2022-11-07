@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule } from '@angular/router';
+import { ConferentiaRoute } from '@conferentia/models';
 
 // TODO: Remove redundancy between the appPages property and the titles defined for routes  (2022/11/04 - RO - #43)
-const routes: Routes = [
+export const appRoutes: ConferentiaRoute[] = [
   {
     path: '',
     redirectTo: 'home',
@@ -13,8 +14,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./home/home.module').then((m) => m.HomePageModule),
     data: {
-      title: 'Inicio'
-    }
+      title: 'Inicio',
+      url: '/home',
+      icon: 'home',
+    },
   },
   {
     path: 'registration',
@@ -23,16 +26,20 @@ const routes: Routes = [
         (m) => m.RegistrationPageModule
       ),
     data: {
-      title: 'Acreditación'
-    }
+      title: 'Acreditación',
+      url: '/registration',
+      icon: 'qr-code',
+    },
   },
   {
     path: 'schedule',
     loadChildren: () =>
       import('./schedule/schedule.module').then((m) => m.SchedulePageModule),
     data: {
-      title: 'Cronograma'
-    }
+      title: 'Cronograma',
+      url: '/schedule',
+      icon: 'calendar',
+    },
   },
   {
     path: 'participants',
@@ -41,24 +48,26 @@ const routes: Routes = [
         (m) => m.ParticipantsPageModule
       ),
     data: {
-      title: 'Disertantes'
-    }
+      title: 'Disertantes',
+      url: '/participants',
+      icon: 'people',
+    },
   },
   {
     path: 'sponsors',
     loadChildren: () =>
-      import('./sponsors/sponsors.module').then(
-        (m) => m.SponsorsPageModule
-      ),
+      import('./sponsors/sponsors.module').then((m) => m.SponsorsPageModule),
     data: {
-      title: 'Patrocinadores'
-    }
+      title: 'Patrocinadores',
+      url: '/sponsors',
+      icon: 'storefront',
+    },
   },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules }),
   ],
   exports: [RouterModule],
 })

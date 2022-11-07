@@ -1,10 +1,9 @@
 import { BehaviorSubject, Observable, of, switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from '../environments/environment';
+import { Inject, Injectable } from '@angular/core';
 
 // Models
-import { IEvent } from '@conferentia/models';
+import { IEvent, IFrontendEnvironmentConfig } from '@conferentia/models';
 
 // Services
 import { HttpService } from './http.service';
@@ -16,13 +15,15 @@ export class EventService extends HttpService {
   get currentEvent$(): BehaviorSubject<IEvent | null> {
     return this._currentEvent$;
   }
-  protected prefix = `${environment.apiUrl}/event`;
 
   private _currentEvent$: BehaviorSubject<IEvent | null> =
     new BehaviorSubject<IEvent | null>(null);
 
-  constructor(protected override http: HttpClient) {
-    super(http);
+  constructor(
+    protected override http: HttpClient,
+    @Inject('env') protected override env: IFrontendEnvironmentConfig
+  ) {
+    super(http, env, 'event');
   }
 
   public get(id: number | string): Observable<IEvent> {
@@ -30,10 +31,10 @@ export class EventService extends HttpService {
   }
 
   // Used to set the current event at app boostrapping by
-  // reading the app environment.ts file
+  // reading the app environment.ts file ,
   // TODO: Load event data based on SaaS-oriented configuration (2022/11/04 - RO - #40)
   public setFromEnvironment(): Observable<IEvent> {
-    return this.get(environment.eventId).pipe(
+    return this.get(this.env.eventId).pipe(
       switchMap((event) => {
         this._currentEvent$.next(event);
         return of(event);

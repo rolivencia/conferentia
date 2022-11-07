@@ -7,9 +7,16 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { EventService } from '../_services/event.service';
+import {
+  AngularServicesModule,
+  EventService,
+} from '@conferentia/angular-services';
+
+// Environment
+import { environment } from '../environments/environment';
 
 // TODO: Load event data based on SaaS-oriented configuration (2022/11/04 - RO - #40)
+// TODO: Simplify the interface for the factory function that loads event data. Trigger the setup of the current event to the inner context of the service.
 export const loadCurrentEvent: FactoryProvider = {
   provide: APP_INITIALIZER,
   useFactory: loadEventFactory,
@@ -25,6 +32,7 @@ function loadEventFactory(eventService: EventService) {
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    AngularServicesModule.forRoot(environment),
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
@@ -38,5 +46,3 @@ function loadEventFactory(eventService: EventService) {
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-
-

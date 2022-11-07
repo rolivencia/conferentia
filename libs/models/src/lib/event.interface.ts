@@ -1,4 +1,3 @@
-import { IActivity } from './activity.interface';
 import { IAudit } from './audit.interface';
 
 export interface IEvent extends IAudit {
@@ -7,5 +6,4 @@ export interface IEvent extends IAudit {
   logo: string;
   startDate: string | Date;
   endDate: string | Date;
-  activities?: IActivity[];
 }

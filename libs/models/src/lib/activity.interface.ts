@@ -5,7 +5,6 @@ import { ILocation } from './location.interface';
 import { IParticipant } from './participant.interface';
 
 export interface IActivity extends IAudit {
-  id: string;
   title: string;
   event: IEvent;
   description: string[];

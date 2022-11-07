@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "angular-services": "libs/angular-services",
     "api": "apps/api",
     "app": "apps/app",
     "app-e2e": "apps/app-e2e",

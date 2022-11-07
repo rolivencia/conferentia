@@ -2,8 +2,13 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
+import { IFrontendEnvironmentConfig } from '@conferentia/models';
+
+export const environment: IFrontendEnvironmentConfig = {
   production: false,
+  //TODO: Move these configuration to .env file and consume it from there (2022/11/04 - RO - #39)
+  apiUrl: 'http://localhost:3334/api',
+  eventId: 'ca40fed4-177c-4a9f-bcfa-225c2b22419d',
 };
 
 /*
