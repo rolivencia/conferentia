@@ -10,3 +10,4 @@ export { IAudit } from './lib/audit.interface';
 
 // Infrastructure-related models
 export { IFrontendEnvironmentConfig } from './lib/frontend-environment-config.interface';
+export { ConferentiaRoute, ConferentiaRouteData } from './lib/route.interface';
