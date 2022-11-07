@@ -9,5 +9,6 @@ export { IParticipant } from './lib/participant.interface';
 export { IAudit } from './lib/audit.interface';
 
 // Infrastructure-related models
+// TODO: Explore if these models should be moved to their own specific library (2022/11/07 - RO - #47)
 export { IFrontendEnvironmentConfig } from './lib/frontend-environment-config.interface';
 export { ConferentiaRoute, ConferentiaRouteData } from './lib/route.interface';
