@@ -31,13 +31,14 @@ describe('EventService', () => {
 });
 
 const expectedEventData: IEvent = {
-  id: 12,
+  _id: 'abc',
+  _rev: '1',
+  _type: 'Event',
+  _createdAt: 'Mon Nov 07 2022 10:20:59 GMT-0300 (hora estándar de Argentina)',
+  _updatedAt: 'Mon Nov 07 2022 10:20:59 GMT-0300 (hora estándar de Argentina)',
+  endDate: new Date(),
+  startDate: new Date(),
+  logo: '',
+  title: 'My Event',
   name: 'The Test Conf',
-  activities: [
-    { id: 1, title: 'Opening' },
-    { id: 12, title: 'This is really the first Keynote!' },
-    { id: 23, title: 'Coffee Break' },
-    { id: 45, title: 'Second Keynote' },
-    { id: 45, title: 'Closing' },
-  ],
 };
