@@ -8,24 +8,14 @@ export const appRoutes: ConferentiaRoute[] = [
     pathMatch: 'full',
   },
   {
-    path: 'call-for-papers',
+    path: 'home',
     loadChildren: () =>
-      import('./call-for-papers/call-for-papers.module').then(
-        (m) => m.CallForPapersPageModule
-      ),
+      import('./home/home.module').then((m) => m.HomePageModule),
     data: {
-      title: 'Abstract Submission',
-      url: 'call-for-papers',
-      icon: 'newspaper',
+      title: 'Home',
+      url: 'home',
+      icon: 'home',
     },
-  },
-  {
-    path: 'committees',
-    loadChildren: () =>
-      import('./committees/committees.module').then(
-        (m) => m.CommitteesPageModule
-      ),
-    data: { title: 'Committees', url: 'committees', icon: 'people' },
   },
   {
     path: 'general-information',
@@ -40,13 +30,15 @@ export const appRoutes: ConferentiaRoute[] = [
     },
   },
   {
-    path: 'home',
+    path: 'call-for-papers',
     loadChildren: () =>
-      import('./home/home.module').then((m) => m.HomePageModule),
+      import('./call-for-papers/call-for-papers.module').then(
+        (m) => m.CallForPapersPageModule
+      ),
     data: {
-      title: 'Home',
-      url: 'home',
-      icon: 'home',
+      title: 'Abstract Submission',
+      url: 'call-for-papers',
+      icon: 'newspaper',
     },
   },
   {
@@ -73,14 +65,7 @@ export const appRoutes: ConferentiaRoute[] = [
       icon: 'mic',
     },
   },
-  {
-    path: 'registration',
-    loadChildren: () =>
-      import('./registration/registration.module').then(
-        (m) => m.RegistrationPageModule
-      ),
-    data: { title: 'Registration', url: 'registration', icon: 'id-card' },
-  },
+
   {
     path: 'schedule',
     loadChildren: () =>
@@ -92,6 +77,22 @@ export const appRoutes: ConferentiaRoute[] = [
     },
   },
   {
+    path: 'committees',
+    loadChildren: () =>
+      import('./committees/committees.module').then(
+        (m) => m.CommitteesPageModule
+      ),
+    data: { title: 'Committees', url: 'committees', icon: 'people' },
+  },
+  {
+    path: 'registration',
+    loadChildren: () =>
+      import('./registration/registration.module').then(
+        (m) => m.RegistrationPageModule
+      ),
+    data: { title: 'Registration', url: 'registration', icon: 'id-card' },
+  },
+  {
     path: 'travel-information',
     loadChildren: () =>
       import('./travel-information/travel-information.module').then(
@@ -101,6 +102,16 @@ export const appRoutes: ConferentiaRoute[] = [
       title: 'Travel Information',
       url: 'travel-information',
       icon: 'airplane',
+    },
+  },
+  {
+    path: 'contact',
+    loadChildren: () =>
+      import('./contact/contact.module').then((m) => m.ContactPageModule),
+    data: {
+      title: 'Contact',
+      url: 'contact',
+      icon: 'call',
     },
   },
 ];
