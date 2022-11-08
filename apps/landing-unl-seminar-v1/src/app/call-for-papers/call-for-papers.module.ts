@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CallForPapersPageRoutingModule } from './call-for-papers-routing.module';
 
 import { CallForPapersPage } from './call-for-papers.page';
+import { IonicComponentsModule } from "@conferentia/ionic-components";
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { CallForPapersPage } from './call-for-papers.page';
     FormsModule,
     IonicModule,
     CallForPapersPageRoutingModule,
+    IonicComponentsModule
   ],
   declarations: [CallForPapersPage],
 })
