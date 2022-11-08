@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CommitteesPageRoutingModule } from './committees-routing.module';
 
 import { CommitteesPage } from './committees.page';
+import { IonicComponentsModule } from "@conferentia/ionic-components";
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { CommitteesPage } from './committees.page';
     FormsModule,
     IonicModule,
     CommitteesPageRoutingModule,
+    IonicComponentsModule
   ],
   declarations: [CommitteesPage],
 })

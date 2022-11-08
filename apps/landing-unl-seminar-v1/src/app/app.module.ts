@@ -9,8 +9,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import {
   AngularServicesModule,
-  EventService,
-} from '@conferentia/angular-services';
+  EventService, NavigationService
+} from "@conferentia/angular-services";
 
 // Environment
 import { environment } from '../environments/environment';
@@ -39,6 +39,7 @@ function loadEventFactory(eventService: EventService) {
   ],
   providers: [
     EventService,
+    NavigationService,
     // TODO: Load event data based on SaaS-oriented configuration (2022/11/04 - RO - #40)
     loadCurrentEvent,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

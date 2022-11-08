@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { GeneralInformationPageRoutingModule } from './general-information-routing.module';
 
 import { GeneralInformationPage } from './general-information.page';
+import { IonicComponentsModule } from "@conferentia/ionic-components";
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { GeneralInformationPage } from './general-information.page';
     FormsModule,
     IonicModule,
     GeneralInformationPageRoutingModule,
+    IonicComponentsModule
   ],
   declarations: [GeneralInformationPage],
 })
