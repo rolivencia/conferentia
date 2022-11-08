@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ParticipantsPageRoutingModule } from './participants-routing.module';
 
 import { ParticipantsPage } from './participants.page';
+import { IonicComponentsModule } from "@conferentia/ionic-components";
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { ParticipantsPage } from './participants.page';
     FormsModule,
     IonicModule,
     ParticipantsPageRoutingModule,
+    IonicComponentsModule
   ],
   declarations: [ParticipantsPage],
 })

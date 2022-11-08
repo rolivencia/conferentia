@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
 import { Component, inject, OnInit } from '@angular/core';
-import { filter, map, Observable, of } from 'rxjs';
+import { filter, map, Observable, of, Subject, takeUntil } from "rxjs";
 
 // Models
 import {
@@ -9,7 +9,7 @@ import {
 } from '@conferentia/models';
 
 // Services
-import { EventService } from '@conferentia/angular-services';
+import { EventService, NavigationService } from "@conferentia/angular-services";
 import { appRoutes } from './app-routing.module';
 
 @Component({
@@ -18,31 +18,37 @@ import { appRoutes } from './app-routing.module';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  // TODO: Assign the navigable pages info reading the routes data (2022/11/04 - RO - #43)
-  // TODO: Assign type to appPage objects (2022/11/04 - RO - #43)
-
   public appPages: ConferentiaRouteData[] = appRoutes
     .filter((route) => !!route.data)
     .map((route) => route.data) as ConferentiaRouteData[];
 
   // TODO: Assign type to currentRoute$ observable and content (2022/11/04 - RO - #43)
-  public currentRoute$: Observable<any> = of(null);
   public currentEvent$: Observable<IEvent | null> = of(null);
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  private destroyed$: Subject<boolean> = new Subject();
+
+  constructor(private navigationService: NavigationService, private route: ActivatedRoute, private router: Router) {
     const eventService: EventService = inject(EventService);
     this.currentEvent$ = eventService.currentEvent$;
   }
 
   ngOnInit() {
     // TODO: Improve solution to determine the active route and assign the corresponding header (2022/11/04 - RO - #43)
-    this.currentRoute$ = this.router.events.pipe(
+    this.router.events.pipe(
+      takeUntil(this.destroyed$),
       filter(
         (event): event is RoutesRecognized => event instanceof RoutesRecognized
       ),
       map((event: RoutesRecognized) => {
         return event.state.root.firstChild;
-      })
-    );
+      }),
+    ).subscribe(route => {
+      this.navigationService.currentRoute$.next(route)
+    });
+  }
+
+  ngOnDestroy() {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 }
