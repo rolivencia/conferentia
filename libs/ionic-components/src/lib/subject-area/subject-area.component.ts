@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+// Core
+import { Component, Input, OnInit } from '@angular/core';
+
+// Models
+import { ISubjectArea } from '@conferentia/models';
 
 @Component({
   selector: 'conferentia-subject-area',
@@ -6,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./subject-area.component.scss'],
 })
 export class SubjectAreaComponent implements OnInit {
+  @Input() subjectArea: ISubjectArea | undefined;
   constructor() {}
 
   ngOnInit(): void {}

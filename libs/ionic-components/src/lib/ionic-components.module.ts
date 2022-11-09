@@ -11,8 +11,8 @@ import { ParticipantCardComponent } from './participant-card/participant-card.co
   declarations: [
     ActivityCardComponent,
     FillableContentPageComponent,
-    SubjectAreaComponent,
     ParticipantCardComponent,
+    SubjectAreaComponent,
   ],
   exports: [
     ActivityCardComponent,

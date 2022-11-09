@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { EventController } from '../event/event.controller';
 import { EventService } from '../event/event.service';
@@ -9,6 +7,8 @@ import { ConnectorService } from '../shared/connectors/connector.service';
 import { SanityConnector } from '../shared/connectors/sanity.connector';
 import { CommitteeService } from '../committee/committee.service';
 import { CommitteeController } from '../committee/committee.controller';
+import { SubjectAreaController } from '../subject-area/subject-area.controller';
+import { SubjectAreaService } from '../subject-area/subject-area.service';
 
 @Module({
   imports: [
@@ -17,12 +17,11 @@ import { CommitteeController } from '../committee/committee.controller';
       envFilePath: '.env',
     }),
   ],
-  controllers: [AppController, CommitteeController, EventController],
+  controllers: [CommitteeController, EventController, SubjectAreaController],
   providers: [
-    AppService,
     CommitteeService,
     EventService,
-
+    SubjectAreaService,
     { provide: ConnectorService, useClass: SanityConnector },
   ],
 })
