@@ -3,6 +3,8 @@ import { IEvent } from '@conferentia/models';
 import { ConnectorService } from '../shared/connectors/connector.service';
 import { SubjectAreaService } from '../subject-area/subject-area.service';
 
+import imageUrlBuilder from '@sanity/image-url';
+
 @Injectable()
 export class EventService {
   constructor(
@@ -11,6 +13,7 @@ export class EventService {
   ) {}
 
   public async get(id: number): Promise<IEvent> {
+    const builder = imageUrlBuilder(this.connectorService.connector);
     const query = `*[_type == 'event' && _id == '${id}']`;
     const queryResult: IEvent[] = await this.connectorService.connector.fetch(
       query,
@@ -24,7 +27,10 @@ export class EventService {
       result.subjectAreas = await this.subjectAreaService.getForEvent(id);
     }
 
-    return result;
+    return {
+      ...result,
+      image: result.image ? builder.image(result.image).url() : null,
+    };
   }
 
   public async getAll(): Promise<IEvent[]> {

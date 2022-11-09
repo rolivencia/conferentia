@@ -67,10 +67,10 @@
     "@nestjs/core": "9.0.0",
     "@nestjs/platform-express": "9.0.0",
     "@sanity/client": "^3.4.1",
+    "@sanity/image-url": "^1.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.5.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   }
 }
-

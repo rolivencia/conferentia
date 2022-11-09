@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { ConnectorService } from '../shared/connectors/connector.service';
 import { ISubjectArea } from '@conferentia/models';
 
+import imageUrlBuilder from '@sanity/image-url';
+
 @Injectable()
 export class SubjectAreaService {
   constructor(private connectorService: ConnectorService) {}
@@ -12,10 +14,14 @@ export class SubjectAreaService {
    * @param eventId
    */
   public async get(eventId: number | string) {
+    const builder = imageUrlBuilder(this.connectorService.connector);
     const query = `*[_type == 'subjectArea' && references('${eventId}')]
                    {_id, _createdAt, _updatedAt, _type, _rev, name, image, event-> }`;
     const result = await this.connectorService.connector.fetch(query, {});
-    return result as ISubjectArea[];
+    return result.map((subjectArea) => ({
+      ...subjectArea,
+      image: builder.image(subjectArea.image).url(),
+    })) as ISubjectArea[];
   }
 
   /**
@@ -24,9 +30,13 @@ export class SubjectAreaService {
    * @param eventId
    */
   public async getForEvent(eventId: number | string) {
+    const builder = imageUrlBuilder(this.connectorService.connector);
     const query = `*[_type == 'subjectArea' && references('${eventId}')]
                    {_id, _createdAt, _updatedAt, _type, _rev, name, image }`;
     const result = await this.connectorService.connector.fetch(query, {});
-    return result as ISubjectArea[];
+    return result.map((subjectArea) => ({
+      ...subjectArea,
+      image: builder.image(subjectArea.image).url(),
+    })) as ISubjectArea[];
   }
 }
