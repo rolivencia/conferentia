@@ -6,9 +6,26 @@ import { ISubjectArea } from '@conferentia/models';
 export class SubjectAreaService {
   constructor(private connectorService: ConnectorService) {}
 
+  /**
+   * Retrieves all the information belonging to an event subject, including the event to
+   * which each one belongs to as a property.
+   * @param eventId
+   */
   public async get(eventId: number | string) {
     const query = `*[_type == 'subjectArea' && references('${eventId}')]
-                   {_id, _createdAt, _updatedAt, _type, _rev, name, image, event->}`;
+                   {_id, _createdAt, _updatedAt, _type, _rev, name, image, event-> }`;
+    const result = await this.connectorService.connector.fetch(query, {});
+    return result as ISubjectArea[];
+  }
+
+  /**
+   * This services retrieves the information for an event subject areas without
+   * including the event as property of each.
+   * @param eventId
+   */
+  public async getForEvent(eventId: number | string) {
+    const query = `*[_type == 'subjectArea' && references('${eventId}')]
+                   {_id, _createdAt, _updatedAt, _type, _rev, name, image }`;
     const result = await this.connectorService.connector.fetch(query, {});
     return result as ISubjectArea[];
   }
