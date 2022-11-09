@@ -38,7 +38,7 @@ const expectedEventData: IEvent = {
   _updatedAt: 'Mon Nov 07 2022 10:20:59 GMT-0300 (hora estándar de Argentina)',
   endDate: new Date(),
   startDate: new Date(),
-  logo: '',
+  image: '',
   title: 'My Event',
   name: 'The Test Conf',
 };
