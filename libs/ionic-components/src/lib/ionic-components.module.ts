@@ -4,6 +4,7 @@ import { ActivityCardComponent } from './activity-card/activity-card.component';
 import { SubjectAreaComponent } from './subject-area/subject-area.component';
 import { IonicModule } from '@ionic/angular';
 import { FillableContentPageComponent } from './fillable-content-page/fillable-content-page.component';
+import { ParticipantCardComponent } from './participant-card/participant-card.component';
 
 @NgModule({
   imports: [CommonModule, IonicModule],
@@ -11,10 +12,12 @@ import { FillableContentPageComponent } from './fillable-content-page/fillable-c
     ActivityCardComponent,
     FillableContentPageComponent,
     SubjectAreaComponent,
+    ParticipantCardComponent,
   ],
   exports: [
     ActivityCardComponent,
     FillableContentPageComponent,
+    ParticipantCardComponent,
     SubjectAreaComponent,
   ],
 })
