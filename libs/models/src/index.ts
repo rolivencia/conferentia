@@ -5,6 +5,8 @@ export { IActivityType } from './lib/activity-type.interface';
 export { IAttendance } from './lib/attendance.interface';
 export { IAttendee } from './lib/attendee.interface';
 export { IParticipant } from './lib/participant.interface';
+export { ICommitteeArea } from './lib/committee-area.interface';
+export { ICommitteeMember } from './lib/committee-member.interface';
 
 export { IAudit } from './lib/audit.interface';
 

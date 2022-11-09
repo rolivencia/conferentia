@@ -54,24 +54,11 @@ export const appRoutes: ConferentiaRoute[] = [
     },
   },
   {
-    path: 'oral-presentations',
-    loadChildren: () =>
-      import('./oral-presentations/oral-presentations.module').then(
-        (m) => m.OralPresentationsPageModule
-      ),
-    data: {
-      title: 'Oral Presentations',
-      url: 'oral-presentations',
-      icon: 'mic',
-    },
-  },
-
-  {
     path: 'schedule',
     loadChildren: () =>
       import('./schedule/schedule.module').then((m) => m.SchedulePageModule),
     data: {
-      title: 'Poster Programme',
+      title: 'Programme',
       url: 'schedule',
       icon: 'calendar',
     },

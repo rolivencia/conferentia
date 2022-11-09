@@ -6,8 +6,10 @@ import schemaTypes from 'all:part:@sanity/base/schema-type';
 
 // List of child schemas
 import activity from './activity';
-import event from './event';
 import activityType from './activity-type';
+import commiteeArea from './committee-area';
+import commiteeMember from './commitee-member';
+import event from './event';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -15,5 +17,11 @@ export default createSchema({
   name: 'default',
   // Then proceed to concatenate our document type
   // to the ones provided by any plugins that are installed
-  types: schemaTypes.concat([activity, activityType, event]),
+  types: schemaTypes.concat([
+    activity,
+    activityType,
+    commiteeArea,
+    commiteeMember,
+    event,
+  ]),
 });

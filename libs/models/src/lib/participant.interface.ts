@@ -1,9 +1,11 @@
-import { IAudit } from './audit.interface';
+import { IAudit, IEvent } from '@conferentia/models';
 
 export interface IParticipant extends IAudit {
-  name: string;
-  gender: string;
-  institution: string;
-  avatar: string;
-  curriculum: string[];
+  firstName: string;
+  lastName: string;
+  event: IEvent;
+  courtesyName?: string;
+  institution?: string;
+  avatar?: string;
+  curriculum?: string[];
 }

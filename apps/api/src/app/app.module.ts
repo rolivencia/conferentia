@@ -7,6 +7,8 @@ import { EventController } from '../event/event.controller';
 import { EventService } from '../event/event.service';
 import { ConnectorService } from '../shared/connectors/connector.service';
 import { SanityConnector } from '../shared/connectors/sanity.connector';
+import { CommitteeService } from '../committee/committee.service';
+import { CommitteeController } from '../committee/committee.controller';
 
 @Module({
   imports: [
@@ -15,10 +17,12 @@ import { SanityConnector } from '../shared/connectors/sanity.connector';
       envFilePath: '.env',
     }),
   ],
-  controllers: [AppController, EventController],
+  controllers: [AppController, CommitteeController, EventController],
   providers: [
     AppService,
+    CommitteeService,
     EventService,
+
     { provide: ConnectorService, useClass: SanityConnector },
   ],
 })

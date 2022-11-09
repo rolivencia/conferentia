@@ -1,0 +1,30 @@
+<ion-card *ngIf="participant">
+  <ion-card-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="3">
+          <ion-avatar>
+            <img
+              alt="Silhouette of a person's head"
+              [src]="
+                participant.avatar
+                  ? participant.avatar
+                  : 'https://ionicframework.com/docs/img/demos/avatar.svg'
+              "
+          /></ion-avatar>
+        </ion-col>
+        <ion-col>
+          <ion-card-title>
+            <ng-container *ngIf="participant.courtesyName">
+              {{ participant.courtesyName }}.
+            </ng-container>
+
+            {{ participant.firstName }}
+            {{ participant.lastName }}</ion-card-title
+          >
+          <ion-card-subtitle>{{ title }}</ion-card-subtitle>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+</ion-card>
