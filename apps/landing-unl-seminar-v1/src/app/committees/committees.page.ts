@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CommitteeService, EventService } from '@conferentia/angular-services';
+import { Observable, of, switchMap } from 'rxjs';
+import { ICommitteeArea, IEvent } from '@conferentia/models';
 
 @Component({
   selector: 'conferentia-committees',
@@ -6,7 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./committees.page.scss'],
 })
 export class CommitteesPage implements OnInit {
-  constructor() {}
+  public committeeAreas$: Observable<ICommitteeArea[]> = of([]);
+  constructor(
+    private eventService: EventService,
+    private committeeService: CommitteeService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.committeeAreas$ = this.eventService.currentEvent$.pipe(
+      switchMap((event) => this.committeeService.get((event as IEvent)._id))
+    );
+  }
 }

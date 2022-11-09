@@ -1,6 +1,47 @@
-<conferentia-fillable-content-page [content]="committeesContent"></conferentia-fillable-content-page>
+<conferentia-fillable-content-page
+  [content]="committeesContent"
+></conferentia-fillable-content-page>
 
 <ng-template #committeesContent>
-  This is the Committees content.
-</ng-template>
+  <ng-container *ngIf="(committeeAreas$ | async) as committeeAreas">
+    <ng-container *ngFor="let committeeArea of committeeAreas">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{committeeArea.name}}</ion-card-title>
+        </ion-card-header>
 
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ng-container *ngIf="!!committeeArea.chairs">
+                <ion-col size="12" size-md="6">
+                  <conferentia-participant-card
+                    [title]="'Chair'"
+                    [participant]="committeeArea.chairs[0]"
+                  ></conferentia-participant-card
+                ></ion-col>
+              </ng-container>
+              <ng-container *ngIf="!!committeeArea.viceChairs">
+                <ion-col size-sm="12" size-md="6">
+                  <conferentia-participant-card
+                    [title]="'Vice Chair'"
+                    [participant]="committeeArea.viceChairs[0]"
+                  ></conferentia-participant-card>
+                </ion-col>
+              </ng-container>
+            </ion-row>
+            <ng-container *ngIf="!!committeeArea.members">
+              <ion-row>
+                <ion-col size="12" size-md="6" size-xl="4" *ngFor="let member of committeeArea.members">
+                  <conferentia-participant-card
+                    [participant]="member"
+                  ></conferentia-participant-card>
+                </ion-col>
+              </ion-row>
+            </ng-container>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+  </ng-container>
+</ng-template>
