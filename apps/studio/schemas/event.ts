@@ -56,9 +56,33 @@ export default {
       },
       validation: (Rule) => Rule.required(),
     },
+    // options: {
+    //   filter: ({ document }) => {
+    //     // TODO: Put this filter to work (see #15)
+    //     // Check that the assigned Sponsors belongs to the same Event each sponsor belongs to
+    //     return {
+    //       filter: 'event == $event',
+    //       params: {
+    //         event: document.event,
+    //       },
+    //     };
+    //   },
+    // },
+    {
+      title: 'Patrocinadores',
+      name: 'sponsors',
+      type: 'array',
+      description: 'Patrocinadores del evento',
+      of: [
+        {
+          type: 'reference',
+          to: { type: 'sponsor' },
+        },
+      ],
+    },
   ],
   initialValue: {
     start_date: new Date(),
-    end_date: new Date()
-  }
+    end_date: new Date(),
+  },
 };
