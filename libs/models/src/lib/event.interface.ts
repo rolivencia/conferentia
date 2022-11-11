@@ -1,5 +1,6 @@
 import { IAudit } from './audit.interface';
 import { ISubjectArea } from './subject-area.interface';
+import { IEventSponsor } from "./event-sponsor.interface";
 
 export interface IEvent extends IAudit {
   title: string;
@@ -7,5 +8,6 @@ export interface IEvent extends IAudit {
   startDate: string | Date;
   endDate: string | Date;
   image?: string;
+  sponsors?: IEventSponsor[];
   subjectAreas?: ISubjectArea[];
 }

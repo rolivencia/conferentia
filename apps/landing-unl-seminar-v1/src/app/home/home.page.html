@@ -4,53 +4,78 @@
 
 <ng-template #homeContent>
   <ng-container *ngIf="(currentEvent$ | async) as currentEvent">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title
-          >French Argentinean Workshop on Heterogeneous Catalysis
-        </ion-card-title>
-      </ion-card-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-lg="8">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title
+                >French Argentinean Workshop on Heterogeneous Catalysis
+              </ion-card-title>
+            </ion-card-header>
 
-      <ion-card-content>
-        The Institute of Research on Catalysis and Petrochemistry, “Ing. José
-        Miguel Parera“, INCAPE (CONICET - UNL), organizes the French Argentinean
-        Workshop on Heterogeneous Catalysis. It will be held within the
-        framework of an international cooperation project between the groups led
-        by Dr. Florence Epron (Institut de Chimie des Milieux et Matériaux de
-        Poitiers, IC2MP, France) and Dr. Carlos Pieck (INCAPE, Argentina):
-        “International Research Proyect, OLECAT: Catalyseurs pour la production
-        d’olefines”. The entire scientific community is invited to participate,
-        from April 11 to 13, 2023 in Santa Fe, Argentina.
-      </ion-card-content>
-    </ion-card>
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Objectives</ion-card-title>
-      </ion-card-header>
+            <ion-card-content>
+              The Institute of Research on Catalysis and Petrochemistry, “Ing.
+              José Miguel Parera“, INCAPE (CONICET - UNL), organizes the French
+              Argentinean Workshop on Heterogeneous Catalysis. It will be held
+              within the framework of an international cooperation project
+              between the groups led by Dr. Florence Epron (Institut de Chimie
+              des Milieux et Matériaux de Poitiers, IC2MP, France) and Dr.
+              Carlos Pieck (INCAPE, Argentina): “International Research Proyect,
+              OLECAT: Catalyseurs pour la production d’olefines”. The entire
+              scientific community is invited to participate, from April 11 to
+              13, 2023 in Santa Fe, Argentina.
+            </ion-card-content>
+          </ion-card>
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Objectives</ion-card-title>
+            </ion-card-header>
 
-      <ion-card-content>
-        To promote the updating of scientific-technological advances in the
-        fields of heterogeneous catalysis and engineering. To favor the
-        generation of new international cooperation agreements.
-      </ion-card-content>
-    </ion-card>
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Topics</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-grid>
-          <ion-row>
-            <ng-container *ngFor="let subjectArea of currentEvent.subjectAreas">
-              <ion-col size="12" size-md="6" size-lg="4">
-                <conferentia-subject-area
-                  [subjectArea]="subjectArea"
-                ></conferentia-subject-area>
-              </ion-col>
-            </ng-container>
-          </ion-row>
-        </ion-grid>
-      </ion-card-content>
-    </ion-card>
+            <ion-card-content>
+              To promote the updating of scientific-technological advances in
+              the fields of heterogeneous catalysis and engineering. To favor
+              the generation of new international cooperation agreements.
+            </ion-card-content>
+          </ion-card>
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Topics</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-grid>
+                <ion-row>
+                  <ng-container
+                    *ngFor="let subjectArea of currentEvent.subjectAreas"
+                  >
+                    <ion-col size="12" size-md="6">
+                      <conferentia-subject-area
+                        [subjectArea]="subjectArea"
+                      ></conferentia-subject-area>
+                    </ion-col>
+                  </ng-container>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" size-lg="4">
+          <ion-card id="sponsors">
+            <ion-card-header>
+              <ion-card-subtitle class="ion-text-center">
+                Host Institutions and Sponsors
+              </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <ng-container *ngFor="let sponsor of currentEvent.sponsors">
+                <a [href]="sponsor.url">
+                  <ion-img [src]="sponsor.image"></ion-img>
+                </a>
+              </ng-container>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ng-container>
 </ng-template>
