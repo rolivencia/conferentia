@@ -8,6 +8,7 @@ export { IParticipant } from './lib/participant.interface';
 export { ICommitteeArea } from './lib/committee-area.interface';
 export { ICommitteeMember } from './lib/committee-member.interface';
 export { ISubjectArea } from './lib/subject-area.interface';
+export { IEventSponsor } from './lib/event-sponsor.interface';
 
 export { IAudit } from './lib/audit.interface';
 
