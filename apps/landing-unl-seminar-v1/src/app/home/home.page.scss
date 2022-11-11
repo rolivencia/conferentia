@@ -1,0 +1,11 @@
+#sponsors {
+  ion-card-content {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+  ion-img {
+    max-height: 240px;
+    margin-bottom: 24px;
+  }
+}
