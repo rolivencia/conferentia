@@ -9,6 +9,8 @@ import { CommitteeService } from '../committee/committee.service';
 import { CommitteeController } from '../committee/committee.controller';
 import { SubjectAreaController } from '../subject-area/subject-area.controller';
 import { SubjectAreaService } from '../subject-area/subject-area.service';
+import { SponsorService } from '../sponsor/sponsor.service';
+import { SponsorController } from '../sponsor/sponsor.controller';
 
 @Module({
   imports: [
@@ -17,10 +19,16 @@ import { SubjectAreaService } from '../subject-area/subject-area.service';
       envFilePath: '.env',
     }),
   ],
-  controllers: [CommitteeController, EventController, SubjectAreaController],
+  controllers: [
+    CommitteeController,
+    EventController,
+    SponsorController,
+    SubjectAreaController,
+  ],
   providers: [
     CommitteeService,
     EventService,
+    SponsorService,
     SubjectAreaService,
     { provide: ConnectorService, useClass: SanityConnector },
   ],
