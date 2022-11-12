@@ -30,7 +30,22 @@ export default {
         {
           name: 'alt',
           type: 'string',
-          title: 'Texto alternativo de la imagen',
+          title: 'Texto descriptivo del logo',
+        },
+      ],
+    },
+    {
+      name: 'featuredImage',
+      type: 'image',
+      title: 'Imagen destacada del evento',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Texto descriptivo de la imagen destacada',
         },
       ],
     },
