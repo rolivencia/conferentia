@@ -18,7 +18,7 @@ export class EventService {
     const builder = imageUrlBuilder(this.connectorService.connector);
     const query = `*[_type == 'event' && _id == '${id}']
                     { _id, _createdAt, _updatedAt, _type, _rev,
-                     name, logo, start_date, end_date, sponsors[]->}`;
+                     name, featuredImage, logo, start_date, end_date, sponsors[]->}`;
     const queryResult: IEvent[] = await this.connectorService.connector.fetch(
       query,
       {}
@@ -30,9 +30,15 @@ export class EventService {
     if (!!result) {
       result.subjectAreas = await this.subjectAreaService.getForEvent(id);
     }
-    console.log(result);
+
     return {
       ...result,
+      featuredImage: result.featuredImage
+        ? {
+            alt: result.featuredImage.alt,
+            url: builder.image(result.featuredImage).url(),
+          }
+        : null,
       logo: result.logo ? builder.image(result.logo).url() : null,
       sponsors: result.sponsors.map((sponsor) => ({
         ...sponsor,
