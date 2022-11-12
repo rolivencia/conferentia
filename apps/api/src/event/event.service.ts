@@ -18,8 +18,7 @@ export class EventService {
     const builder = imageUrlBuilder(this.connectorService.connector);
     const query = `*[_type == 'event' && _id == '${id}']
                     { _id, _createdAt, _updatedAt, _type, _rev,
-                     name, image, start_date, end_date, sponsors[]->}`;
-    // {_id, _createdAt, _updatedAt, _type, _rev, name, event->, chairs[]->, viceChairs[]->, members[]->}`
+                     name, logo, start_date, end_date, sponsors[]->}`;
     const queryResult: IEvent[] = await this.connectorService.connector.fetch(
       query,
       {}
