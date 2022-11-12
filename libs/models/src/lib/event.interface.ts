@@ -7,7 +7,7 @@ export interface IEvent extends IAudit {
   name: string;
   startDate: string | Date;
   endDate: string | Date;
-  image?: string;
+  logo?: string;
   sponsors?: IEventSponsor[];
   subjectAreas?: ISubjectArea[];
 }

@@ -20,7 +20,7 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'image',
+      name: 'logo',
       type: 'image',
       title: 'Logo del evento',
       options: {

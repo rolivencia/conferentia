@@ -31,10 +31,10 @@ export class EventService {
     if (!!result) {
       result.subjectAreas = await this.subjectAreaService.getForEvent(id);
     }
-
+    console.log(result);
     return {
       ...result,
-      image: result.image ? builder.image(result.image).url() : null,
+      logo: result.logo ? builder.image(result.logo).url() : null,
       sponsors: result.sponsors.map((sponsor) => ({
         ...sponsor,
         image: builder.image(sponsor.image).url(),
