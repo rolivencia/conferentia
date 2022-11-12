@@ -1,7 +1,6 @@
 <ion-app>
   <ng-container *ngIf="currentEvent$ | async as currentEvent">
     <ion-split-pane contentId="main-content">
-
       <ion-menu contentId="main-content" type="overlay">
         <ion-content>
           <ng-container *ngIf="currentEvent.logo">
@@ -32,6 +31,12 @@
               </ion-item>
             </ion-menu-toggle>
           </ion-list>
+          <ng-container *ngIf="currentEvent.featuredImage as featuredImage">
+            <ion-img [src]="featuredImage.url"></ion-img>
+            <div class="ion-margin-top" *ngIf="featuredImage.alt">
+              <ion-label>{{ featuredImage.alt }}</ion-label>
+            </div>
+          </ng-container>
         </ion-content>
       </ion-menu>
       <ion-router-outlet id="main-content"></ion-router-outlet>
