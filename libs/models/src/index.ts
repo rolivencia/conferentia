@@ -11,6 +11,7 @@ export { ISubjectArea } from './lib/subject-area.interface';
 export { IEventSponsor } from './lib/event-sponsor.interface';
 
 export { IAudit } from './lib/audit.interface';
+export { IImage } from './lib/image.interface';
 
 // Infrastructure-related models
 // TODO: Explore if these models should be moved to their own specific library (2022/11/07 - RO - #47)
