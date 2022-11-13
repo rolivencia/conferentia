@@ -7,9 +7,11 @@
             <ion-img [src]="currentEvent.logo"></ion-img>
           </ng-container>
 
-          <ion-list id="inbox-list">
-            <ion-list-header>{{ currentEvent.title }}</ion-list-header>
-            <ion-note>{{ currentEvent.name }}</ion-note>
+          <ion-list id="inbox-list" class="padding-top">
+            <ion-list-header *ngIf="!currentEvent.logo">{{
+              currentEvent.title
+            }}</ion-list-header>
+            <ion-note class="ion-margin-bottom">{{ currentEvent.name }}</ion-note>
 
             <ion-menu-toggle
               auto-hide="false"
@@ -31,12 +33,15 @@
               </ion-item>
             </ion-menu-toggle>
           </ion-list>
-          <ng-container *ngIf="currentEvent.featuredImage as featuredImage">
+          <div
+            class="featured-image-container"
+            *ngIf="currentEvent.featuredImage as featuredImage"
+          >
             <ion-img [src]="featuredImage.url"></ion-img>
-            <div class="ion-margin-top" *ngIf="featuredImage.alt">
-              <ion-label>{{ featuredImage.alt }}</ion-label>
-            </div>
-          </ng-container>
+            <ng-container *ngIf="featuredImage.alt">
+              <ion-note class="ion-padding-top">{{ featuredImage.alt }}</ion-note>
+            </ng-container>
+          </div>
         </ion-content>
       </ion-menu>
       <ion-router-outlet id="main-content"></ion-router-outlet>
