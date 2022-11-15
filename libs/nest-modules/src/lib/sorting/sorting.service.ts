@@ -1,4 +1,4 @@
-import { Sortable } from './sortable-entity.interface';
+import { Sortable } from './sortable.interface';
 
 export abstract class SortingService {
   /**
