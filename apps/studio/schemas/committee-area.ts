@@ -55,5 +55,11 @@ export default {
         },
       ],
     },
+    {
+      title: 'Orden',
+      name: 'order',
+      type: 'number',
+      description: 'Orden asignado al área al listar.',
+    },
   ],
 };

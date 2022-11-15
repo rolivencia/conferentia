@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConnectorService } from '../shared/connectors/connector.service';
-import { ICommitteeArea, IEvent } from '@conferentia/models';
+import { ICommitteeArea } from '@conferentia/models';
 
 @Injectable()
 export class CommitteeService {
@@ -8,8 +8,11 @@ export class CommitteeService {
 
   public async getAreas(eventId: number | string) {
     const query = `*[_type == 'committeeArea' && references('${eventId}')]
-                    {_id, _createdAt, _updatedAt, _type, _rev, name, event->, chairs[]->, viceChairs[]->, members[]->}`;
+                    {_id, _createdAt, _updatedAt, _type, _rev, name, chairs[]->, viceChairs[]->, members[]->, order } | order(order)`;
     const result = await this.connectorService.connector.fetch(query, {});
-    return result as ICommitteeArea[];
+    return result.map((x) => {
+      const {order, ...entity} = x;
+      return entity;
+    }) as ICommitteeArea[];
   }
 }
