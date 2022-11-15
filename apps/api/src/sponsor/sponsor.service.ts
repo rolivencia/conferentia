@@ -21,6 +21,7 @@ export class SponsorService {
         ...element,
         image: builder.image(element.image).url(),
       }))
+      // ToDo: #60 - Remove code duplication when fetching sorted domain entities, via use of the Sorting design pattern (RO - 2022/11/15)
       .map((x: Sortable) => {
         const { order, ...entity } = x;
         return entity;
