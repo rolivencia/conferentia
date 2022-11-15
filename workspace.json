@@ -8,7 +8,8 @@
     "ionic-components": "libs/ionic-components",
     "landing-unl-seminar-v1": "apps/landing-unl-seminar-v1",
     "landing-unl-seminar-v1-e2e": "apps/landing-unl-seminar-v1-e2e",
-    "models": "libs/models"
+    "models": "libs/models",
+    "nest-modules": "libs/nest-modules"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

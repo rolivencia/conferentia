@@ -17,7 +17,8 @@
     "paths": {
       "@conferentia/angular-services": ["libs/angular-services/src/index.ts"],
       "@conferentia/ionic-components": ["libs/ionic-components/src/index.ts"],
-      "@conferentia/models": ["libs/models/src/index.ts"]
+      "@conferentia/models": ["libs/models/src/index.ts"],
+      "@conferentia/nest-modules": ["libs/nest-modules/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
