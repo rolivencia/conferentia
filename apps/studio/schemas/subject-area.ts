@@ -24,5 +24,11 @@ export default {
       type: 'image',
       description: 'Imagen alusiva al área temática.',
     },
+    {
+      title: 'Orden',
+      name: 'order',
+      type: 'number',
+      description: 'Orden asignado al área al listar.',
+    },
   ]
 }
