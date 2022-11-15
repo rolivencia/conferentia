@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { EntitySortingService } from './sorting/entity-sorting.service';
+import { EntitySortingService } from './sorting';
 
 @Module({
   controllers: [],
