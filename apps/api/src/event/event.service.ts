@@ -18,7 +18,7 @@ export class EventService {
     const builder = imageUrlBuilder(this.connectorService.connector);
     const query = `*[_type == 'event' && _id == '${id}']
                     { _id, _createdAt, _updatedAt, _type, _rev,
-                     title, name, featuredImage, logo, start_date, end_date, sponsors[]->}`;
+                     title, name, featuredImage, logo, start_date, end_date}`;
     const queryResult: IEvent[] = await this.connectorService.connector.fetch(
       query,
       {}
@@ -29,6 +29,8 @@ export class EventService {
     // Fetch subject areas belonging to the event
     if (!!result) {
       result.subjectAreas = await this.subjectAreaService.getForEvent(id);
+      result.sponsors = await this.sponsorService.getByEventId(id);
+      console.log(result);
     }
 
     return {

@@ -32,5 +32,11 @@ export default {
       type: 'string',
       description: 'Enlace al sitio del patrocinador',
     },
+    {
+      title: 'Orden',
+      name: 'order',
+      type: 'number',
+      description: 'Orden asignado al patrocinador al listar.',
+    },
   ],
 };

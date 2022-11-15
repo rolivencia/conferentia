@@ -83,18 +83,6 @@ export default {
     //     };
     //   },
     // },
-    {
-      title: 'Patrocinadores',
-      name: 'sponsors',
-      type: 'array',
-      description: 'Patrocinadores del evento',
-      of: [
-        {
-          type: 'reference',
-          to: { type: 'sponsor' },
-        },
-      ],
-    },
   ],
   initialValue: {
     start_date: new Date(),
