@@ -1,5 +1,42 @@
-<conferentia-fillable-content-page [content]="abstractsSubmissionContent"></conferentia-fillable-content-page>
+<conferentia-fillable-content-page
+  [content]="abstractsSubmissionContent"
+></conferentia-fillable-content-page>
 
 <ng-template #abstractsSubmissionContent>
-  This is the Abstracts Submission content.
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-lg="8">
+        <ion-card>
+          <ion-card-content>
+            <p>
+              You can download the template in DOCX format for sending works by
+              <a [href]="'assets/templates/fawhc-2023-abstract-template.docx'"
+                >clicking here</a
+              >.
+            </p>
+            <p>
+              You can submit your abstract (one page) in PDF file from 5
+              December 2022.
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-lg="4">
+        <ion-card>
+          <ion-card-header class="ion-text-center">
+            <ion-card-subtitle>Important dates</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-text color="primary"><h2>Abstract submission</h2></ion-text>
+            <ion-text><h3>Available from 5 December 2022</h3></ion-text>
+            <hr />
+            <ion-text color="primary"
+              ><h2>Abstract submission deadline</h2></ion-text
+            >
+            <ion-text><h3>10 February 2022</h3></ion-text>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ng-template>
