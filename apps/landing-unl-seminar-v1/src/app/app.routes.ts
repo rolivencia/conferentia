@@ -98,7 +98,7 @@ export const appRoutes: ConferentiaRoute[] = [
     data: {
       title: 'Contact',
       url: 'contact',
-      icon: 'call',
+      icon: 'mail',
     },
   },
 ];
