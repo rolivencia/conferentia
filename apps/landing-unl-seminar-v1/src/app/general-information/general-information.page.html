@@ -1,5 +1,63 @@
-<conferentia-fillable-content-page [content]="generalInformationContent"></conferentia-fillable-content-page>
+<conferentia-fillable-content-page
+  [content]="generalInformationContent"
+></conferentia-fillable-content-page>
 
 <ng-template #generalInformationContent>
-  This is the General Information content.
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-lg="8">
+        <ion-card>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-lg="9" class="ion-no-padding">
+                <ion-card-content class="ion-text-justify"
+                  ><p>
+                    Developments, achievements and prospects on Heterogeneous
+                    Catalysis will be presented in plenary and keynote lectures
+                    by distinguished scientists. Oral communications and posters
+                    will also be included.
+                  </p>
+                  <p>
+                    The event will be held mainly in the Auditorium of the
+                    Interdisciplinary Training Simulation Center of the Faculty
+                    of Medicine - National University of Littoral located in the
+                    University City adjoining the Scientific Technological
+                    Center Santa Fe site, where the Petunchi Building of INCAPE
+                    is located.
+                  </p></ion-card-content
+                >
+              </ion-col>
+              <ion-col size="12" size-lg="3">
+                <ion-img [src]="'assets/img/auditorium.png'"></ion-img>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-lg="4">
+        <ion-card>
+          <ion-card-header class="ion-text-center">
+            <ion-card-subtitle>Important dates</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-text color="primary"
+              ><h2>
+                French Argentinean Workshop on Heterogeneous Catalysis
+              </h2></ion-text
+            >
+            <ion-text><h3>11-13 April 2023</h3></ion-text>
+            <ion-text><h3>Santa Fe, Argentina</h3></ion-text>
+            <hr />
+            <ion-text color="primary"><h2>Abstract submission</h2></ion-text>
+            <ion-text><h3>Available from 5 December 2022</h3></ion-text>
+            <hr />
+            <ion-text color="primary"
+              ><h2>Abstract submission deadline</h2></ion-text
+            >
+            <ion-text><h3>10 February 2022</h3></ion-text>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ng-template>

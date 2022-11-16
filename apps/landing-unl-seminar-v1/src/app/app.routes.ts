@@ -30,14 +30,14 @@ export const appRoutes: ConferentiaRoute[] = [
     },
   },
   {
-    path: 'call-for-papers',
+    path: 'abstract-submission',
     loadChildren: () =>
-      import('./call-for-papers/call-for-papers.module').then(
-        (m) => m.CallForPapersPageModule
+      import('./abstract-submission/abstract-submission.module').then(
+        (m) => m.AbstractSubmissionPageModule
       ),
     data: {
       title: 'Abstract Submission',
-      url: 'call-for-papers',
+      url: 'abstract-submission',
       icon: 'newspaper',
     },
   },
@@ -98,7 +98,7 @@ export const appRoutes: ConferentiaRoute[] = [
     data: {
       title: 'Contact',
       url: 'contact',
-      icon: 'call',
+      icon: 'mail',
     },
   },
 ];

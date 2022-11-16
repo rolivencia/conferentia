@@ -11,6 +11,7 @@ import { SubjectAreaController } from '../subject-area/subject-area.controller';
 import { SubjectAreaService } from '../subject-area/subject-area.service';
 import { SponsorService } from '../sponsor/sponsor.service';
 import { SponsorController } from '../sponsor/sponsor.controller';
+import { EntitySortingService } from '@conferentia/nest-modules';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { SponsorController } from '../sponsor/sponsor.controller';
   ],
   providers: [
     CommitteeService,
+    EntitySortingService,
     EventService,
     SponsorService,
     SubjectAreaService,
