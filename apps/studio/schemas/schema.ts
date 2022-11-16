@@ -8,7 +8,7 @@ import schemaTypes from 'all:part:@sanity/base/schema-type';
 import activity from './activity';
 import activityType from './activity-type';
 import commiteeArea from './committee-area';
-import commiteeMember from './commitee-member';
+import commiteeMember from './committee-member';
 import event from './event';
 import eventSponsor from './event-sponsor';
 import participant from './participant';
