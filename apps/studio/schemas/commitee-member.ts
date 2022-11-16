@@ -4,14 +4,20 @@ export default {
   type: 'document',
   description: 'Miembros del comité de un evento',
   preview: {
-    select: { firstName: 'firstName', lastName: 'lastName', courtesyName: 'courtesyName'},
+    select: {
+      firstName: 'firstName',
+      lastName: 'lastName',
+      courtesyName: 'courtesyName',
+      avatar: 'avatar',
+    },
     prepare(selection) {
-      const {firstName, lastName, courtesyName } = selection;
+      const { firstName, lastName, courtesyName, avatar } = selection;
       const courtesyString = courtesyName ? `, ${courtesyName}.` : '';
       return {
         title: `${firstName} ${lastName}${courtesyString}`,
-      }
-    }
+        media: avatar,
+      };
+    },
   },
   fields: [
     {
@@ -60,5 +66,5 @@ export default {
       type: 'text',
       description: 'Currículum del miembro del comité.',
     },
-  ]
-}
+  ],
+};
