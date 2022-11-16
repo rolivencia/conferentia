@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CallForPapersPageRoutingModule } from './call-for-papers-routing.module';
+import { AbstractSubmissionPageRoutingModule } from './abstract-submission-routing.module';
 
-import { CallForPapersPage } from './call-for-papers.page';
+import { AbstractSubmissionPage } from './abstract-submission.page';
 import { IonicComponentsModule } from "@conferentia/ionic-components";
 
 @NgModule({
@@ -14,9 +14,9 @@ import { IonicComponentsModule } from "@conferentia/ionic-components";
     CommonModule,
     FormsModule,
     IonicModule,
-    CallForPapersPageRoutingModule,
+    AbstractSubmissionPageRoutingModule,
     IonicComponentsModule
   ],
-  declarations: [CallForPapersPage],
+  declarations: [AbstractSubmissionPage],
 })
-export class CallForPapersPageModule {}
+export class AbstractSubmissionPageModule {}
