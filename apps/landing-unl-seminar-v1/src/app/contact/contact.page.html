@@ -1,6 +1,10 @@
 <conferentia-fillable-content-page [content]="contactContent"></conferentia-fillable-content-page>
 
 <ng-template #contactContent>
-  This is the Contact content.
+  <ion-card>
+    <ion-card-content>
+      You can contact the organization by sending an email to: <a [href]="'mailto:workshopfa@fiq.unl.edu.ar'">workshopfa@fiq.unl.edu.ar</a>
+    </ion-card-content>
+  </ion-card>
 </ng-template>
 
