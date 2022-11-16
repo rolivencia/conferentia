@@ -11,6 +11,7 @@ import commiteeArea from './committee-area';
 import commiteeMember from './commitee-member';
 import event from './event';
 import eventSponsor from './event-sponsor';
+import participant from './participant';
 import subjectArea from './subject-area';
 
 // Then we give our schema to the builder and provide the result to Sanity
@@ -26,6 +27,7 @@ export default createSchema({
     commiteeMember,
     event,
     eventSponsor,
+    participant,
     subjectArea,
   ]),
 });
