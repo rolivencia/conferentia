@@ -1,16 +1,15 @@
+// Core
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
-import { Component, inject, OnInit } from '@angular/core';
-import { filter, map, Observable, of, Subject, takeUntil } from "rxjs";
+import { filter, map, Observable, of, Subject, takeUntil } from 'rxjs';
 
-// Models
-import {
-  ConferentiaRouteData,
-  IEvent,
-} from '@conferentia/models';
+// Interfaces
+import { ConferentiaRouteData, IEvent } from '@conferentia/models';
+import { appRoutes } from './app.routes';
 
 // Services
-import { EventService, NavigationService } from "@conferentia/angular-services";
-import { appRoutes } from './app-routing.module';
+import { EventService, NavigationService } from '@conferentia/angular-services';
 
 @Component({
   selector: 'conferentia-root',
@@ -27,24 +26,31 @@ export class AppComponent implements OnInit {
 
   private destroyed$: Subject<boolean> = new Subject();
 
-  constructor(private navigationService: NavigationService, private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private navigationService: NavigationService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     const eventService: EventService = inject(EventService);
     this.currentEvent$ = eventService.currentEvent$;
   }
 
   ngOnInit() {
     // TODO: Improve solution to determine the active route and assign the corresponding header (2022/11/04 - RO - #43)
-    this.router.events.pipe(
-      takeUntil(this.destroyed$),
-      filter(
-        (event): event is RoutesRecognized => event instanceof RoutesRecognized
-      ),
-      map((event: RoutesRecognized) => {
-        return event.state.root.firstChild;
-      }),
-    ).subscribe(route => {
-      this.navigationService.currentRoute$.next(route)
-    });
+    this.router.events
+      .pipe(
+        takeUntil(this.destroyed$),
+        filter(
+          (event): event is RoutesRecognized =>
+            event instanceof RoutesRecognized
+        ),
+        map((event: RoutesRecognized) => {
+          return event.state.root.firstChild;
+        })
+      )
+      .subscribe((route) => {
+        this.navigationService.currentRoute$.next(route);
+      });
   }
 
   ngOnDestroy() {

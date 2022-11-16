@@ -1,11 +1,14 @@
 // Core
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
+import { filter, map, Observable, of, Subject, takeUntil } from 'rxjs';
 
+// Interfaces
 import { ConferentiaRouteData, IEvent } from '@conferentia/models';
 import { appRoutes } from './app.routes';
-import { filter, map, Observable, of, Subject, takeUntil } from 'rxjs';
-import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
+
+// Services
 import { EventService, NavigationService } from '@conferentia/angular-services';
 
 @Component({
