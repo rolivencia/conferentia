@@ -30,7 +30,6 @@ export class EventService {
     if (!!result) {
       result.subjectAreas = await this.subjectAreaService.getForEvent(id);
       result.sponsors = await this.sponsorService.getByEventId(id);
-      console.log(result);
     }
 
     return {
