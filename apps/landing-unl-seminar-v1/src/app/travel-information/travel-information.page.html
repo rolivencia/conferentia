@@ -1,5 +1,38 @@
-<conferentia-fillable-content-page [content]="travelInformationContent"></conferentia-fillable-content-page>
+<conferentia-fillable-content-page
+  [content]="travelInformationContent"
+></conferentia-fillable-content-page>
 
 <ng-template #travelInformationContent>
-  This is the Travel Information content.
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-lg="8">
+        <ion-card>
+          <ion-card-content>
+            <p>
+              Travel Information Santa Fe is a province with important cultural
+              destinations and captivating nature. Each experience invites us
+              with diverse activities and unique events in the country.
+            </p>
+            <p>
+              Tourist information available at:
+              <a [href]="'https://santafe.tur.ar/'">https://santafe.tur.ar/</a>
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-lg="4">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle class="ion-text-center"
+              >Tourist Information Centers</ion-card-subtitle
+            >
+            <ion-card-content>
+              <p>Bus station: Belgrano 2910</p>
+              <p>Belgrano Station: Blvd. Galvez 1150</p>
+            </ion-card-content>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ng-template>
