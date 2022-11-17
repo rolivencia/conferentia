@@ -20,11 +20,29 @@
             </p>
           </ion-card-content>
         </ion-card>
+        <!-- ToDo: Develop reusable component to host the list of subject areas (#71 - RO - 2022/11/17)-->
+        <ion-card *ngIf="(currentEvent$ | async) as currentEvent">
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ng-container
+                  *ngFor="let subjectArea of currentEvent.subjectAreas"
+                >
+                  <ion-col size="12" size-md="6">
+                    <conferentia-subject-area
+                      [subjectArea]="subjectArea"
+                    ></conferentia-subject-area>
+                  </ion-col>
+                </ng-container>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
       </ion-col>
       <ion-col size="12" size-lg="4">
         <ion-card>
           <ion-card-header class="ion-text-center">
-            <ion-card-subtitle>Important dates</ion-card-subtitle>
+            <ion-card-title>Important dates</ion-card-title>
           </ion-card-header>
           <ion-card-content>
             <ion-text color="primary"><h2>Abstract submission</h2></ion-text>
