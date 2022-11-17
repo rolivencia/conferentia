@@ -6,25 +6,56 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" size-lg="8">
-        <ion-card>
-          <ion-card-content>
-            <p>
-              Travel Information Santa Fe is a province with important cultural
-              destinations and captivating nature. Each experience invites us
-              with diverse activities and unique events in the country.
-            </p>
-            <p>
-              Tourist information available at:
-              <a [href]="'https://santafe.tur.ar/'">https://santafe.tur.ar/</a>
-            </p>
-          </ion-card-content>
-        </ion-card>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-card>
+                <ion-card-content>
+                  <p>
+                    Travel Information Santa Fe is a province with important
+                    cultural destinations and captivating nature. Each
+                    experience invites us with diverse activities and unique
+                    events in the country.
+                  </p>
+                  <p>
+                    Tourist information available at:
+                    <a [href]="'https://santafe.tur.ar/'"
+                      >https://santafe.tur.ar/</a
+                    >
+                  </p>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" size-md="6">
+              <ion-card
+                ><ion-card-content>
+                  <ion-icon name="logo-instagram" size="large"></ion-icon>
+                  <a class="ion-margin-start ion-align-items-center" target="_blank" [href]="'https://www.instagram.com/turismosantafecapital'"
+                    >@turismosantafecapital</a
+                  >
+                </ion-card-content></ion-card
+              >
+            </ion-col>
+            <ion-col size="12" size-md="6">
+              <ion-card
+                ><ion-card-content>
+                  <ion-icon name="logo-facebook" size="large"></ion-icon>
+                  <a class="ion-margin-start ion-align-items-center" target="_blank" [href]="'https://www.facebook.com/TurismoSantaFeCapital'"
+                    >Turismo Santa Fe Capital</a
+                  >
+                </ion-card-content></ion-card
+              >
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-col>
       <ion-col size="12" size-lg="4">
         <ion-card>
           <ion-card-header>
-            <ion-card-subtitle class="ion-text-center"
-              >Tourist Information Centers</ion-card-subtitle
+            <ion-card-title class="ion-text-center"
+              >Tourist Information Centers</ion-card-title
             >
             <ion-card-content>
               <p>Bus station: Belgrano 2910</p>
