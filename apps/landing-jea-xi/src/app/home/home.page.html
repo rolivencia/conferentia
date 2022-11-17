@@ -1,5 +1,43 @@
-<conferentia-fillable-content-page [content]="homeContent"></conferentia-fillable-content-page>
+<conferentia-fillable-content-page
+  [content]="homeContent"
+></conferentia-fillable-content-page>
 
 <ng-template #homeContent>
-  This is the home content.
+  <ng-container *ngIf="(currentEvent$ | async) as currentEvent">
+    <div class="content-container">
+      <ion-img [src]="currentEvent.logo"></ion-img>
+      <div class="button-container">
+        <a
+          [href]="'https://www.facebook.com/jeasantafe'"
+          target="_blank"
+          class="ion-margin-horizontal"
+        >
+          <ion-button size="large">
+            <ion-icon name="logo-facebook" size="large"></ion-icon>
+          </ion-button>
+        </a>
+        <a
+          [href]="'https://www.instagram.com/jeasantafe/'"
+          target="_blank"
+          class="ion-margin-horizontal"
+        >
+          <ion-button size="large" color="danger">
+            <ion-icon name="logo-instagram" size="large"></ion-icon>
+          </ion-button>
+        </a>
+        <a
+          [href]="'https://docs.google.com/forms/d/e/1FAIpQLSewS7lgfY8SNA9KxOaNrvAMfNTSoAr9tT-53k_TdVdr49XdrQ/viewform'"
+          target="_blank"
+        >
+          <ion-button
+            size="large"
+            color="tertiary"
+            class="ion-margin-horizontal"
+          >
+            <ion-icon name="id-card-outline" size="large"></ion-icon>
+          </ion-button>
+        </a>
+      </div>
+    </div>
+  </ng-container>
 </ng-template>
