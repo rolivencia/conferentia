@@ -1,0 +1,15 @@
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-around;
+  height: 100%;
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    ion-button {
+      height: 72px;
+    }
+  }
+}
