@@ -18,18 +18,18 @@ export const appRoutes: ConferentiaRoute[] = [
       icon: 'home',
     },
   },
-  {
-    path: 'caja-ingenieria',
-    loadChildren: () =>
-      import('./registration/registration.module').then(
-        (m) => m.RegistrationPageModule
-      ),
-    data: {
-      title: 'Caja de Ingeniería de Santa Fe',
-      url: '/caja-ingenieria',
-      icon: 'cube',
-    },
-  },
+  // {
+  //   path: 'caja-ingenieria',
+  //   loadChildren: () =>
+  //     import('./registration/registration.module').then(
+  //       (m) => m.RegistrationPageModule
+  //     ),
+  //   data: {
+  //     title: 'Caja de Ingeniería de Santa Fe',
+  //     url: '/caja-ingenieria',
+  //     icon: 'cube',
+  //   },
+  // },
   {
     path: 'schedule',
     loadChildren: () =>
