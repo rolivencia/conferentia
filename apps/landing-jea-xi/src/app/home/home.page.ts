@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { IEvent } from '../../../../../libs/models/src';
-import { EventService } from '../../../../../libs/angular-services/src';
+import { IEvent } from '@conferentia/models';
+import { EventService } from '@conferentia/angular-services';
 
 @Component({
   selector: 'conferentia-home',

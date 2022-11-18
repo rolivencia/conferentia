@@ -1,5 +1,30 @@
-<conferentia-fillable-content-page [content]="scheduleContent"></conferentia-fillable-content-page>
+<conferentia-fillable-content-page
+  [content]="scheduleContent"
+></conferentia-fillable-content-page>
 
 <ng-template #scheduleContent>
-  This is the Schedule content.
+  <ng-container *ngIf="(activities$ | async) as activities">
+    <ng-container *ngFor="let activity of activities">
+      <ion-card>
+        <ion-card-header>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3">
+                <ion-thumbnail *ngIf="activity.image">
+                  <img [src]="activity.image" />
+                </ion-thumbnail>
+              </ion-col>
+              <ion-col>
+                <ion-card-title>{{ activity.title }}</ion-card-title>
+                <ion-card-subtitle
+                  >{{ activity.startDate }} -
+                  {{activity.endDate}}</ion-card-subtitle
+                >
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-header>
+      </ion-card>
+    </ng-container>
+  </ng-container>
 </ng-template>
