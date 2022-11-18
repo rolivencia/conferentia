@@ -1,8 +1,44 @@
+import dayjs from 'dayjs'
+
 export default {
   title: 'Actividades',
   name: 'activities',
   type: 'document',
   description: 'Lista de actividades del evento',
+  preview: {
+    select: {
+      title: 'title',
+      image: 'image',
+      startDate: 'startDate',
+      endDate: 'endDate',
+    },
+    prepare(selection) {
+      const { title, image, startDate, endDate } = selection;
+      const displayedStartDate = `${dayjs(new Date(startDate)).format('HH:mm')}`;
+      const displayedEndDate = `${dayjs(new Date(endDate)).format('HH:mm')}`;
+      return {
+        title: `${title}`,
+        subtitle: `${displayedStartDate} - ${displayedEndDate}`,
+        media: image,
+      };
+    },
+  },
+  orderings: [
+    {
+      title: 'Hora de Inicio, desde más temprano',
+      name: 'startDateDesc',
+      by: [
+        {field: 'startDate', direction: 'asc'}
+      ]
+    },
+    {
+      title: 'Hora de Inicio, desde más tarde',
+      name: 'startDateDesc',
+      by: [
+        {field: 'startDate', direction: 'desc'}
+      ]
+    }
+  ],
   fields: [
     {
       title: 'Evento',
@@ -38,6 +74,40 @@ export default {
       //   },
       // },
       validation: (Rule) => Rule.required(),
+    },
+    {
+      title: 'Ícono',
+      name: 'image',
+      type: 'image',
+      description: 'Ícono/imagen asignado a la actividad',
+    },
+    {
+      title: 'Participantes',
+      name: 'participants',
+      type: 'array',
+      description: 'Participantes de la actividad (oradores, encargados, etc.)',
+      of: [
+        {
+          type: 'reference',
+          to: { type: 'participant' },
+        },
+      ],
+    },
+    {
+      title: 'Fecha y Hora de inicio',
+      name: 'startDate',
+      type: 'datetime',
+    },
+    {
+      title: 'Fecha y Hora de inicio',
+      name: 'endDate',
+      type: 'datetime',
+    },
+    {
+      title: 'Descripción',
+      name: 'description',
+      type: 'text',
+      description: 'Descripción en detalle de la actividad.',
     },
   ],
 };
