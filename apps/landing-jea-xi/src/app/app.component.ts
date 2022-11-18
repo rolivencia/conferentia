@@ -16,7 +16,7 @@ import { EventService, NavigationService } from '@conferentia/angular-services';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   public appPages: ConferentiaRouteData[] = appRoutes
     .filter((route) => !!route.data)
     .map((route) => route.data) as ConferentiaRouteData[];
@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
   private destroyed$: Subject<boolean> = new Subject();
 
   constructor(
+    private titleService: Title,
     private navigationService: NavigationService,
     private route: ActivatedRoute,
     private router: Router
@@ -51,6 +52,12 @@ export class AppComponent implements OnInit {
       .subscribe((route) => {
         this.navigationService.currentRoute$.next(route);
       });
+
+    this.currentEvent$.pipe(takeUntil(this.destroyed$)).subscribe((event) => {
+      if (!!event) {
+        this.titleService.setTitle(event.title);
+      }
+    });
   }
 
   ngOnDestroy() {
