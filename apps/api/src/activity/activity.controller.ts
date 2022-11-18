@@ -8,7 +8,7 @@ export class ActivityController {
 
   @Get(':eventId')
   public getByEventId(@Param() params): Promise<IActivity[]> {
-    const eventId: number = params.eventId;
+    const eventId: number | string = params.eventId;
     return this.activityService.getByEventId(eventId);
   }
 }

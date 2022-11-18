@@ -14,6 +14,8 @@ import { SponsorController } from '../sponsor/sponsor.controller';
 import { EntitySortingService } from '@conferentia/nest-modules';
 import { ActivityController } from '../activity/activity.controller';
 import { ActivityService } from '../activity/activity.service';
+import { ParticipantController } from '../participant/participant.controller';
+import { ParticipantService } from '../participant/participant.service';
 
 @Module({
   imports: [
@@ -26,6 +28,7 @@ import { ActivityService } from '../activity/activity.service';
     ActivityController,
     CommitteeController,
     EventController,
+    ParticipantController,
     SponsorController,
     SubjectAreaController,
   ],
@@ -34,6 +37,7 @@ import { ActivityService } from '../activity/activity.service';
     CommitteeService,
     EntitySortingService,
     EventService,
+    ParticipantService,
     SponsorService,
     SubjectAreaService,
     { provide: ConnectorService, useClass: SanityConnector },
