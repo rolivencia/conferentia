@@ -3,7 +3,6 @@
   flex-direction: column;
   align-content: center;
   justify-content: space-around;
-  height: 100%;
 
   .button-container {
     display: flex;
@@ -11,6 +10,14 @@
     margin-bottom: 30%;
     ion-button {
       height: 72px;
+    }
+  }
+
+  .logo-container {
+    width: 100%;
+    ion-img {
+      margin: auto;
+      max-width: 300px;
     }
   }
 }

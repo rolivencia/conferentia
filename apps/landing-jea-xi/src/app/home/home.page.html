@@ -5,38 +5,52 @@
 <ng-template #homeContent>
   <ng-container *ngIf="(currentEvent$ | async) as currentEvent">
     <div class="content-container">
-      <ion-img [src]="currentEvent.logo"></ion-img>
+      <ion-grid class="logo-container">
+        <ion-img [src]="currentEvent.logo"></ion-img>
+      </ion-grid>
       <div class="button-container">
-
-        <a
-          [href]="'https://www.instagram.com/jeasantafe/'"
-          target="_blank"
-          class="ion-margin-horizontal"
-        >
-          <ion-button size="large" color="danger">
-            <ion-icon name="logo-instagram" size="large"></ion-icon>
-          </ion-button>
-        </a>
-        <a
-          [routerLink]="'/caja-ingenieria'"
-          class="ion-margin-horizontal"
-        >
-          <ion-button size="large" color="success">
-            <ion-icon name="cube-outline" size="large"></ion-icon>
-          </ion-button>
-        </a>
-        <a
-          [href]="'https://docs.google.com/forms/d/e/1FAIpQLSewS7lgfY8SNA9KxOaNrvAMfNTSoAr9tT-53k_TdVdr49XdrQ/viewform'"
-          target="_blank"
-        >
-          <ion-button
-            size="large"
-            color="tertiary"
-            class="ion-margin-horizontal"
-          >
-            <ion-icon name="id-card-outline" size="large"></ion-icon>
-          </ion-button>
-        </a>
+        <ion-grid>
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <a
+                [href]="'https://www.instagram.com/jeasantafe/'"
+                target="_blank"
+                class="ion-margin-horizontal"
+              >
+                <ion-button size="large" color="danger">
+                  <ion-icon name="logo-instagram" size="large"></ion-icon>
+                </ion-button>
+              </a>
+              <a
+                [href]="'https://docs.google.com/forms/d/e/1FAIpQLSewS7lgfY8SNA9KxOaNrvAMfNTSoAr9tT-53k_TdVdr49XdrQ/viewform'"
+                target="_blank"
+              >
+                <ion-button
+                  size="large"
+                  color="tertiary"
+                  class="ion-margin-horizontal"
+                >
+                  <ion-icon name="id-card-outline" size="large"></ion-icon>
+                </ion-button>
+              </a>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <a
+                [href]="'https://www.cajaingenieria.org/mailings/caja/2022/images/Mail-Plan%20joven-caja.png'"
+                target="_blank"
+                class="ion-margin-horizontal"
+              >
+                <ion-card class="ion-no-padding">
+                  <ion-card-content>
+                    <ion-img [src]="'assets/img/caja-ingenieria.png'"></ion-img>
+                  </ion-card-content>
+                </ion-card>
+              </a>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </div>
     </div>
   </ng-container>
