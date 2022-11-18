@@ -7,15 +7,7 @@
     <div class="content-container">
       <ion-img [src]="currentEvent.logo"></ion-img>
       <div class="button-container">
-        <a
-          [href]="'https://www.facebook.com/jeasantafe'"
-          target="_blank"
-          class="ion-margin-horizontal"
-        >
-          <ion-button size="large">
-            <ion-icon name="logo-facebook" size="large"></ion-icon>
-          </ion-button>
-        </a>
+
         <a
           [href]="'https://www.instagram.com/jeasantafe/'"
           target="_blank"
@@ -23,6 +15,14 @@
         >
           <ion-button size="large" color="danger">
             <ion-icon name="logo-instagram" size="large"></ion-icon>
+          </ion-button>
+        </a>
+        <a
+          [routerLink]="'/caja-ingenieria'"
+          class="ion-margin-horizontal"
+        >
+          <ion-button size="large" color="success">
+            <ion-icon name="cube-outline" size="large"></ion-icon>
           </ion-button>
         </a>
         <a

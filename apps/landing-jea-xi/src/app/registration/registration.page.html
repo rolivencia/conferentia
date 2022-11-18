@@ -1,5 +1,41 @@
-<conferentia-fillable-content-page [content]="registrationContent"></conferentia-fillable-content-page>
+<conferentia-fillable-content-page
+  [content]="registrationContent"
+></conferentia-fillable-content-page>
 
 <ng-template #registrationContent>
-  This is the Registration content.
+  <ion-card>
+    <ion-card-content>
+      <ion-img
+        [src]="'https://www.cajaingenieria.org/mailings/caja/2022/images/Mail-Plan%20joven-caja.png'"
+      ></ion-img>
+    </ion-card-content>
+  </ion-card>
+  <div class="social">
+    <ion-card
+    >
+      <ion-card-content>
+        <ion-icon name="logo-instagram" size="large"></ion-icon>
+        <a
+          class="ion-margin-start ion-align-items-center"
+          target="_blank"
+          [href]="'https://www.instagram.com/cajadeingenieria.sf'"
+        >@cajadeingenieria.sf</a
+        >
+      </ion-card-content>
+    </ion-card
+    >
+    <ion-card
+    >
+      <ion-card-content>
+        <ion-icon name="mail" size="large"></ion-icon>
+        <a
+          class="ion-margin-start ion-align-items-center"
+          target="_blank"
+          [href]="'mailto:salud@cajaingenieria.org'"
+        >salud@cajaingenieria.org</a
+        >
+      </ion-card-content>
+    </ion-card
+    >
+  </div>
 </ng-template>
