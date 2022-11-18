@@ -1,5 +1,15 @@
-<conferentia-fillable-content-page [content]="sponsorsContent"></conferentia-fillable-content-page>
+<conferentia-fillable-content-page
+  [content]="sponsorsContent"
+></conferentia-fillable-content-page>
 
 <ng-template #sponsorsContent>
-  This is the Sponsors content.
+  <ion-card *ngIf="(currentEvent$ | async) as currentEvent">
+    <ion-card-content>
+      <div class="ion-text-center">
+        <ng-container *ngFor="let sponsor of currentEvent.sponsors">
+          <ion-img [src]="sponsor.image"></ion-img>
+        </ng-container>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ng-template>

@@ -19,15 +19,15 @@ export const appRoutes: ConferentiaRoute[] = [
     },
   },
   {
-    path: 'registration',
+    path: 'caja-ingenieria',
     loadChildren: () =>
       import('./registration/registration.module').then(
         (m) => m.RegistrationPageModule
       ),
     data: {
-      title: 'Acreditación',
-      url: '/registration',
-      icon: 'qr-code',
+      title: 'Caja de Ingeniería de Santa Fe',
+      url: '/caja-ingenieria',
+      icon: 'cube',
     },
   },
   {
