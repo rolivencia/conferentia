@@ -12,6 +12,8 @@ import { SubjectAreaService } from '../subject-area/subject-area.service';
 import { SponsorService } from '../sponsor/sponsor.service';
 import { SponsorController } from '../sponsor/sponsor.controller';
 import { EntitySortingService } from '@conferentia/nest-modules';
+import { ActivityController } from '../activity/activity.controller';
+import { ActivityService } from '../activity/activity.service';
 
 @Module({
   imports: [
@@ -21,12 +23,14 @@ import { EntitySortingService } from '@conferentia/nest-modules';
     }),
   ],
   controllers: [
+    ActivityController,
     CommitteeController,
     EventController,
     SponsorController,
     SubjectAreaController,
   ],
   providers: [
+    ActivityService,
     CommitteeService,
     EntitySortingService,
     EventService,
