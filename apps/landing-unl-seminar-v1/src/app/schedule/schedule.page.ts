@@ -4,7 +4,7 @@ import { IEvent, Schedule } from '@conferentia/models';
 import { ActivityService, EventService } from '@conferentia/angular-services';
 
 @Component({
-  selector: 'conferentia-schedule',
+  selector: 'conferentia-schedule-page',
   templateUrl: './schedule.page.html',
   styleUrls: ['./schedule.page.scss'],
 })
