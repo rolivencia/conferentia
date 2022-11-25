@@ -14,11 +14,12 @@ export default {
     },
     prepare(selection) {
       const { title, image, startDate, endDate } = selection;
-      const displayedStartDate = `${dayjs(new Date(startDate)).format('HH:mm')}`;
-      const displayedEndDate = `${dayjs(new Date(endDate)).format('HH:mm')}`;
+      const displayedStartDate = `${dayjs(new Date(startDate)).format('YYYY-MM-DD')}`;
+      const displayedStartTime = `${dayjs(new Date(startDate)).format('HH:mm')}`;
+      const displayedEndTime = `${dayjs(new Date(endDate)).format('HH:mm')}`;
       return {
         title: `${title}`,
-        subtitle: `${displayedStartDate} - ${displayedEndDate}`,
+        subtitle: `${displayedStartDate} | ${displayedStartTime} - ${displayedEndTime}`,
         media: image,
       };
     },
@@ -57,10 +58,10 @@ export default {
     },
     {
       title: 'Tipo de Actividad',
-      name: 'activity_type',
+      name: 'type',
       description: 'Tipo asignado a la actividad.',
       type: 'reference',
-      to: [{ type: 'activity_type' }],
+      to: [{ type: 'activityType' }],
       // options: {
       //   filter: ({ document }) => {
       //     // TODO: Put this filter to work (see #15)

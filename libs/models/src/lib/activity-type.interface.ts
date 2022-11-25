@@ -3,7 +3,7 @@ import { IEvent } from '@conferentia/models';
 
 export interface IActivityType extends IAudit {
   name: string;
-  color: string;
+  fontColor: string;
   backgroundColor: string;
   event?: IEvent;
   image: string;
