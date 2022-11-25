@@ -14,8 +14,8 @@
               ></div>
               <ion-thumbnail slot="start" *ngIf="activity.image">
                 <img
-                  alt="Silhouette of mountains"
-                  src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
+                  [alt]="'Icon of ' + activity.title"
+                  [src]="activity.image"
                 />
               </ion-thumbnail>
               <div>
