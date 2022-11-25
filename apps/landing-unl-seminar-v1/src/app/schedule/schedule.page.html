@@ -13,7 +13,43 @@
         be complemented by <strong>oral presentations</strong> (15 min + 5 min
         discussion) and flash poster presentations (3 min online only).
       </p>
-      <p>A detailed program will be available shortly.</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content class="ion-no-padding">
+      <ion-grid *ngIf="(schedule$ | async) as schedule">
+        <ion-row>
+          <ng-container *ngFor="let scheduleDay of schedule">
+            <ion-col>
+              <ion-list>
+                <ion-list-header>
+                  <ion-card-title>{{scheduleDay.day}}</ion-card-title>
+                </ion-list-header>
+                <ng-container *ngFor="let activity of scheduleDay.activities">
+                  <ion-item>
+                    <div
+                      class="detail"
+                      [ngStyle]="{backgroundColor: activity.type?.backgroundColor}"
+                    ></div>
+                    <ion-thumbnail slot="start" *ngIf="activity.image">
+                      <img
+                        alt="Silhouette of mountains"
+                        src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
+                      />
+                    </ion-thumbnail>
+                    <div>
+                      <ion-label>
+                        <h2>{{activity.title}}</h2>
+                        <p>{{activity.startDate}} - {{activity.endDate}}</p>
+                      </ion-label>
+                    </div>
+                  </ion-item>
+                </ng-container>
+              </ion-list>
+            </ion-col>
+          </ng-container>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
 </ng-template>
