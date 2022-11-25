@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { IActivity, IEvent, IFrontendEnvironmentConfig } from "@conferentia/models";
+import { IFrontendEnvironmentConfig, Schedule } from '@conferentia/models';
 import { HttpClient } from '@angular/common/http';
 import { HttpService } from './http.service';
 import { Observable } from 'rxjs';
@@ -15,7 +15,7 @@ export class ActivityService extends HttpService {
     super(http, env, 'activity');
   }
 
-  public getByEventId(eventId: number | string): Observable<IActivity[]> {
-    return this.http.get<IActivity[]>(`${this.prefix}/${eventId}`);
+  public getByEventId(eventId: number | string): Observable<Schedule> {
+    return this.http.get<Schedule>(`${this.prefix}/${eventId}`);
   }
 }
