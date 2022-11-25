@@ -1,6 +1,6 @@
 export default {
   title: 'Tipo de Actividad',
-  name: 'activity_type',
+  name: 'activityType',
   type: 'document',
   description: 'Tipo asignable a una actividad',
   fields: [
@@ -14,13 +14,19 @@ export default {
     },
     {
       title: 'Tipo',
-      name: 'type',
+      name: 'name',
       type: 'string',
       description: 'Nombre asignado al tipo de actividad.',
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'font_color',
+      title: 'Ícono',
+      name: 'image',
+      type: 'image',
+      description: 'Ícono/imagen asignado al tipo de actividad',
+    },
+    {
+      name: 'fontColor',
       title: 'Color de fuente',
       type: 'color',
       description:
@@ -31,11 +37,11 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'badge_color',
+      name: 'backgroundColor',
       title: 'Color de badge',
       type: 'color',
       description:
-        'Color de fondo asignado al pill de tipo de actividad en la app',
+        'Color característico asignado al tipo de actividad en la app',
       options: {
         disableAlpha: true,
       },
