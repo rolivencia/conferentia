@@ -1,6 +1,7 @@
 // Domain models
 export { IEvent } from './lib/event.interface';
 export { IActivity } from './lib/activity.interface';
+export { Schedule } from './lib/activity.interface';
 export { IActivityType } from './lib/activity-type.interface';
 export { IAttendance } from './lib/attendance.interface';
 export { IAttendee } from './lib/attendee.interface';
