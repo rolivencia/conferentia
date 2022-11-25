@@ -27,7 +27,7 @@ export class ActivityService {
                       _type,
                       _rev,
                       title,
-                      activityType->{name, fontColor, backgroundColor, image},
+                      type->{name, fontColor, backgroundColor, image},
                       image,
                       participants[]->,
                       description,
@@ -40,12 +40,12 @@ export class ActivityService {
     );
 
     // ToDo: #60 - Remove code duplication when fetching sorted domain entities, via use of the Sorting design pattern (RO - 2022/11/15)
-    const activities = result.map(({ activityType, ...activity }) => ({
+    const activities = result.map(({ type, ...activity }) => ({
       ...activity,
       type: {
-        ...activityType,
-        backgroundColor: activityType?.backgroundColor?.hex,
-        fontColor: activityType?.fontColor?.hex,
+        ...type,
+        backgroundColor: type?.backgroundColor?.hex,
+        fontColor: type?.fontColor?.hex,
       },
       image: activity.image ? builder.image(activity.image).url() : undefined,
     }));
