@@ -1,17 +1,19 @@
 <ion-card *ngIf="participant">
   <ion-card-header>
-    <ion-grid>
+    <ion-grid class="ion-no-padding">
       <ion-row>
-        <ion-col size="4">
-          <ion-avatar>
-            <img
-              alt="Silhouette of a person's head"
-              [src]="
-                participant.avatar
-                  ? participant.avatar
-                  : 'https://ionicframework.com/docs/img/demos/avatar.svg'
-              "
-          /></ion-avatar>
+        <ion-col size="auto">
+          <div style="width: 100px">
+            <ion-avatar>
+              <img
+                alt="Silhouette of a person's head"
+                [src]="
+                  participant.avatar
+                    ? participant.avatar
+                    : 'https://ionicframework.com/docs/img/demos/avatar.svg'
+                "
+            /></ion-avatar>
+          </div>
         </ion-col>
         <ion-col>
           <ion-card-title>
@@ -22,9 +24,19 @@
             {{ participant.firstName }}
             {{ participant.lastName }}</ion-card-title
           >
-          <ion-card-subtitle>{{ title }}</ion-card-subtitle>
+          <ion-card-subtitle>{{ participant.institution }}</ion-card-subtitle>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-card-header>
+
+  <ng-container *ngIf="participant.curriculum">
+    <ion-card-content class="ion-text-justify">
+      <ion-label>
+        <ng-container *ngFor="let paragraph of parsedCurriculum">
+          <div class="ion-margin-bottom">{{ paragraph }}</div>
+        </ng-container>
+      </ion-label>
+    </ion-card-content>
+  </ng-container>
 </ion-card>
