@@ -11,7 +11,7 @@ export class ParticipantService {
     const builder = imageUrlBuilder(this.connectorService.connector);
     const query = `*[_type == 'participant' && references('${eventId}')]
                     { _id, _createdAt, _updatedAt, _type, _rev,
-                     title, courtesyName, firstName, lastName, avatar, description }`;
+                     institution, courtesyName, firstName, lastName, avatar, curriculum }`;
     const result: IParticipant[] = await this.connectorService.connector.fetch(
       query,
       {}
@@ -20,7 +20,7 @@ export class ParticipantService {
     // ToDo: #60 - Remove code duplication when fetching sorted domain entities, via use of the Sorting design pattern (RO - 2022/11/15)
     return result.map((participant) => ({
       ...participant,
-      avatar: builder.image(participant.avatar).url(),
+      avatar: participant.avatar ? builder.image(participant.avatar).url() : null,
     }));
   }
 }
