@@ -13,7 +13,12 @@ export class ParticipantCardComponent implements OnInit {
   @Input() participant: IParticipant | undefined;
   @Input() title: string = '';
 
+  public parsedCurriculum: string[] | undefined;
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.parsedCurriculum = this.participant?.curriculum?.split('\n'); // ToDo: Adapt this assignation when paragraph parser component is available #92 (RO - 2022/11/26)
+
+  }
 }

@@ -1,9 +1,19 @@
-<conferentia-fillable-content-page [content]="keynoteSpeakersContent"></conferentia-fillable-content-page>
+<conferentia-fillable-content-page
+  [content]="keynoteSpeakersContent"
+></conferentia-fillable-content-page>
 
 <ng-template #keynoteSpeakersContent>
-  <ion-card>
-    <ion-card-content>
-      Available shortly.
-    </ion-card-content>
-  </ion-card>
+  <ng-container *ngIf="(participants$ | async) as participants">
+    <ion-grid>
+      <ion-row>
+        <ng-container *ngFor="let participant of participants">
+          <ion-col size="12" size-md="6">
+            <conferentia-participant-card
+              [participant]="participant"
+            ></conferentia-participant-card>
+          </ion-col>
+        </ng-container>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
 </ng-template>
