@@ -60,6 +60,7 @@
     "@angular/platform-browser": "14.2.7",
     "@angular/platform-browser-dynamic": "14.2.7",
     "@angular/router": "14.2.7",
+    "@auth0/auth0-angular": "^1.11.1",
     "@capacitor/core": "4.4.0",
     "@ionic/angular": "6.3.3",
     "@nestjs/common": "9.0.0",
