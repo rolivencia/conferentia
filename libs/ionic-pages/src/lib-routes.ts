@@ -1,3 +1,6 @@
+// Guards
+import { authenticationGuard } from '@conferentia/angular-services';
+
 // Models
 import { ConferentiaRoute } from '@conferentia/models';
 
@@ -13,6 +16,7 @@ export const libRoutes: ConferentiaRoute[] = [
       import('./lib/user-profile/user-profile.module').then(
         (m) => m.UserProfilePageModule
       ),
+    canActivate: [authenticationGuard],
     data: {
       title: 'User Profile',
       url: ROUTE_TREE.USER_PROFILE,
