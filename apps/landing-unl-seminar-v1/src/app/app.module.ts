@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from '@auth0/auth0-angular';
 import { HttpClientModule } from '@angular/common/http';
+import { IonicComponentsModule } from '@conferentia/ionic-components';
 
 // Providers
 import {
@@ -46,6 +47,7 @@ function loadEventFactory(eventService: EventService) {
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(),
+    IonicComponentsModule,
   ],
   providers: [
     EventService,
