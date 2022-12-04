@@ -6,22 +6,26 @@ import { IonicModule } from '@ionic/angular';
 import { FillableContentPageComponent } from './fillable-content-page/fillable-content-page.component';
 import { ParticipantCardComponent } from './participant-card/participant-card.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  imports: [CommonModule, IonicModule],
+  imports: [CommonModule, IonicModule, RouterModule],
   declarations: [
     ActivityCardComponent,
     FillableContentPageComponent,
     ParticipantCardComponent,
     SubjectAreaComponent,
     ScheduleComponent,
+    NavigationMenuComponent,
   ],
   exports: [
     ActivityCardComponent,
     FillableContentPageComponent,
     ParticipantCardComponent,
     SubjectAreaComponent,
-    ScheduleComponent
-  ]
+    ScheduleComponent,
+    NavigationMenuComponent,
+  ],
 })
 export class IonicComponentsModule {}
