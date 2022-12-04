@@ -1,6 +1,9 @@
 // Models
 import { ConferentiaRoute } from '@conferentia/models';
-import { ROUTE_TREE } from "@conferentia/ionic-pages";
+import { ROUTE_TREE } from '@conferentia/ionic-pages';
+import { AuthService } from '@auth0/auth0-angular';
+import { inject } from '@angular/core';
+import { Observable, of, switchMap } from 'rxjs';
 
 export const appRoutes: ConferentiaRoute[] = [
   {
@@ -74,11 +77,22 @@ export const appRoutes: ConferentiaRoute[] = [
   },
   {
     path: 'registration',
-    loadChildren: () =>
-      import('./registration/registration.module').then(
-        (m) => m.RegistrationPageModule
-      ),
-    data: { title: 'Registration', url: 'registration', icon: 'id-card' },
+    data: {
+      title: 'Registration',
+      url: 'registration',
+      icon: 'id-card',
+      action: (): void => {
+        const authService = inject(AuthService);
+        authService.loginWithRedirect();
+      },
+      render: (): Observable<boolean> => {
+        const authService = inject(AuthService);
+        return authService.isAuthenticated$.pipe(
+          switchMap((result) => of(!result))
+        );
+      },
+      type: 'external',
+    },
   },
   {
     path: 'travel-information',
