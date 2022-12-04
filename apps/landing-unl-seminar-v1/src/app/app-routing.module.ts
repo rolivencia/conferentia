@@ -4,10 +4,13 @@ import { PreloadAllModules, RouterModule } from '@angular/router';
 
 // Routes
 import { appRoutes } from './app.routes';
+import { libRoutes } from '@conferentia/ionic-pages';
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot([...appRoutes, ...libRoutes], {
+      preloadingStrategy: PreloadAllModules,
+    }),
   ],
   exports: [RouterModule],
 })
