@@ -5,12 +5,19 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
+
+// Modules
 import { AppRoutingModule } from './app-routing.module';
+import { AuthModule } from '@auth0/auth0-angular';
 import { HttpClientModule } from '@angular/common/http';
+import { IonicComponentsModule } from '@conferentia/ionic-components';
+
+// Providers
 import {
   AngularServicesModule,
-  EventService, NavigationService
-} from "@conferentia/angular-services";
+  EventService,
+  NavigationService,
+} from '@conferentia/angular-services';
 
 // Environment
 import { environment } from '../environments/environment';
@@ -31,11 +38,16 @@ function loadEventFactory(eventService: EventService) {
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
+    AuthModule.forRoot({
+      domain: 'fawhc-2023.us.auth0.com',
+      clientId: '9wYZtEZPkHmS1yma7v892Ur6mojkmQ0C',
+    }),
     AngularServicesModule.forRoot(environment),
-    IonicModule.forRoot(),
     AppRoutingModule,
+    BrowserModule,
     HttpClientModule,
+    IonicModule.forRoot(),
+    IonicComponentsModule,
   ],
   providers: [
     EventService,

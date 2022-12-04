@@ -1,0 +1,69 @@
+<ng-template #menuTemplate>
+  <ion-menu contentId="main-content" type="overlay">
+    <ion-content>
+      <ng-container *ngIf="event">
+        <ng-container *ngIf="event.logo">
+          <ion-img [src]="event.logo"></ion-img>
+        </ng-container>
+
+        <ion-list id="inbox-list" class="padding-top">
+          <ion-list-header *ngIf="!event.logo">{{
+            event.title
+          }}</ion-list-header>
+          <ion-note class="ion-margin-bottom">{{ event.name }}</ion-note>
+
+          <ion-menu-toggle
+            auto-hide="false"
+            *ngFor="let link of links; let i = index"
+          >
+            <ng-container *ngIf="(link.visible) | async">
+              <ng-container
+                *ngTemplateOutlet="item; context: { $implicit: link }"
+              ></ng-container>
+            </ng-container>
+
+          </ion-menu-toggle>
+        </ion-list>
+        <div
+          class="featured-image-container"
+          *ngIf="event.featuredImage as featuredImage"
+        >
+          <ion-img [src]="featuredImage.url"></ion-img>
+          <ng-container *ngIf="featuredImage.alt">
+            <ion-note class="ion-padding-top">{{ featuredImage.alt }}</ion-note>
+          </ng-container>
+        </div>
+      </ng-container>
+    </ion-content>
+  </ion-menu>
+</ng-template>
+
+<ng-template #item let-route>
+  <ng-container *ngIf="!route.type || route.type === 'internal'">
+    <ion-item
+      routerDirection="root"
+      [routerLink]="[route.url]"
+      lines="none"
+      detail="false"
+      routerLinkActive="selected"
+    >
+      <ion-icon
+        slot="start"
+        [ios]="route.icon + '-outline'"
+        [md]="route.icon + '-sharp'"
+      ></ion-icon>
+      <ion-label>{{ route.title }}</ion-label>
+    </ion-item>
+  </ng-container>
+
+  <ng-container *ngIf="route?.type === 'external'">
+    <ion-item (click)="invokeAction(route)" lines="none" detail="false">
+      <ion-icon
+        slot="start"
+        [ios]="route.icon + '-outline'"
+        [md]="route.icon + '-sharp'"
+      ></ion-icon>
+      <ion-label>{{ route.title }}</ion-label>
+    </ion-item>
+  </ng-container>
+</ng-template>
