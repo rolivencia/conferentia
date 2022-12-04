@@ -1,5 +1,6 @@
 // Models
 import { ConferentiaRoute } from '@conferentia/models';
+import { ROUTE_TREE } from "@conferentia/ionic-pages";
 
 export const appRoutes: ConferentiaRoute[] = [
   {
@@ -8,12 +9,12 @@ export const appRoutes: ConferentiaRoute[] = [
     pathMatch: 'full',
   },
   {
-    path: 'home',
+    path: ROUTE_TREE.HOME,
     loadChildren: () =>
       import('./home/home.module').then((m) => m.HomePageModule),
     data: {
       title: 'Home',
-      url: 'home',
+      url: ROUTE_TREE.HOME,
       icon: 'home',
     },
   },
