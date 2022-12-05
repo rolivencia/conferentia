@@ -11,13 +11,13 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Get(':email')
+  @Get('getByEmail/:email')
   getByEmail(@Param() params): Promise<User> {
     const email: string = params.email;
     return this.userService.getByEmail(email);
   }
 
-  @Get(':id')
+  @Get('getById/:id')
   getById(@Param() params): Promise<User> {
     const id: string = params.id;
     return this.userService.getById(id);
