@@ -14,13 +14,13 @@ export class UserController {
   @Get(':email')
   getByEmail(@Param() params): Promise<User> {
     const email: string = params.email;
-    return null;
+    return this.userService.getByEmail(email);
   }
 
   @Get(':id')
   getById(@Param() params): Promise<User> {
     const id: string = params.id;
-    return null;
+    return this.userService.getById(id);
   }
 
   @Post()
