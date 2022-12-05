@@ -1,7 +1,6 @@
 // Domain models
 export { IEvent } from './lib/event.interface';
 export { IActivity } from './lib/activity.interface';
-export { Schedule } from './lib/schedule.interface';
 export { IActivityType } from './lib/activity-type.interface';
 export { IAttendance } from './lib/attendance.interface';
 export { IAttendee } from './lib/attendee.interface';
@@ -10,6 +9,9 @@ export { ICommitteeArea } from './lib/committee-area.interface';
 export { ICommitteeMember } from './lib/committee-member.interface';
 export { ISubjectArea } from './lib/subject-area.interface';
 export { IEventSponsor } from './lib/event-sponsor.interface';
+
+export { Schedule } from './lib/schedule.interface';
+export { User } from './lib/user.interface';
 
 export { IAudit } from './lib/audit.interface';
 export { IImage } from './lib/image.interface';
