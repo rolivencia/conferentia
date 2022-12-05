@@ -11,8 +11,8 @@ export class SanityConnector extends ConnectorService {
       projectId: this.config.get<string>('SANITY_PROJECT_ID'),
       dataset: this.config.get<string>('SANITY_DATASET'),
       apiVersion: '2022-02-01',
-      useCdn: true,
-      // token: process.env.SANITY_TOKEN,
+      useCdn: false,
+      token: this.config.get<string>('SANITY_TOKEN'),
     });
   }
 }
