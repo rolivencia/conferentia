@@ -2,6 +2,7 @@ export * from './lib/services/angular-services.module';
 
 // Guards
 export { authenticationGuard } from './lib/guards/authentication.guard';
+export { finishedRegistrationGuard } from './lib/guards/finished-registration.guard';
 
 // Services
 export { ActivityService } from './lib/services/activity.service';

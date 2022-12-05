@@ -1,9 +1,16 @@
+// Core
+import { inject } from '@angular/core';
+import { Observable, of, switchMap } from 'rxjs';
+
+// Guards
+import { finishedRegistrationGuard } from '@conferentia/angular-services';
+
 // Models
 import { ConferentiaRoute } from '@conferentia/models';
 import { ROUTE_TREE } from '@conferentia/ionic-pages';
+
+// Services
 import { AuthService } from '@auth0/auth0-angular';
-import { inject } from '@angular/core';
-import { Observable, of, switchMap } from 'rxjs';
 
 export const appRoutes: ConferentiaRoute[] = [
   {
@@ -15,6 +22,7 @@ export const appRoutes: ConferentiaRoute[] = [
     path: ROUTE_TREE.HOME,
     loadChildren: () =>
       import('./home/home.module').then((m) => m.HomePageModule),
+    canLoad: [finishedRegistrationGuard],
     data: {
       title: 'Home',
       url: ROUTE_TREE.HOME,
@@ -27,6 +35,7 @@ export const appRoutes: ConferentiaRoute[] = [
       import('./general-information/general-information.module').then(
         (m) => m.GeneralInformationPageModule
       ),
+    canLoad: [finishedRegistrationGuard],
     data: {
       title: 'General Information',
       url: 'general-information',
@@ -39,6 +48,7 @@ export const appRoutes: ConferentiaRoute[] = [
       import('./abstract-submission/abstract-submission.module').then(
         (m) => m.AbstractSubmissionPageModule
       ),
+    canLoad: [finishedRegistrationGuard],
     data: {
       title: 'Abstract Submission',
       url: 'abstract-submission',
@@ -51,6 +61,7 @@ export const appRoutes: ConferentiaRoute[] = [
       import('./keynote-speakers/keynote-speakers.module').then(
         (m) => m.KeynoteSpeakersPageModule
       ),
+    canLoad: [finishedRegistrationGuard],
     data: {
       title: 'Keynote Speakers',
       url: 'keynote-speakers',
@@ -61,6 +72,7 @@ export const appRoutes: ConferentiaRoute[] = [
     path: 'schedule',
     loadChildren: () =>
       import('./schedule/schedule.module').then((m) => m.SchedulePageModule),
+    canLoad: [finishedRegistrationGuard],
     data: {
       title: 'Programme',
       url: 'schedule',
@@ -73,6 +85,7 @@ export const appRoutes: ConferentiaRoute[] = [
       import('./committees/committees.module').then(
         (m) => m.CommitteesPageModule
       ),
+    canLoad: [finishedRegistrationGuard],
     data: { title: 'Committees', url: 'committees', icon: 'people' },
   },
   {
@@ -100,6 +113,7 @@ export const appRoutes: ConferentiaRoute[] = [
       import('./travel-information/travel-information.module').then(
         (m) => m.TravelInformationPageModule
       ),
+    canLoad: [finishedRegistrationGuard],
     data: {
       title: 'Travel Information',
       url: 'travel-information',
@@ -110,6 +124,7 @@ export const appRoutes: ConferentiaRoute[] = [
     path: 'contact',
     loadChildren: () =>
       import('./contact/contact.module').then((m) => m.ContactPageModule),
+    canLoad: [finishedRegistrationGuard],
     data: {
       title: 'Contact',
       url: 'contact',
