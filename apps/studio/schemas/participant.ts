@@ -9,15 +9,16 @@ export default {
       lastName: 'lastName',
       courtesyName: 'courtesyName',
       avatar: 'avatar',
-      institution: 'institution'
+      institution: 'institution',
     },
     prepare(selection) {
-      const { firstName, lastName, courtesyName, avatar, institution } = selection;
+      const { firstName, lastName, courtesyName, avatar, institution } =
+        selection;
       const courtesyString = courtesyName ? `, ${courtesyName}.` : '';
       return {
         title: `${firstName} ${lastName}${courtesyString}`,
         subtitle: institution,
-        media: avatar
+        media: avatar,
       };
     },
   },
@@ -58,10 +59,10 @@ export default {
       options: {
         list: [
           { title: 'Keynote', value: 'keynote' },
-          { title: 'Plenary', value: 'western' },
-          { title: 'Oral Presentations', value: 'western' },
-        ], // <-- predefined values
-        layout: 'radio', // <-- defaults to 'dropdown'
+          { title: 'Plenary', value: 'plenary' },
+          { title: 'Oral Presentations', value: 'oralPresentations' },
+        ],
+        layout: 'radio',
       },
       description: 'Rol del participante en el evento.',
     },
