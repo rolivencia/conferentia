@@ -19,20 +19,28 @@ export class UserService {
     return await this.connectorService.connector.fetch(query, {});
   }
 
-  public async create(user: Partial<User>): Promise<User> {
+  public async findOrCreate(user: Partial<User>): Promise<User> {
     const document = {
       _type: 'user',
       email: user.email,
       hasFinishedRegistration: false,
     };
 
-    return this.connectorService.connector.create(document);
+    const userExists = await this.getByEmail(user.email);
+    return userExists ?? this.connectorService.connector.create(document);
   }
 
   public async update(user: User): Promise<User> {
     const connector = this.connectorService.connector as SanityClient;
     const { _id, _createdAt, _type, _updatedAt, _rev, email, ...userData } =
       user;
-    return connector.patch(_id).set(userData).commit();
+
+    return connector
+      .patch(_id)
+      .set({
+        ...userData,
+        hasFinishedRegistration: true,
+      })
+      .commit();
   }
 }

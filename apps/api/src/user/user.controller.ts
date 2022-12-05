@@ -30,8 +30,8 @@ export class UserController {
   }
 
   @Post()
-  create(@Body() body: Partial<User>): Promise<User> {
-    return this.userService.create(body);
+  findOrCreate(@Body() body: Partial<User>): Promise<User> {
+    return this.userService.findOrCreate(body);
   }
 
   @Put()
