@@ -6,7 +6,7 @@ export interface IParticipant extends IAudit {
   event: IEvent;
   // ToDo: Replace the hardcoded type for Participant Role for this programmatic interface (#62 - RO - 2022/11/16)
   role?: 'keynote' | 'plenary' | 'oral-presentations';
-  courtesyName?: string;
+  courtesyTitle?: string;
   institution?: string;
   avatar?: string;
   curriculum?: string; // ToDo: Adapt the type of this property according to what's defined in #92 (RO - 2022/11/26)
