@@ -14,7 +14,7 @@ export default {
     prepare(selection) {
       const { firstName, lastName, courtesyTitle, avatar, institution } =
         selection;
-      const courtesyString = courtesyTitle ? `, ${courtesyTitle}.` : '';
+      const courtesyString = courtesyTitle ? `, ${courtesyTitle}` : '';
       return {
         title: `${firstName} ${lastName}${courtesyString}`,
         subtitle: institution,
