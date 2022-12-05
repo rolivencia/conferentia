@@ -10,6 +10,7 @@ export { ICommitteeMember } from './lib/committee-member.interface';
 export { ISubjectArea } from './lib/subject-area.interface';
 export { IEventSponsor } from './lib/event-sponsor.interface';
 
+export { Country, countries } from './lib/country.interface';
 export { Schedule } from './lib/schedule.interface';
 export { User } from './lib/user.interface';
 
