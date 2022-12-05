@@ -16,6 +16,8 @@ import { ActivityController } from '../activity/activity.controller';
 import { ActivityService } from '../activity/activity.service';
 import { ParticipantController } from '../participant/participant.controller';
 import { ParticipantService } from '../participant/participant.service';
+import { UserController } from '../user/user.controller';
+import { UserService } from '../user/user.service';
 
 @Module({
   imports: [
@@ -31,6 +33,7 @@ import { ParticipantService } from '../participant/participant.service';
     ParticipantController,
     SponsorController,
     SubjectAreaController,
+    UserController
   ],
   providers: [
     ActivityService,
@@ -40,6 +43,7 @@ import { ParticipantService } from '../participant/participant.service';
     ParticipantService,
     SponsorService,
     SubjectAreaService,
+    UserService,
     { provide: ConnectorService, useClass: SanityConnector },
   ],
 })
