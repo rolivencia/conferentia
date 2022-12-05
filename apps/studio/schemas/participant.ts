@@ -7,17 +7,18 @@ export default {
     select: {
       firstName: 'firstName',
       lastName: 'lastName',
-      courtesyName: 'courtesyName',
+      courtesyTitle: 'courtesyTitle',
       avatar: 'avatar',
-      institution: 'institution'
+      institution: 'institution',
     },
     prepare(selection) {
-      const { firstName, lastName, courtesyName, avatar, institution } = selection;
-      const courtesyString = courtesyName ? `, ${courtesyName}.` : '';
+      const { firstName, lastName, courtesyTitle, avatar, institution } =
+        selection;
+      const courtesyString = courtesyTitle ? `, ${courtesyTitle}` : '';
       return {
         title: `${firstName} ${lastName}${courtesyString}`,
         subtitle: institution,
-        media: avatar
+        media: avatar,
       };
     },
   },
@@ -33,9 +34,20 @@ export default {
     },
     {
       title: 'Nombre de Cortesía',
-      name: 'courtesyName',
+      name: 'courtesyTitle',
       type: 'string',
-      description: 'Dr., PhD., Ms, etc.',
+      options: {
+        list: [
+          { title: 'Ph.D', value: 'Ph.D' },
+          { title: 'Dr.', value: 'Dr.' },
+          { title: 'Prof.', value: 'Prof.' },
+          { title: 'Ms', value: 'Ms' },
+          { title: 'Miss', value: 'Miss' },
+          { title: 'Mrs', value: 'Mrs' },
+          { title: 'Ms.', value: 'Ms.' },
+          { title: 'Mr.', value: 'Mr.' },
+        ],
+      },
     },
     {
       title: 'Nombre',
@@ -58,10 +70,10 @@ export default {
       options: {
         list: [
           { title: 'Keynote', value: 'keynote' },
-          { title: 'Plenary', value: 'western' },
-          { title: 'Oral Presentations', value: 'western' },
-        ], // <-- predefined values
-        layout: 'radio', // <-- defaults to 'dropdown'
+          { title: 'Plenary', value: 'plenary' },
+          { title: 'Oral Presentations', value: 'oralPresentations' },
+        ],
+        layout: 'radio',
       },
       description: 'Rol del participante en el evento.',
     },

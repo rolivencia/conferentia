@@ -13,6 +13,7 @@ import event from './event';
 import eventSponsor from './event-sponsor';
 import participant from './participant';
 import subjectArea from './subject-area';
+import user from './user';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -29,5 +30,6 @@ export default createSchema({
     eventSponsor,
     participant,
     subjectArea,
+    user
   ]),
 });

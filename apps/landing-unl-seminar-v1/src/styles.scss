@@ -24,3 +24,34 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
+// ToDo: Move these styles to the custom Alert/Toast component (RO - 2022/12/05 - #101)
+.error-alert {
+  .alert-wrapper {
+    .alert-head {
+      background-color: var(--ion-color-danger);
+      .alert-title {
+        color: white;
+      }
+    }
+    .alert-message {
+      padding-top: 24px !important;
+      color: var(--ion-color-danger);
+    }
+  }
+}
+
+.success-alert {
+  .alert-wrapper {
+    .alert-head {
+      background-color: var(--ion-color-success);
+      .alert-title {
+        color: white;
+      }
+    }
+    .alert-message {
+      padding-top: 24px !important;
+      color: var(--ion-color-success);
+    }
+  }
+}

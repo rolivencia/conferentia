@@ -16,7 +16,6 @@ export const libRoutes: ConferentiaRoute[] = [
       import('./lib/user-profile/user-profile.module').then(
         (m) => m.UserProfilePageModule
       ),
-    canActivate: [authenticationGuard],
     data: {
       title: 'User Profile',
       url: ROUTE_TREE.USER_PROFILE,

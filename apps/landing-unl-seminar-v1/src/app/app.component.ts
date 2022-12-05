@@ -9,7 +9,11 @@ import { ConferentiaRouteData, IEvent } from '@conferentia/models';
 import { appRoutes } from './app.routes';
 
 // Services
-import { EventService, NavigationService } from '@conferentia/angular-services';
+import {
+  EventService,
+  NavigationService,
+  UserService,
+} from '@conferentia/angular-services';
 
 @Component({
   selector: 'conferentia-root',
@@ -30,7 +34,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private titleService: Title,
     private navigationService: NavigationService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {
     const eventService: EventService = inject(EventService);
     this.currentEvent$ = eventService.currentEvent$;
@@ -57,6 +62,10 @@ export class AppComponent implements OnInit, OnDestroy {
       if (!!event) {
         this.titleService.setTitle(event.name);
       }
+    });
+
+    this.userService.login().subscribe((user) => {
+      this.userService.currentUser$.next(user);
     });
   }
 
