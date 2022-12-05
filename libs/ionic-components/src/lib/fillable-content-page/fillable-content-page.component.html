@@ -4,9 +4,21 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
-    <ion-title *ngIf="currentRoute$ | async as currentPage">
+    <ion-title slot="start" *ngIf="currentRoute$ | async as currentPage">
       {{ currentPage.data['title'] }}</ion-title
     >
+
+    <ng-container *ngIf="currentUser$ | async as currentUser">
+      <ng-container *ngIf="currentUser.hasFinishedRegistration">
+        <ion-note slot="start" class="ion-hide-md-down"
+          >You're logged in as {{ currentUser.firstName }}
+          {{ currentUser.lastName }} ({{ currentUser.email }})
+        </ion-note>
+      </ng-container>
+      <ng-container *ngIf="!currentUser.hasFinishedRegistration">
+        <ion-note>Logged in as {{currentUser.email}}</ion-note>
+      </ng-container>
+    </ng-container>
 
     <ng-container
       *ngIf="isAuthenticated$ | async; then userProfile; else login"
