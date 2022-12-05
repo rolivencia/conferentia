@@ -18,9 +18,7 @@ export class UserService extends HttpService {
     @Inject('env') protected override env: IFrontendEnvironmentConfig
   ) {
     super(http, env, 'user');
-    // @ts-ignore
-    const user  = JSON.parse(localStorage.getItem('currentUser')) ?? null;
-    this.currentUser$ = new BehaviorSubject<User | null>(user);
+    this.getCurrentUserFromStorage();
   }
 
   public authenticateAgainstDatabase(
@@ -45,5 +43,24 @@ export class UserService extends HttpService {
         return this.authenticateAgainstDatabase(user);
       })
     );
+  }
+
+  public logout(): void {
+    // remove user from local storage to log user out
+    localStorage.removeItem('currentUser');
+    this.currentUser$.next(null);
+    this.auth0Service.logout();
+  }
+
+  private getCurrentUserFromStorage() {
+    const item = localStorage.getItem('currentUser');
+    const user = !!item ? JSON.parse(item) : null;
+    if (!!user) {
+      this.currentUser$ = new BehaviorSubject<User | null>(user);
+    }
+  }
+
+  public update(user: Partial<User>): Observable<User> {
+    return this.http.put<User>(`${this.prefix}`, user);
   }
 }
