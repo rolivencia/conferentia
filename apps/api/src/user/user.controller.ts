@@ -23,6 +23,12 @@ export class UserController {
     return this.userService.getById(id);
   }
 
+  @Post('authenticate')
+  authenticate(@Body() body: Partial<User>): Promise<User> {
+    const user = body;
+    return this.userService.getByEmail(user.email);
+  }
+
   @Post()
   create(@Body() body: Partial<User>): Promise<User> {
     return this.userService.create(body);

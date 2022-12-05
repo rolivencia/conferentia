@@ -9,13 +9,13 @@ export class UserService {
 
   public async getByEmail(email: string): Promise<User> {
     const query = `*[ _type == 'user' && email == '${email}' ][0]
-                    { _id, _createdAt, _updatedAt, _type, _rev, email, hasFinishedRegistration }`;
+                    { _id, _createdAt, _updatedAt, _type, _rev, email, firstName, lastName, courtesyTitle, affiliation, country, hasFinishedRegistration }`;
     return await this.connectorService.connector.fetch(query, {});
   }
 
   public async getById(id: string): Promise<User> {
     const query = `*[ _type == 'user' && _id == '${id}' ][0]
-                    { _id, _createdAt, _updatedAt, _type, _rev, email, hasFinishedRegistration }`;
+                    { _id, _createdAt, _updatedAt, _type, _rev, email, firstName, lastName, courtesyTitle, affiliation, country, hasFinishedRegistration }`;
     return await this.connectorService.connector.fetch(query, {});
   }
 
@@ -31,7 +31,8 @@ export class UserService {
 
   public async update(user: User): Promise<User> {
     const connector = this.connectorService.connector as SanityClient;
-    const { _id, _createdAt, _type, _updatedAt, _rev, email, ...userData } = user;
+    const { _id, _createdAt, _type, _updatedAt, _rev, email, ...userData } =
+      user;
     return connector.patch(_id).set(userData).commit();
   }
 }
