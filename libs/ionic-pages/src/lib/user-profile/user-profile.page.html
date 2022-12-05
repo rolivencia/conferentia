@@ -3,12 +3,90 @@
 ></conferentia-fillable-content-page>
 
 <ng-template #userProfileContent>
-  <ion-card>
-    <ion-card-content>
-      <ion-button (click)="onLogoutButtonClicked()">
-        <ion-icon slot="start" name="log-out-outline"></ion-icon>
-        Logout
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
+  <ng-container *ngIf="(currentUser$ | async) as currentUser">
+    <ng-container *ngIf="!currentUser.hasFinishedRegistration">
+      <ion-card color="warning">
+        <ion-card-content>
+          Hello. It seems you haven't yet completed your
+          <strong>User Profile</strong> for the
+          <i>French-Argentinian Workshop on Heterogeneous Catalysis 2023</i>
+          website. To be able to access the other sections of the website and
+          also submit your abstracts for review, you need to complete and submit
+          the following form:
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+    <ion-card>
+      <ion-card-content>
+        <ng-container *ngIf="!!form">
+          <form [formGroup]="form">
+            <ion-list>
+              <ion-item>
+                <ion-label>Email <i>(readonly)</i></ion-label>
+                <ion-input
+                  type="email"
+                  formControlName="email"
+                  disabled="true"
+                ></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>First Name</ion-label>
+                <ion-input type="text" formControlName="firstName"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Last Name</ion-label>
+                <ion-input type="text" formControlName="lastName"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-select
+                  placeholder="Courtesy Title"
+                  formControlName="courtesyTitle"
+                >
+                  <ng-container *ngFor="let courtesyTitle of courtesyTitles">
+                    <ion-select-option [value]="courtesyTitle.value"
+                      >{{courtesyTitle.title}}</ion-select-option
+                    >
+                  </ng-container>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Affiliation</ion-label>
+                <ion-input
+                  type="text"
+                  formControlName="affiliation"
+                ></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-select placeholder="Country" formControlName="country">
+                  <ng-container *ngFor="let country of countries">
+                    <ion-select-option [value]="country.value"
+                      >{{country.title}}</ion-select-option
+                    >
+                  </ng-container>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+          </form>
+        </ng-container>
+
+        <div class="action-button-container">
+          <ion-button
+            [disabled]="!form || form?.invalid"
+            color="primary"
+            (click)="onSubmitButtonClicked()"
+            >Submit
+          </ion-button>
+          <ion-button (click)="onLogoutButtonClicked()" color="danger">
+            <ion-icon slot="start" name="log-out-outline"></ion-icon>
+            Logout
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
 </ng-template>
