@@ -9,13 +9,14 @@ import { Abstract } from '@conferentia/models';
 export class AbstractController {
   constructor(private abstractService: AbstractService) {}
 
-  @Get(':email')
-  public getByEmail(@Param() params): Promise<Abstract> {
-    return null;
+  @Get(':userId')
+  public getByUserId(@Param() params): Promise<Abstract[]> {
+    const userId: string = params.userId;
+    return this.abstractService.getByUserId(userId);
   }
 
   @Post()
   public create(@Body() body: Partial<Abstract>): Promise<Abstract> {
-    return null;
+    return this.abstractService.create(body);
   }
 }

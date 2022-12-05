@@ -12,8 +12,26 @@ export class AbstractService {
     this.connector = this.connectorService.connector as SanityClient;
   }
 
-  public async getByEmail(email: string): Promise<Abstract[]> {
-    return null;
+  public async getByUserId(userId: string): Promise<Abstract[]> {
+    const query = `*[_type == 'references('${userId}')']
+                  {
+                      _id,
+                      _createdAt,
+                      _updatedAt,
+                      _type,
+                      _rev,
+                      title,
+                      author[]->
+                      subjectArea->
+                      keywords,
+                      file,
+                      status
+                  }
+                  `;
+
+    const result: any[] = await this.connector.fetch(query, {});
+
+    return result;
   }
 
   public async create(abstract: Partial<Abstract>) {
