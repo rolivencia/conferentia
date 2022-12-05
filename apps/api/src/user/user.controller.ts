@@ -25,11 +25,11 @@ export class UserController {
 
   @Post()
   create(@Body() body: Partial<User>): Promise<User> {
-    return null;
+    return this.userService.create(body);
   }
 
   @Put()
   update(@Body() body: User): Promise<User> {
-    return null;
+    return this.userService.update(body);
   }
 }
