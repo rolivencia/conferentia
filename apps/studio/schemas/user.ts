@@ -5,6 +5,24 @@ export default {
   title: 'Usuarios',
   name: 'user',
   type: 'document',
+  preview: {
+    select: {
+      firstName: 'firstName',
+      lastName: 'lastName',
+      courtesyTitle: 'courtesyTitle',
+      affiliation: 'affiliation',
+      country: 'country',
+    },
+    prepare(selection) {
+      const { firstName, lastName, courtesyTitle, affiliation, country } =
+        selection;
+      const courtesyString = courtesyTitle ? `, ${courtesyTitle}` : '';
+      return {
+        title: `${firstName} ${lastName}${courtesyString}`,
+        subtitle: `${affiliation} - ${country}`,
+      };
+    },
+  },
   fields: [
     {
       title: 'Email',
