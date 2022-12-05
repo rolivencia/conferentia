@@ -26,7 +26,7 @@
                 <ion-input
                   type="email"
                   formControlName="email"
-                  disabled="true"
+                  [disabled]="true"
                 ></ion-input>
               </ion-item>
 
@@ -76,7 +76,7 @@
 
         <div class="action-button-container">
           <ion-button
-            [disabled]="!form || form?.invalid"
+            [disabled]="!form || form.invalid"
             color="primary"
             (click)="onSubmitButtonClicked()"
             >Submit
