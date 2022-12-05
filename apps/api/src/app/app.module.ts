@@ -18,6 +18,8 @@ import { ParticipantController } from '../participant/participant.controller';
 import { ParticipantService } from '../participant/participant.service';
 import { UserController } from '../user/user.controller';
 import { UserService } from '../user/user.service';
+import { AbstractController } from '../abstract/abstract.controller';
+import { AbstractService } from '../abstract/abstract.service';
 
 @Module({
   imports: [
@@ -27,15 +29,17 @@ import { UserService } from '../user/user.service';
     }),
   ],
   controllers: [
+    AbstractController,
     ActivityController,
     CommitteeController,
     EventController,
     ParticipantController,
     SponsorController,
     SubjectAreaController,
-    UserController
+    UserController,
   ],
   providers: [
+    AbstractService,
     ActivityService,
     CommitteeService,
     EntitySortingService,
