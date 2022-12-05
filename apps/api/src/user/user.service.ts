@@ -31,7 +31,7 @@ export class UserService {
 
   public async update(user: User): Promise<User> {
     const connector = this.connectorService.connector as SanityClient;
-    const { _id, _createdAt, _type, _updatedAt, _rev, ...userData } = user;
+    const { _id, _createdAt, _type, _updatedAt, _rev, email, ...userData } = user;
     return connector.patch(_id).set(userData).commit();
   }
 }
