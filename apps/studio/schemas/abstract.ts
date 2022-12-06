@@ -3,9 +3,36 @@ export default {
   name: 'abstract',
   type: 'document',
   preview: {
-    select: {},
+    select: {
+      title: 'title',
+      subjectArea: 'subjectArea',
+      status: 'status',
+    },
+    prepare(selection) {
+      const { title, subjectArea, status } = selection;
+      return {
+        title: `${title} | ${subjectArea.name}`,
+        subtitle: status.toUpperCase(),
+      };
+    },
   },
   fields: [
+    {
+      title: 'Evento',
+      name: 'event',
+      type: 'reference',
+      description: 'Evento al que pertenece el área temática.',
+      to: [{ type: 'event' }],
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      title: 'Usuario',
+      name: 'user',
+      type: 'reference',
+      description: 'Usuario que envió el abstract',
+      to: [{ type: 'user' }],
+      validation: (Rule) => Rule.required(),
+    },
     {
       title: 'Título',
       name: 'title',
@@ -40,10 +67,22 @@ export default {
     },
     {
       title: 'Archivo',
-      name: 'file',
+      name: 'pdfFile',
       type: 'file',
       description: 'Archivo del abstract',
       validation: (Rule) => Rule.required(),
+    },
+    {
+      title: 'Formato',
+      name: 'format',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Oral Presentation', value: 'oralPresentation' },
+          { title: 'Flash Poster', value: 'flashPoster' },
+        ],
+      },
+      layout: 'radio',
     },
     {
       title: 'Status',
