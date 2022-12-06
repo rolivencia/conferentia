@@ -9,13 +9,13 @@ export class UserService {
 
   public async getByEmail(email: string): Promise<User> {
     const query = `*[ _type == 'user' && email == '${email}' ][0]
-                    { _id, _createdAt, _updatedAt, _type, _rev, email, firstName, lastName, courtesyTitle, affiliation, country, hasFinishedRegistration }`;
+                    { _id, _createdAt, _updatedAt, _type, _rev, email, firstName, lastName, courtesyTitle, affiliation, country, hasFinishedRegistration, wantsToEvaluatePapers }`;
     return await this.connectorService.connector.fetch(query, {});
   }
 
   public async getById(id: string): Promise<User> {
     const query = `*[ _type == 'user' && _id == '${id}' ][0]
-                    { _id, _createdAt, _updatedAt, _type, _rev, email, firstName, lastName, courtesyTitle, affiliation, country, hasFinishedRegistration }`;
+                    { _id, _createdAt, _updatedAt, _type, _rev, email, firstName, lastName, courtesyTitle, affiliation, country, hasFinishedRegistration, wantsToEvaluatePapers }`;
     return await this.connectorService.connector.fetch(query, {});
   }
 
