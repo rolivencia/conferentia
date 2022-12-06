@@ -5,6 +5,7 @@ export { authenticationGuard } from './lib/guards/authentication.guard';
 export { finishedRegistrationGuard } from './lib/guards/finished-registration.guard';
 
 // Services
+export { AbstractService } from './lib/services/abstract.service';
 export { ActivityService } from './lib/services/activity.service';
 export { CommitteeService } from './lib/services/committee.service';
 export { EventService } from './lib/services/event.service';

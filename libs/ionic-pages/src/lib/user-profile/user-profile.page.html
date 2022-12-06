@@ -70,6 +70,14 @@
                   </ng-container>
                 </ion-select>
               </ion-item>
+
+              <ion-item>
+                <ion-label>Indicate if you want to evaluate papers</ion-label>
+                <ion-toggle
+                  slot="end"
+                  formControlName="wantsToEvaluatePapers"
+                ></ion-toggle>
+              </ion-item>
             </ion-list>
           </form>
         </ng-container>
@@ -88,5 +96,50 @@
         </div>
       </ion-card-content>
     </ion-card>
+    <ng-container *ngIf="abstracts$ | async as abstracts">
+      <ion-card *ngIf="!!abstracts && abstracts.length > 0">
+        <ion-card-header>
+          <ion-card-title>Submitted Abstracts</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item *ngFor="let abstract of abstracts">
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <ion-label
+                      ><strong>Title: </strong
+                      ><a [href]="abstract.fileUrl"
+                        >{{abstract.title}}</a
+                      ></ion-label
+                    >
+                  </ion-col>
+                  <ion-col>
+                    <ion-label
+                      ><strong>Subject Area: </strong
+                      >{{abstract.subjectArea.name}}</ion-label
+                    >
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-label
+                      ><strong>Status: </strong
+                      >{{abstract.status.toUpperCase()}}</ion-label
+                    >
+                  </ion-col>
+                  <ion-col>
+                    <ion-label
+                      ><strong>Submitted Date: </strong
+                      >{{abstract._createdAt}}</ion-label
+                    >
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
   </ng-container>
 </ng-template>

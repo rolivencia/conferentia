@@ -2,16 +2,18 @@
 import { Component, EnvironmentInjector, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { filter, first, Observable, of, switchMap } from 'rxjs';
+import { filter, first, map, Observable, of, switchMap } from 'rxjs';
 
 // Models
 import { ROUTE_TREE } from '@conferentia/ionic-pages';
-import { countries, Country, User } from '@conferentia/models';
+import { Abstract, countries, Country, User } from '@conferentia/models';
 
 // Services
-import { UserService } from '@conferentia/angular-services';
+import { AbstractService, UserService } from '@conferentia/angular-services';
 import { AlertController } from '@ionic/angular';
 import { AuthService } from '@auth0/auth0-angular';
+
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'conferentia-user-profile',
@@ -20,6 +22,7 @@ import { AuthService } from '@auth0/auth0-angular';
 })
 export class UserProfilePage implements OnInit {
   public currentUser$: Observable<User | null> = of(null);
+  public abstracts$: Observable<Abstract[] | null> = of(null);
   public form: FormGroup | undefined;
   public submitted: boolean = false;
 
@@ -38,6 +41,7 @@ export class UserProfilePage implements OnInit {
   public countries: Country[] = countries;
 
   constructor(
+    private abstractService: AbstractService,
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private injector: EnvironmentInjector,
@@ -47,6 +51,18 @@ export class UserProfilePage implements OnInit {
 
   ngOnInit() {
     this.currentUser$ = this.userService.currentUser$.asObservable();
+    this.abstracts$ = this.currentUser$.pipe(
+      filter((user) => !!user),
+      switchMap((user) =>
+        this.abstractService.getByUserId(user?._id as string)
+      ),
+      map((abstracts) =>
+        abstracts.map((abstract) => ({
+          ...abstract,
+          _createdAt: dayjs(abstract._createdAt).format('YYYY-MM-DD, HH:mm'),
+        }))
+      )
+    );
     this.buildForm();
   }
 
@@ -56,6 +72,7 @@ export class UserProfilePage implements OnInit {
     if (this.form?.valid) {
       this.currentUser$
         .pipe(
+          first(),
           switchMap((user) =>
             this.userService.update({
               ...user,
@@ -100,6 +117,10 @@ export class UserProfilePage implements OnInit {
           courtesyTitle: [user?.courtesyTitle ?? '', Validators.required],
           affiliation: [user?.affiliation ?? '', Validators.required],
           country: [user?.country ?? '', Validators.required],
+          wantsToEvaluatePapers: [
+            user?.wantsToEvaluatePapers ?? undefined,
+            Validators.required,
+          ],
         });
       });
   }

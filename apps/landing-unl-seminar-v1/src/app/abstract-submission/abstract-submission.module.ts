@@ -1,22 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { AbstractSubmissionPageRoutingModule } from './abstract-submission-routing.module';
 
 import { AbstractSubmissionPage } from './abstract-submission.page';
-import { IonicComponentsModule } from "@conferentia/ionic-components";
+import { IonicComponentsModule } from '@conferentia/ionic-components';
+
+// Providers
+import { AbstractService } from '@conferentia/angular-services';
 
 @NgModule({
   imports: [
+    AbstractSubmissionPageRoutingModule,
     CommonModule,
     FormsModule,
+    IonicComponentsModule,
     IonicModule,
-    AbstractSubmissionPageRoutingModule,
-    IonicComponentsModule
+    ReactiveFormsModule,
   ],
   declarations: [AbstractSubmissionPage],
+  providers: [AbstractService],
 })
 export class AbstractSubmissionPageModule {}
