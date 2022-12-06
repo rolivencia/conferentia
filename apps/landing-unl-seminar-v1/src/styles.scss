@@ -55,3 +55,9 @@
     }
   }
 }
+
+// ToDo: Move these styles to the custom Alert/Toast component (RO - 2022/12/05 - #101)
+.alert-wrapper {
+  max-width: unset !important;
+  width: 560px !important;
+}
