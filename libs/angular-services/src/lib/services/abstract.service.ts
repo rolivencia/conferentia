@@ -16,10 +16,16 @@ export class AbstractService extends HttpService {
   }
 
   public getByUserId(userId: string): Observable<Abstract[]> {
-    return of([]);
+    return this.http.get<Abstract[]>(`${this.prefix}/user/${userId}`);
   }
 
-  public create(): Observable<Abstract> {
-    return of();
+  public create(payload: any): Observable<Abstract> {
+    return this.http.post<any>(`${this.prefix}`, payload);
+  }
+
+  public uploadAbstractFile(fileData: File): Observable<File> {
+    const formData = new FormData();
+    formData.append('uploaded-abstract', fileData);
+    return this.http.post<File>(`${this.prefix}/upload`, formData);
   }
 }
