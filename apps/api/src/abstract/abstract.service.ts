@@ -34,8 +34,10 @@ export class AbstractService {
                   `;
 
     const result: any[] = await this.connector.fetch(query, {});
-
-    return result;
+    return result.map((abstract) => {
+      const { pdfFile, ...data } = abstract;
+      return { ...data, fileUrl: pdfFile.url };
+    });
   }
 
   public async getById(id: string): Promise<Abstract> {
