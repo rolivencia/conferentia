@@ -2,6 +2,20 @@ export default {
   title: 'Autores',
   name: 'author',
   type: 'document',
+  preview: {
+    select: {
+      firstName: 'firstName',
+      lastName: 'lastName',
+      institution: 'institution',
+    },
+    prepare(selection) {
+      const { firstName, lastName, institution } = selection;
+      return {
+        title: `${firstName} ${lastName}`,
+        subtitle: institution,
+      };
+    },
+  },
   fields: [
     {
       title: 'Nombres',
@@ -23,6 +37,6 @@ export default {
       type: 'string',
       description: 'Institución de trabajo del autor',
       validation: (Rule) => Rule.required(),
-    }
+    },
   ],
 };
