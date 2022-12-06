@@ -1,4 +1,10 @@
-import { IAudit, Author, ISubjectArea } from '@conferentia/models';
+import {
+  IAudit,
+  Author,
+  ISubjectArea,
+  IEvent,
+  User,
+} from '@conferentia/models';
 
 export interface Abstract extends IAudit {
   title: string;
@@ -8,6 +14,8 @@ export interface Abstract extends IAudit {
   fileUrl: string;
   status: string;
   format: string;
+  event: IEvent;
+  user: User;
 }
 
 export interface SubmittedAbstractPayload {
