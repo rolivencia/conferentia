@@ -84,5 +84,13 @@ export default {
       validation: (Rule) => Rule.required(),
       initialValue: false,
     },
+    {
+      title: '¿Desea colaborar como evaluador?',
+      name: 'wantsToEvaluatePapers',
+      type: 'boolean',
+      description: 'Indica si el usuario está interesado en colaborar como evaluador de trabajos',
+      validation: (Rule) => Rule.required(),
+      initialValue: false,
+    },
   ],
 };

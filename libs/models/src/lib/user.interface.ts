@@ -8,4 +8,5 @@ export interface User extends IAudit {
   affiliation: string;
   country: Country;
   hasFinishedRegistration: boolean;
+  wantsToEvaluatePapers?: boolean;
 }
