@@ -43,7 +43,6 @@ export class AbstractSubmissionPage implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.fillData();
   }
 
   get authorControls(): FormControl[] {
@@ -154,31 +153,6 @@ export class AbstractSubmissionPage implements OnInit {
       lastName: ['', Validators.required],
       institution: ['', Validators.required],
     });
-  }
-
-  // ToDo: Remove this test method
-  private fillData() {
-    if (this.form) {
-      this.form.get('title')?.setValue('My Nice Abstract About Everything');
-      this.form.get('keywords')?.setValue('about/everything/coding');
-      this.form.get('format')?.setValue('flashPoster');
-      this.form
-        .get('subjectAreaId')
-        ?.setValue('b6e4bb26-0df2-425f-9974-0740fb0ad60a');
-      this.onAddAuthorButtonClicked();
-      this.form.get('authors')?.setValue([
-        {
-          firstName: 'Ramiro',
-          lastName: 'Olivencia',
-          institution: 'UTN FRSF',
-        },
-        {
-          firstName: 'Oscar',
-          lastName: 'Olivencia',
-          institution: 'LODELOABUELO',
-        },
-      ]);
-    }
   }
 }
 
