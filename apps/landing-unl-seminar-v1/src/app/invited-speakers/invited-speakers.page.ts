@@ -38,9 +38,9 @@ export class InvitedSpeakersPage {
         speakerTypes.forEach((type) => {
           participantCategories.push({
             name: type.value,
-            participants: participants.filter(
-              (participant) => participant.role === type.key
-            ),
+            participants: participants
+              .filter((participant) => participant.role === type.key)
+              .sort(sortByLastName),
           });
         });
 
@@ -52,7 +52,27 @@ export class InvitedSpeakersPage {
 
 // ToDo: Read the types from the database to generate the categories programmatically (RO - 2022/12/08)
 const speakerTypes = [
-  { key: 'plenary', value: 'Plenaries' },
-  { key: 'keynote', value: 'Keynotes' },
+  { key: 'plenary', value: 'Plenary Conferences' },
+  { key: 'keynote', value: 'Keynote' },
   { key: 'oral-presentations', value: 'Oral Presentations' },
 ];
+
+const sortByLastName = (a: IParticipant, b: IParticipant) => {
+  if (a.lastName > b.lastName) {
+    return 1;
+  } else if (a.lastName < b.lastName) {
+    return -1;
+  } else {
+    return sortByFirstName(a, b);
+  }
+};
+
+const sortByFirstName = (a: IParticipant, b: IParticipant) => {
+  if (a.firstName > b.firstName) {
+    return 1;
+  } else if (a.firstName < b.firstName) {
+    return -1;
+  } else {
+    return 0;
+  }
+};
