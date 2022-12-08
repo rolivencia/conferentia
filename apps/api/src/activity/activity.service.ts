@@ -65,11 +65,6 @@ export class ActivityService {
           .filter(
             (activity) => day === activity.startDate.toString().split('T')[0]
           )
-          .map((activity) => ({
-            ...activity,
-            startDate: dayjs(activity.startDate).format('hh:mm'),
-            endDate: dayjs(activity.endDate).format('hh:mm'),
-          })),
       });
     });
 
