@@ -11,7 +11,7 @@ export class ParticipantService {
     const builder = imageUrlBuilder(this.connectorService.connector);
     const query = `*[_type == 'participant' && references('${eventId}')]
                     { _id, _createdAt, _updatedAt, _type, _rev,
-                     institution, courtesyTitle, firstName, lastName, avatar, curriculum }`;
+                     institution, courtesyTitle, firstName, lastName, avatar, curriculum, role }`;
     const result: IParticipant[] = await this.connectorService.connector.fetch(
       query,
       {}
