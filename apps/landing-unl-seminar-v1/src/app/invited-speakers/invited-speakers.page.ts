@@ -7,11 +7,11 @@ import {
 } from '@conferentia/angular-services';
 
 @Component({
-  selector: 'conferentia-keynote-speakers',
-  templateUrl: './keynote-speakers.page.html',
-  styleUrls: ['./keynote-speakers.page.scss'],
+  selector: 'conferentia-invited-speakers',
+  templateUrl: './invited-speakers.page.html',
+  styleUrls: ['./invited-speakers.page.scss'],
 })
-export class KeynoteSpeakersPage {
+export class InvitedSpeakersPage {
   public participantCategories$: Observable<
     | {
         name: string;

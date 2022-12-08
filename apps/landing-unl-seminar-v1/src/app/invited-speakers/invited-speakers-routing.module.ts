@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { KeynoteSpeakersPage } from './keynote-speakers.page';
+import { InvitedSpeakersPage } from './invited-speakers.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: KeynoteSpeakersPage,
+    component: InvitedSpeakersPage,
   },
 ];
 

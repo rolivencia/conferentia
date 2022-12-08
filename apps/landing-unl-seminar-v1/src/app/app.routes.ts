@@ -56,15 +56,15 @@ export const appRoutes: ConferentiaRoute[] = [
     },
   },
   {
-    path: 'keynote-speakers',
+    path: 'invited-speakers',
     loadChildren: () =>
-      import('./keynote-speakers/keynote-speakers.module').then(
-        (m) => m.KeynoteSpeakersPageModule
+      import('./invited-speakers/invited-speakers.module').then(
+        (m) => m.InvitedSpeakersPageModule
       ),
     canLoad: [finishedRegistrationGuard],
     data: {
-      title: 'Keynote Speakers',
-      url: 'keynote-speakers',
+      title: 'Invited Speakers',
+      url: 'invited-speakers',
       icon: 'school',
     },
   },
