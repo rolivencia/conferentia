@@ -9,7 +9,7 @@ export class ParticipantService {
 
   public async getByEventId(eventId: number | string): Promise<IParticipant[]> {
     const builder = imageUrlBuilder(this.connectorService.connector);
-    const query = `*[_type == 'participant' && references('${eventId}')]
+    const query = `*[_type == 'participant' && !(_id in path("drafts.**")) && references('${eventId}')]
                     { _id, _createdAt, _updatedAt, _type, _rev,
                      institution, courtesyTitle, firstName, lastName, avatar, curriculum, role }`;
     const result: IParticipant[] = await this.connectorService.connector.fetch(
