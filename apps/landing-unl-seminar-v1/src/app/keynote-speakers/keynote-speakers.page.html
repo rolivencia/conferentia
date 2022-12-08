@@ -3,17 +3,30 @@
 ></conferentia-fillable-content-page>
 
 <ng-template #keynoteSpeakersContent>
-  <ng-container *ngIf="(participants$ | async) as participants">
-    <ion-grid>
-      <ion-row>
-        <ng-container *ngFor="let participant of participants">
-          <ion-col size="12" size-md="6">
-            <conferentia-participant-card
-              [participant]="participant"
-            ></conferentia-participant-card>
-          </ion-col>
-        </ng-container>
-      </ion-row>
-    </ion-grid>
+  <ng-container *ngIf="(participantCategories$ | async) as categories">
+    <ng-container *ngFor="let category of categories">
+      <ng-container *ngIf="category.participants.length > 0">
+        <ion-card>
+          <ion-card-header color="primary"
+          >
+            <ion-card-title>{{category.name}}</ion-card-title>
+          </ion-card-header
+          >
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ng-container *ngFor="let participant of category.participants">
+                  <ion-col size="12" size-md="6">
+                    <conferentia-participant-card
+                      [participant]="participant"
+                    ></conferentia-participant-card>
+                  </ion-col>
+                </ng-container>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+    </ng-container>
   </ng-container>
 </ng-template>

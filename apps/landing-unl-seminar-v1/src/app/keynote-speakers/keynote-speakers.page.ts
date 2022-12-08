@@ -12,17 +12,47 @@ import {
   styleUrls: ['./keynote-speakers.page.scss'],
 })
 export class KeynoteSpeakersPage {
-  public participants$: Observable<IParticipant[] | null> = of(null);
+  public participantCategories$: Observable<
+    | {
+        name: string;
+        participants: IParticipant[];
+      }[]
+    | null
+  > = of(null);
   public currentEvent$: Observable<IEvent | null> = of(null);
 
   constructor() {
     const eventService = inject(EventService);
     const participantService = inject(ParticipantService);
     this.currentEvent$ = eventService.currentEvent$.asObservable();
-    this.participants$ = this.currentEvent$.pipe(
+    this.participantCategories$ = this.currentEvent$.pipe(
       switchMap((event) =>
         participantService.getByEventId((event as IEvent)._id)
-      )
+      ),
+      switchMap((participants) => {
+        const participantCategories: {
+          name: string;
+          participants: IParticipant[];
+        }[] = [];
+
+        speakerTypes.forEach((type) => {
+          participantCategories.push({
+            name: type.value,
+            participants: participants.filter(
+              (participant) => participant.role === type.key
+            ),
+          });
+        });
+
+        return of(participantCategories);
+      })
     );
   }
 }
+
+// ToDo: Read the types from the database to generate the categories programmatically (RO - 2022/12/08)
+const speakerTypes = [
+  { key: 'plenary', value: 'Plenaries' },
+  { key: 'keynote', value: 'Keynotes' },
+  { key: 'oral-presentations', value: 'Oral Presentations' },
+];
