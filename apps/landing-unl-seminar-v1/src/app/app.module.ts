@@ -40,8 +40,8 @@ function loadEventFactory(eventService: EventService) {
   declarations: [AppComponent],
   imports: [
     AuthModule.forRoot({
-      domain: 'fawhc-2023.us.auth0.com',
-      clientId: '9wYZtEZPkHmS1yma7v892Ur6mojkmQ0C',
+      domain: environment.auth0.domain,
+      clientId: environment.auth0.clientId,
     }),
     AngularServicesModule.forRoot(environment),
     AppRoutingModule,
