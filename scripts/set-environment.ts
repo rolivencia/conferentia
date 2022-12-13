@@ -16,12 +16,12 @@ const targetPath = `./apps/${appName}/src/environments/environment.ts`;
 const environmentFileContent = `
 export const environment = {
    production: ${isProduction},
-   apiUrl: ${process.env.API_URL}
-   eventId: ${process.env.EVENT_ID}
+   apiUrl: '${process.env.API_URL}',
+   eventId: '${process.env.EVENT_ID}',
    auth0: {
-     domain: ${process.env.AUTH0_DOMAIN}
-     clientId: ${process.env.CLIENT_ID}
-     audience: ${process.env.AUDIENCE_URL}
+     domain: '${process.env.AUTH0_DOMAIN}',
+     clientId: '${process.env.CLIENT_ID}',
+     audience: '${process.env.AUDIENCE_URL}'
    }
 };
 `;
