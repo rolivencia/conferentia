@@ -19,6 +19,13 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      title: 'Código',
+      name: 'code',
+      type: 'string',
+      description: 'Código asignado a las áreas temáticas.',
+      validation: (Rule) => Rule.required(),
+    },
+    {
       title: 'Imagen Alusiva',
       name: 'image',
       type: 'image',
