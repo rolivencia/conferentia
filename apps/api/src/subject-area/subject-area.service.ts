@@ -17,7 +17,7 @@ export class SubjectAreaService {
   public async get(eventId: number | string): Promise<ISubjectArea[]> {
     const builder = imageUrlBuilder(this.connectorService.connector);
     const query = `*[_type == 'subjectArea' && references('${eventId}')]
-                   {_id, _createdAt, _updatedAt, _type, _rev, name, image, order, event-> } | order(order)`;
+                   {_id, _createdAt, _updatedAt, _type, _rev, name, code, image, order, event-> } | order(order)`;
     const result = await this.connectorService.connector.fetch(query, {});
     return result
       .map((subjectArea) => ({

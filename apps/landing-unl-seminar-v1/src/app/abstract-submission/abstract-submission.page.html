@@ -38,9 +38,12 @@
                   <li>
                     You can submit your abstract (one page) in PDF file from 5
                     December 2022. Registered users can access the submission of
-                    papers, with Email and password. Access the platform for
-                    submitting abstract by clicking
-                    <a href="" (click)="navigateToRegistration()">here</a>.
+                    papers, with Email and password.
+                    <ng-container *ngIf="!(currentUser$ | async) as currentUser">
+                      Access the platform for
+                      submitting abstracts by clicking
+                      <a href (click)="navigateToRegistration()">here</a>.
+                    </ng-container>
                   </li>
                   <li>
                     To check for your submitted abstracts and their statuses,
