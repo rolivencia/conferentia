@@ -6,7 +6,7 @@ import * as fs from 'fs';
 
 @Injectable()
 export class AbstractService {
-  // ToDo: Check on how to programatically asign the typing to the connector (RO - 2022/12/05 - #105)
+  // ToDo: Check on how to programatically assign the typing to the connector (RO - 2022/12/05 - #105)
   private connector: SanityClient;
 
   constructor(private connectorService: ConnectorService) {
@@ -24,6 +24,7 @@ export class AbstractService {
                         event->,
                         user->,
                         title,
+                        identifier,
                         keywords,
                         status,
                         format,
@@ -51,6 +52,7 @@ export class AbstractService {
                         event->,
                         user->,
                         title,
+                        identifier,
                         keywords,
                         status,
                         format,
@@ -102,6 +104,7 @@ export class AbstractService {
     // Add abstract document to the transaction
     const abstractTransaction = this.connector.transaction().create({
       _type: 'abstract',
+      identifier: await this.generateIdentifier(),
       event: { _type: 'reference', _ref: payload.eventId },
       user: { _type: 'reference', _ref: payload.uploaderUserId },
       title: payload.abstract.title,
@@ -134,5 +137,14 @@ export class AbstractService {
       });
 
     return this.getById(result.documentIds[0]);
+  }
+
+  private async generateIdentifier() {
+    // Fetch count of existing abstracts to generate an ID
+    const abstractCount = await this.connector.fetch(
+      `count(*[_type == 'abstract'])`,
+      {}
+    );
+    return `${abstractCount+1}`;
   }
 }

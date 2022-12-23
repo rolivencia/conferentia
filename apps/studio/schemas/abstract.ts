@@ -73,6 +73,13 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      title: 'Identificador',
+      name: 'identifier',
+      type: 'string',
+      description: 'Código de identificación del Abstract',
+      validation: (Rule) => Rule.required(),
+    },
+    {
       title: 'Formato',
       name: 'format',
       type: 'string',
