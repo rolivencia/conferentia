@@ -16,3 +16,9 @@ export interface Role extends IAudit {
   key: string;
   name: string;
 }
+
+export enum EUserRole {
+  ADMINISTRATOR = 'administrator',
+  ATTENDEE = 'attendee',
+  REVIEWER = 'reviewer',
+}
