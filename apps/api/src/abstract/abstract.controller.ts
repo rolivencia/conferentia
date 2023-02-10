@@ -18,7 +18,6 @@ import { AbstractService } from './abstract.service';
 
 // Typings
 import { Express } from 'express';
-import { Multer } from 'multer';
 
 @Controller('abstract')
 export class AbstractController {
@@ -28,6 +27,12 @@ export class AbstractController {
   public getById(@Param() params): Promise<Abstract> {
     const id: string = params.id;
     return this.abstractService.getById(id);
+  }
+
+  @Get('event/:eventId')
+  public getAll(@Param() params): Promise<Abstract[]> {
+    const eventId: string = params.eventId;
+    return this.abstractService.getAll(eventId);
   }
 
   @Get('user/:userId')
