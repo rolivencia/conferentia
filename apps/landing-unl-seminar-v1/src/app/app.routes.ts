@@ -3,7 +3,10 @@ import { inject } from '@angular/core';
 import { Observable, of, switchMap } from 'rxjs';
 
 // Guards
-import { finishedRegistrationGuard } from '@conferentia/angular-services';
+import {
+  finishedRegistrationGuard,
+  UserService,
+} from '@conferentia/angular-services';
 
 // Models
 import { ConferentiaRoute } from '@conferentia/models';
@@ -11,6 +14,8 @@ import { ROUTE_TREE } from '@conferentia/ionic-pages';
 
 // Services
 import { AuthService } from '@auth0/auth0-angular';
+import { EUserRole } from '../../../../libs/models/src/lib/user.interface';
+import { adminDashboardGuard } from "../../../../libs/angular-services/src/lib/guards/admin-dashboard.guard";
 
 export const appRoutes: ConferentiaRoute[] = [
   {
@@ -129,6 +134,20 @@ export const appRoutes: ConferentiaRoute[] = [
       title: 'Contact',
       url: 'contact',
       icon: 'mail',
+    },
+  },
+  {
+    path: 'admin-dashboard',
+    loadChildren: () =>
+      import('./admin-dashboard/admin-dashboard.module').then(
+        (m) => m.AdminDashboardModule
+      ),
+    canLoad: [adminDashboardGuard],
+    data: {
+      title: 'Administration Dashboard',
+      url: 'admin-dashboard',
+      icon: 'bar-chart',
+      render: adminDashboardGuard
     },
   },
 ];
