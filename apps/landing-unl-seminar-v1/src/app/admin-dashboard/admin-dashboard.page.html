@@ -1,0 +1,48 @@
+<conferentia-fillable-content-page
+  [content]="adminDashboardContent"
+></conferentia-fillable-content-page>
+
+<ng-template #adminDashboardContent>
+  <ion-card>
+    <ion-card-content *ngIf="abstracts$ | async as abstracts">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1"><strong>ID</strong></ion-col>
+          <ion-col><strong>Title</strong></ion-col>
+          <ion-col><strong>User</strong></ion-col>
+          <ion-col><strong>Status</strong></ion-col>
+          <ion-col><strong>Authors</strong></ion-col>
+          <ion-col><strong>Subject Area</strong></ion-col>
+          <ion-col><strong>Keywords</strong></ion-col>
+          <ion-col><strong>Format</strong></ion-col>
+          <ion-col><strong>File</strong></ion-col>
+          <ion-col></ion-col>
+        </ion-row>
+        <hr>
+        <ng-container *ngFor="let abstract of abstracts">
+          <ion-row>
+            <ion-col size="1">{{abstract.identifier}}</ion-col>
+            <ion-col>{{abstract.title}}</ion-col>
+            <ion-col>{{abstract.user.firstName + ' ' + abstract.user.lastName}}</ion-col>
+            <ion-col>{{abstract.status.toUpperCase()}}</ion-col>
+            <ion-col>
+              <ng-container *ngFor="let author of abstract.authors">
+                <p>{{author.firstName + ' ' + author.lastName}}</p>
+              </ng-container>
+            </ion-col>
+            <ion-col>{{abstract.subjectArea.name}}</ion-col>
+            <ion-col>{{abstract.keywords}}</ion-col>
+            <ion-col>{{abstract.format}}</ion-col>
+            <ion-col
+              ><a [href]="abstract.fileUrl" target="_blank"
+                >Download</a
+              ></ion-col
+            >
+            <ion-col><ion-button>Review</ion-button></ion-col>
+          </ion-row>
+          <hr>
+        </ng-container>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ng-template>

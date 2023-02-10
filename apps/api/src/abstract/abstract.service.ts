@@ -13,6 +13,34 @@ export class AbstractService {
     this.connector = this.connectorService.connector as SanityClient;
   }
 
+  public async getAll(eventId: string): Promise<Abstract[]> {
+    const query = `*[_type == 'abstract' && references('${eventId}')]
+                  {
+                        _id,
+                        _createdAt,
+                        _updatedAt,
+                        _type,
+                        _rev,
+                        event->,
+                        user->,
+                        title,
+                        identifier,
+                        keywords,
+                        status,
+                        format,
+                        subjectArea->,
+                        authors[]->,
+                        pdfFile{ url }
+                  } | order(identifier)
+                  `;
+    const results = await this.connector.fetch(query, {});
+    // const { pdfFile, ...data } = await this.connector.fetch(query, {});
+    return results.map((abstract) => ({
+      ...abstract,
+      fileUrl: abstract.pdfFile.url,
+    }));
+  }
+
   public async getByUserId(userId: string): Promise<Abstract[]> {
     const query = `*[_type == 'abstract' && references('${userId}')]
                   {
@@ -145,6 +173,6 @@ export class AbstractService {
       `count(*[_type == 'abstract'])`,
       {}
     );
-    return `${abstractCount+1}`;
+    return `${abstractCount + 1}`;
   }
 }

@@ -30,6 +30,12 @@ export class AbstractController {
     return this.abstractService.getById(id);
   }
 
+  @Get('event/:eventId')
+  public getAll(@Param() params): Promise<Abstract[]> {
+    const eventId: string = params.eventId;
+    return this.abstractService.getAll(eventId);
+  }
+
   @Get('user/:userId')
   public getByUserId(@Param() params): Promise<Abstract[]> {
     const userId: string = params.userId;
