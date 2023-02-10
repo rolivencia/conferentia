@@ -18,6 +18,7 @@ import { AbstractService } from './abstract.service';
 
 // Typings
 import { Express } from 'express';
+import { Multer } from 'multer';
 
 @Controller('abstract')
 export class AbstractController {
