@@ -31,7 +31,7 @@ export class AbstractService {
                         subjectArea->,
                         authors[]->,
                         pdfFile{ url }
-                  }
+                  } | order(identifier)
                   `;
     const results = await this.connector.fetch(query, {});
     // const { pdfFile, ...data } = await this.connector.fetch(query, {});
