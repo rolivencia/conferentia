@@ -34,11 +34,17 @@ export class AbstractService {
                   } | order(identifier)
                   `;
     const results = await this.connector.fetch(query, {});
-    // const { pdfFile, ...data } = await this.connector.fetch(query, {});
-    return results.map((abstract) => ({
-      ...abstract,
-      fileUrl: abstract.pdfFile.url,
-    }));
+    return results
+      .map((abstract) => ({
+        ...abstract,
+        fileUrl: abstract.pdfFile.url,
+      }))
+      .sort((x: Abstract, y: Abstract) =>
+        x.identifier.localeCompare(y.identifier, undefined, {
+          numeric: true,
+          sensitivity: 'base',
+        })
+      );
   }
 
   public async getByUserId(userId: string): Promise<Abstract[]> {
