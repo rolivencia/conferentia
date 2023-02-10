@@ -13,6 +13,6 @@ export interface User extends IAudit {
 }
 
 export interface Role extends IAudit {
+  key: string;
   name: string;
-  description: string;
 }
