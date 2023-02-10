@@ -14,6 +14,7 @@ import commiteeMember from './committee-member';
 import event from './event';
 import eventSponsor from './event-sponsor';
 import participant from './participant';
+import role from "./role";
 import subjectArea from './subject-area';
 import user from './user';
 
@@ -33,6 +34,7 @@ export default createSchema({
     event,
     eventSponsor,
     participant,
+    role,
     subjectArea,
     user,
   ]),

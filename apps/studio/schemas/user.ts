@@ -92,5 +92,17 @@ export default {
       validation: (Rule) => Rule.required(),
       initialValue: false,
     },
+    {
+      title: 'Rol',
+      name: 'role',
+      type: 'reference',
+      description: 'Rol asignado al usuario',
+      to: [{ type: 'role' }],
+      // ToDo: #118 - Check for a better way to assign the default role for a new user
+      initialValue: {
+        "_ref": "2b2a825c-ae8a-4e73-b940-91d129404452",
+        "_type": "reference"
+      },
+    }
   ],
 };
