@@ -18,7 +18,7 @@ export interface Role extends IAudit {
 }
 
 export enum EUserRole {
-  ADMINISTRATOR = 'administrator',
+  ADMINISTRATOR = 'admin',
   ATTENDEE = 'attendee',
   REVIEWER = 'reviewer',
 }
