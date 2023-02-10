@@ -9,4 +9,10 @@ export interface User extends IAudit {
   country: Country;
   hasFinishedRegistration: boolean;
   wantsToEvaluatePapers?: boolean;
+  role: Role;
+}
+
+export interface Role extends IAudit {
+  name: string;
+  description: string;
 }
