@@ -5,7 +5,6 @@ import { Observable, of, switchMap } from 'rxjs';
 // Guards
 import {
   finishedRegistrationGuard,
-  UserService,
 } from '@conferentia/angular-services';
 
 // Models
@@ -14,7 +13,6 @@ import { ROUTE_TREE } from '@conferentia/ionic-pages';
 
 // Services
 import { AuthService } from '@auth0/auth0-angular';
-import { EUserRole } from '../../../../libs/models/src/lib/user.interface';
 import { adminDashboardGuard } from "../../../../libs/angular-services/src/lib/guards/admin-dashboard.guard";
 
 export const appRoutes: ConferentiaRoute[] = [
@@ -140,7 +138,7 @@ export const appRoutes: ConferentiaRoute[] = [
     path: 'admin-dashboard',
     loadChildren: () =>
       import('./admin-dashboard/admin-dashboard.module').then(
-        (m) => m.AdminDashboardModule
+        (m) => m.AdminDashboardPageModule
       ),
     canLoad: [adminDashboardGuard],
     data: {
