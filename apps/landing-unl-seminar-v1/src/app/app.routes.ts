@@ -142,7 +142,7 @@ export const appRoutes: ConferentiaRoute[] = [
       ),
     canLoad: [adminDashboardGuard],
     data: {
-      title: 'Administration Dashboard',
+      title: 'Abstracts Review Dashboard',
       url: 'admin-dashboard',
       icon: 'bar-chart',
       render: adminDashboardGuard
