@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { HttpClient } from '@angular/common/http';
 import { Abstract, IFrontendEnvironmentConfig } from '@conferentia/models';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +17,10 @@ export class AbstractService extends HttpService {
 
   public getByUserId(userId: string): Observable<Abstract[]> {
     return this.http.get<Abstract[]>(`${this.prefix}/user/${userId}`);
+  }
+
+  public getByEventId(eventId: string): Observable<Abstract[]> {
+    return this.http.get<Abstract[]>(`${this.prefix}/event/${eventId}`);
   }
 
   public create(payload: any): Observable<Abstract> {
