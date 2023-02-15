@@ -31,6 +31,10 @@ export class AbstractService extends HttpService {
     return this.http.post<any>(`${this.prefix}`, payload);
   }
 
+  public review(payload: any): Observable<Abstract> {
+    return this.http.put<Abstract>(`${this.prefix}/review`, payload);
+  }
+
   public uploadAbstractFile(fileData: File): Observable<File> {
     const formData = new FormData();
     formData.append('uploaded-abstract', fileData);
