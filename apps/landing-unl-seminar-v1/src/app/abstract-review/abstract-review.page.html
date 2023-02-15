@@ -3,7 +3,6 @@
 
 <ng-template #abstractReview>
   <ng-container *ngIf="abstract$ | async as abstract">
-    <ion-card-header> </ion-card-header>
     <ion-card-content>
       <ion-grid>
         <ion-row>
@@ -61,8 +60,7 @@
               </p>
               <p>
                 <ion-label
-                  ><strong>Submitted by: </strong>{{abstract.user.firstName + '
-                  ' + abstract.user.lastName }}</ion-label
+                  ><strong>Submitted by: </strong>{{abstract.user.firstName + ' ' + abstract.user.lastName }}</ion-label
                 >
               </p>
             </div>
@@ -71,26 +69,36 @@
               Download</ion-button
             >
           </ion-col>
-          <ion-col
-            class="ion-flex-container ion-flex-column ion-justify-content-between">
-            <ion-item class="ion-margin-bottom">
-              <ion-textarea
-                rows="5"
-                placeholder="Enter the review for the abstract here">
-              </ion-textarea>
-            </ion-item>
-            <ion-item>
-              <ion-label>Abstract Status</ion-label>
-              <ion-select [value]="abstract.status">
-                <ng-container *ngFor="let status of statuses">
-                  <ion-select-option [value]="status.value">
-                    {{status.title}}
-                  </ion-select-option>
-                </ng-container>
-              </ion-select>
-            </ion-item>
-            <ion-button>Save Changes</ion-button>
-          </ion-col>
+          <ng-container *ngIf="!!form">
+            <ion-col
+              [formGroup]="form"
+              class="ion-flex-container ion-flex-column ion-justify-content-between">
+              <ion-item class="ion-margin-bottom">
+                <ion-textarea
+                  formControlName="review"
+                  rows="5"
+                  placeholder="Enter the review for the abstract here">
+                </ion-textarea>
+              </ion-item>
+              <ion-item>
+                <ion-label>Abstract Status</ion-label>
+                <ion-select
+                  placeholder="Select the abstract new status"
+                  formControlName="status">
+                  <ng-container *ngFor="let status of statuses">
+                    <ion-select-option [value]="status.value">
+                      {{status.title}}
+                    </ion-select-option>
+                  </ng-container>
+                </ion-select>
+              </ion-item>
+              <ion-button
+                (click)="onSaveClicked()"
+                [disabled]="form.pristine || !form.valid || submitted"
+                >Save Changes
+              </ion-button>
+            </ion-col>
+          </ng-container>
         </ion-row>
       </ion-grid>
     </ion-card-content>
