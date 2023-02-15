@@ -17,6 +17,7 @@ export interface Abstract extends IAudit {
   format: string;
   event: IEvent;
   user: User;
+  review?: string;
 }
 
 export interface SubmittedAbstractPayload {
