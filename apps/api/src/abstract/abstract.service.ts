@@ -6,11 +6,43 @@ import * as fs from 'fs';
 
 @Injectable()
 export class AbstractService {
-  // ToDo: Check on how to programatically asign the typing to the connector (RO - 2022/12/05 - #105)
+  // ToDo: Check on how to programatically assign the typing to the connector (RO - 2022/12/05 - #105)
   private connector: SanityClient;
 
   constructor(private connectorService: ConnectorService) {
     this.connector = this.connectorService.connector as SanityClient;
+  }
+
+  public async getAll(eventId: string): Promise<Abstract[]> {
+    const query = `*[_type == 'abstract' && references('${eventId}')]
+                  {
+                        _id,
+                        _createdAt,
+                        _updatedAt,
+                        _type,
+                        _rev,
+                        event->,
+                        user->,
+                        title,
+                        identifier,
+                        keywords,
+                        status,
+                        format,
+                        subjectArea->,
+                        authors[]->,
+                        pdfFile{ url },
+                        review
+                  } | order(identifier)
+                  `;
+    const results = await this.connector.fetch(query, {});
+    return results
+      .map((abstract) => this.mapResponse(abstract))
+      .sort((x: Abstract, y: Abstract) =>
+        x.identifier.localeCompare(y.identifier, undefined, {
+          numeric: true,
+          sensitivity: 'base',
+        })
+      );
   }
 
   public async getByUserId(userId: string): Promise<Abstract[]> {
@@ -24,20 +56,19 @@ export class AbstractService {
                         event->,
                         user->,
                         title,
+                        identifier,
                         keywords,
                         status,
                         format,
                         subjectArea->,
                         authors[]->,
-                        pdfFile{ url }
+                        pdfFile{ url },
+                        review
                   }
                   `;
 
     const result: any[] = await this.connector.fetch(query, {});
-    return result.map((abstract) => {
-      const { pdfFile, ...data } = abstract;
-      return { ...data, fileUrl: pdfFile.url };
-    });
+    return result.map((abstract) => this.mapResponse(abstract));
   }
 
   public async getById(id: string): Promise<Abstract> {
@@ -51,17 +82,18 @@ export class AbstractService {
                         event->,
                         user->,
                         title,
+                        identifier,
                         keywords,
                         status,
                         format,
                         subjectArea->,
                         authors[]->,
-                        pdfFile{ url }
+                        pdfFile{ url },
+                        review
                   }
                   `;
-
-    const { pdfFile, ...data } = await this.connector.fetch(query, {});
-    return { ...data, fileUrl: pdfFile.url };
+    const result = await this.connector.fetch(query, {});
+    return this.mapResponse(result);
   }
 
   public async create(payload: SubmittedAbstractPayload) {
@@ -102,6 +134,7 @@ export class AbstractService {
     // Add abstract document to the transaction
     const abstractTransaction = this.connector.transaction().create({
       _type: 'abstract',
+      identifier: await this.generateIdentifier(),
       event: { _type: 'reference', _ref: payload.eventId },
       user: { _type: 'reference', _ref: payload.uploaderUserId },
       title: payload.abstract.title,
@@ -134,5 +167,43 @@ export class AbstractService {
       });
 
     return this.getById(result.documentIds[0]);
+  }
+
+  public async updateAbstractReview(
+    body: Pick<Abstract, '_id' | 'review' | 'status'>
+  ): Promise<Abstract> {
+    const connector = this.connectorService.connector as SanityClient;
+    await connector
+      .patch(body._id)
+      .set({ status: body.status, review: body.review })
+      .commit();
+    return this.getById(body._id);
+  }
+
+  private async generateIdentifier() {
+    // Fetch count of existing abstracts to generate an ID
+    const abstractCount = await this.connector.fetch(
+      `count(*[_type == 'abstract'])`,
+      {}
+    );
+    return `${abstractCount + 1}`;
+  }
+
+  private mapResponse(abstract: any): Abstract {
+    return {
+      ...abstract,
+      fileUrl: abstract.pdfFile.url,
+      format: (abstract.format as string)
+        .replaceAll('oralPresentation', 'Oral Presentation')
+        .replaceAll('flashPoster', 'Flash Poster'),
+      keywords: (abstract.keywords as string)
+        .replaceAll('; ', ',')
+        .replaceAll('/', ',')
+        .replaceAll(';', ',')
+        .replaceAll(' , ', ',')
+        .replaceAll(', ', ',')
+        .replaceAll(' ,', ',')
+        .split(','),
+    };
   }
 }

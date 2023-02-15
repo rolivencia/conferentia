@@ -8,14 +8,16 @@ import {
 
 export interface Abstract extends IAudit {
   title: string;
+  identifier: string;
   authors: Author[];
   subjectArea: ISubjectArea;
-  keywords: string;
+  keywords: string[];
   fileUrl: string;
   status: string;
   format: string;
   event: IEvent;
   user: User;
+  review?: string;
 }
 
 export interface SubmittedAbstractPayload {

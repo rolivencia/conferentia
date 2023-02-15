@@ -3,7 +3,9 @@ import { inject } from '@angular/core';
 import { Observable, of, switchMap } from 'rxjs';
 
 // Guards
-import { finishedRegistrationGuard } from '@conferentia/angular-services';
+import {
+  finishedRegistrationGuard,
+} from '@conferentia/angular-services';
 
 // Models
 import { ConferentiaRoute } from '@conferentia/models';
@@ -11,11 +13,17 @@ import { ROUTE_TREE } from '@conferentia/ionic-pages';
 
 // Services
 import { AuthService } from '@auth0/auth0-angular';
+import { adminDashboardGuard } from "../../../../libs/angular-services/src/lib/guards/admin-dashboard.guard";
+
+export const APP_ROUTE_TREE = {
+  HOME: 'home',
+  ABSTRACT_REVIEW: 'abstract-review',
+};
 
 export const appRoutes: ConferentiaRoute[] = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: APP_ROUTE_TREE.HOME,
     pathMatch: 'full',
   },
   {
@@ -56,15 +64,15 @@ export const appRoutes: ConferentiaRoute[] = [
     },
   },
   {
-    path: 'keynote-speakers',
+    path: 'invited-speakers',
     loadChildren: () =>
-      import('./keynote-speakers/keynote-speakers.module').then(
-        (m) => m.KeynoteSpeakersPageModule
+      import('./invited-speakers/invited-speakers.module').then(
+        (m) => m.InvitedSpeakersPageModule
       ),
     canLoad: [finishedRegistrationGuard],
     data: {
-      title: 'Keynote Speakers',
-      url: 'keynote-speakers',
+      title: 'Invited Speakers',
+      url: 'invited-speakers',
       icon: 'school',
     },
   },
@@ -129,6 +137,34 @@ export const appRoutes: ConferentiaRoute[] = [
       title: 'Contact',
       url: 'contact',
       icon: 'mail',
+    },
+  },
+  {
+    path: 'admin-dashboard',
+    loadChildren: () =>
+      import('./admin-dashboard/admin-dashboard.module').then(
+        (m) => m.AdminDashboardPageModule
+      ),
+    canLoad: [adminDashboardGuard],
+    data: {
+      title: 'Abstracts Review Dashboard',
+      url: 'admin-dashboard',
+      icon: 'bar-chart',
+      render: adminDashboardGuard
+    },
+  },
+  {
+    path: APP_ROUTE_TREE.ABSTRACT_REVIEW,
+    loadChildren: () =>
+      import('./abstract-review/abstract-review.module').then(
+        (m) => m.AbstractReviewPageModule
+      ),
+    canLoad: [adminDashboardGuard],
+    data: {
+      title: 'Abstract Review',
+      url: APP_ROUTE_TREE.ABSTRACT_REVIEW,
+      icon: 'bar-chart',
+      render: () => of(false)
     },
   },
 ];

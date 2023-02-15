@@ -9,24 +9,49 @@
         <ion-col size="12" size-lg="8">
           <ion-card>
             <ion-card-content>
-              <p class="ion-margin-bottom">
-                You can <strong>download</strong> the template in DOCX format
-                for sending works by
-                <a [href]="'assets/templates/fawhc-2023-abstract-template.docx'"
-                  >clicking here</a
-                >.
-              </p>
-              <p class="ion-margin-bottom">
-                You can submit your abstract (one page) in PDF file from 5
-                December 2022. Registered users can access the submission of
-                papers, with Email and password. Access the platform for
-                submitting abstract by clicking
-                <a href="" (click)="navigateToRegistration()">here</a>.
-              </p>
-              <p class="ion-margin-bottom">
-                To check for your submitted abstracts and their statuses, please
-                check your <a routerLink="/profile">User Profile</a> page.
-              </p>
+              <div class="ion-margin-bottom">
+                When preparing the work, keep in mind that the objectives of the
+                workshop are:
+                <ul>
+                  <li>
+                    Promote the updating of scientific-technological advances in
+                    the fields of heterogeneous catalysis and engineering.
+                  </li>
+                  <li>
+                    Promote the generation of new international cooperation
+                    agreements.
+                  </li>
+                </ul>
+                Therefore, the papers should focus on showing the line/s of
+                research developed, the main results and future perspectives.
+                Following the format of a scientific presentation:
+
+                <ul>
+                  <li>
+                    You can <strong>download</strong> the template in DOCX
+                    format for sending works by
+                    <a
+                      [href]="'assets/templates/fawhc-2023-abstract-template.docx'"
+                      >clicking here</a
+                    >.
+                  </li>
+                  <li>
+                    You can submit your abstract (one page) in PDF file from 5
+                    December 2022. Registered users can access the submission of
+                    papers, with Email and password.
+                    <ng-container *ngIf="!(currentUser$ | async) as currentUser">
+                      Access the platform for
+                      submitting abstracts by clicking
+                      <a href (click)="navigateToRegistration()">here</a>.
+                    </ng-container>
+                  </li>
+                  <li>
+                    To check for your submitted abstracts and their statuses,
+                    please check your
+                    <a routerLink="/profile">User Profile</a> page.
+                  </li>
+                </ul>
+              </div>
             </ion-card-content>
           </ion-card>
           <ion-card *ngIf="(currentUser$ | async) as currentUser">
@@ -174,7 +199,7 @@
               <ion-text color="primary"
                 ><h2>Abstract submission deadline</h2></ion-text
               >
-              <ion-text><h3>10 February 2022</h3></ion-text>
+              <ion-text><h3>10 February 2023</h3></ion-text>
             </ion-card-content>
           </ion-card>
           <ion-card>

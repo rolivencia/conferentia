@@ -45,6 +45,14 @@ export class CommitteeService {
               : undefined,
           }));
         }
+        if (committeeArea.viceChairs) {
+          committeeArea.viceChairs = committeeArea.viceChairs.map((member) => ({
+            ...member,
+            avatar: member.avatar
+              ? builder.image(member.avatar).url()
+              : undefined,
+          }));
+        }
         if (committeeArea.members) {
           committeeArea.members = committeeArea.members.map((member) => ({
             ...member,

@@ -45,12 +45,6 @@
               "maximumError": "4kb"
             }
           ],
-          "fileReplacements": [
-            {
-              "replace": "apps/landing-unl-seminar-v1/src/environments/environment.ts",
-              "with": "apps/landing-unl-seminar-v1/src/environments/environment.prod.ts"
-            }
-          ],
           "outputHashing": "all"
         },
         "development": {

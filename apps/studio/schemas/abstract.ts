@@ -73,6 +73,13 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      title: 'Identificador',
+      name: 'identifier',
+      type: 'string',
+      description: 'Código de identificación del Abstract',
+      validation: (Rule) => Rule.required(),
+    },
+    {
       title: 'Formato',
       name: 'format',
       type: 'string',
@@ -91,9 +98,9 @@ export default {
       options: {
         list: [
           { title: 'Submitted', value: 'submitted' },
-          { title: 'In Evaluation', value: 'inEvaluation' },
+          { title: 'In evaluation', value: 'inEvaluation' },
           {
-            title: 'AcceptedWithModifications',
+            title: 'Accepted with modifications',
             value: 'acceptedWithModifications',
           },
           { title: 'Accepted', value: 'accepted' },
@@ -109,6 +116,11 @@ export default {
         ],
       },
       initialValue: 'submitted',
+    },
+    {
+      title: 'Review',
+      name: 'review',
+      type: 'string',
     },
   ],
 };

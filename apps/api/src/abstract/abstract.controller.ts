@@ -4,10 +4,10 @@ import {
   Controller,
   Get,
   Param,
-  Post,
+  Post, Put,
   UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common';
+  UseInterceptors
+} from "@nestjs/common";
 import { FileInterceptor } from '@nestjs/platform-express';
 
 // Models
@@ -30,6 +30,12 @@ export class AbstractController {
     return this.abstractService.getById(id);
   }
 
+  @Get('event/:eventId')
+  public getAll(@Param() params): Promise<Abstract[]> {
+    const eventId: string = params.eventId;
+    return this.abstractService.getAll(eventId);
+  }
+
   @Get('user/:userId')
   public getByUserId(@Param() params): Promise<Abstract[]> {
     const userId: string = params.userId;
@@ -48,4 +54,10 @@ export class AbstractController {
   ): Express.Multer.File {
     return file;
   }
+
+  @Put('review')
+  update(@Body() body: Pick<Abstract, '_id' | 'review' | 'status'>): Promise<Abstract> {
+    return this.abstractService.updateAbstractReview(body);
+  }
+
 }
