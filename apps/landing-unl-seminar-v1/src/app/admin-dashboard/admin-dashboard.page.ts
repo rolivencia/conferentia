@@ -26,4 +26,10 @@ export class AdminDashboardPage implements OnInit {
       )
     );
   }
+
+  onDownloadClicked(href: string) {
+    window.open(href, '_blank');
+  }
+
+  onReviewClicked(abstractId: string) {}
 }

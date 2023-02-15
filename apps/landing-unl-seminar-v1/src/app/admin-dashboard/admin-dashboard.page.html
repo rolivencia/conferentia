@@ -8,39 +8,53 @@
       <ion-grid>
         <ion-row>
           <ion-col size="1"><strong>ID</strong></ion-col>
-          <ion-col><strong>Title</strong></ion-col>
-          <ion-col><strong>User</strong></ion-col>
-          <ion-col><strong>Status</strong></ion-col>
+          <ion-col size="2"><strong>Title</strong></ion-col>
           <ion-col><strong>Authors</strong></ion-col>
           <ion-col><strong>Subject Area</strong></ion-col>
           <ion-col><strong>Keywords</strong></ion-col>
           <ion-col><strong>Format</strong></ion-col>
-          <ion-col><strong>File</strong></ion-col>
-          <ion-col></ion-col>
+          <ion-col><strong>Status</strong></ion-col>
+          <ion-col size="1"></ion-col>
         </ion-row>
-        <hr>
+        <hr />
         <ng-container *ngFor="let abstract of abstracts">
           <ion-row>
-            <ion-col size="1">{{abstract.identifier}}</ion-col>
-            <ion-col>{{abstract.title}}</ion-col>
-            <ion-col>{{abstract.user.firstName + ' ' + abstract.user.lastName}}</ion-col>
-            <ion-col>{{abstract.status.toUpperCase()}}</ion-col>
+            <ion-col size="1"
+              >{{abstract.subjectArea.code + '-' +
+              abstract.identifier.toUpperCase()}}</ion-col
+            >
+            <ion-col size="2"><p>{{abstract.title}}</p> </ion-col>
             <ion-col>
               <ng-container *ngFor="let author of abstract.authors">
                 <p>{{author.firstName + ' ' + author.lastName}}</p>
               </ng-container>
             </ion-col>
             <ion-col>{{abstract.subjectArea.name}}</ion-col>
-            <ion-col>{{abstract.keywords}}</ion-col>
+            <ion-col>
+              <p *ngFor="let keyword of abstract.keywords">{{keyword}}</p>
+            </ion-col>
             <ion-col>{{abstract.format}}</ion-col>
-            <ion-col
-              ><a [href]="abstract.fileUrl" target="_blank"
-                >Download</a
-              ></ion-col
+            <ion-col class="ion-text-center"
+              ><ion-badge>{{abstract.status.toUpperCase()}}</ion-badge></ion-col
             >
-            <ion-col><ion-button>Review</ion-button></ion-col>
+            <ion-col>
+              <ion-button
+                expand="block"
+                (click)="onDownloadClicked(abstract.fileUrl)"
+              >
+                <ion-icon name="download-outline" slot="start"></ion-icon>
+                Download</ion-button
+              >
+              <ion-button
+                expand="block"
+                (click)="onReviewClicked(abstract._id)"
+              >
+                <ion-icon name="search-circle-outline" slot="start"></ion-icon>
+                Review</ion-button
+              >
+            </ion-col>
           </ion-row>
-          <hr>
+          <hr />
         </ng-container>
       </ion-grid>
     </ion-card-content>
