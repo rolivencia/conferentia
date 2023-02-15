@@ -4,10 +4,10 @@ import {
   Controller,
   Get,
   Param,
-  Post,
+  Post, Put,
   UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common';
+  UseInterceptors
+} from "@nestjs/common";
 import { FileInterceptor } from '@nestjs/platform-express';
 
 // Models
@@ -54,4 +54,10 @@ export class AbstractController {
   ): Express.Multer.File {
     return file;
   }
+
+  @Put('review')
+  update(@Body() body: Pick<Abstract, '_id' | 'review' | 'status'>): Promise<Abstract> {
+    return this.abstractService.updateAbstractReview(body);
+  }
+
 }

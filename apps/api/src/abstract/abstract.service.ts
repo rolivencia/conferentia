@@ -30,7 +30,8 @@ export class AbstractService {
                         format,
                         subjectArea->,
                         authors[]->,
-                        pdfFile{ url }
+                        pdfFile{ url },
+                        review
                   } | order(identifier)
                   `;
     const results = await this.connector.fetch(query, {});
@@ -61,7 +62,8 @@ export class AbstractService {
                         format,
                         subjectArea->,
                         authors[]->,
-                        pdfFile{ url }
+                        pdfFile{ url },
+                        review
                   }
                   `;
 
@@ -86,12 +88,12 @@ export class AbstractService {
                         format,
                         subjectArea->,
                         authors[]->,
-                        pdfFile{ url }
+                        pdfFile{ url },
+                        review
                   }
                   `;
-
     const result = await this.connector.fetch(query, {});
-    return this.mapResponse(result)
+    return this.mapResponse(result);
   }
 
   public async create(payload: SubmittedAbstractPayload) {
@@ -165,6 +167,17 @@ export class AbstractService {
       });
 
     return this.getById(result.documentIds[0]);
+  }
+
+  public async updateAbstractReview(
+    body: Pick<Abstract, '_id' | 'review' | 'status'>
+  ): Promise<Abstract> {
+    const connector = this.connectorService.connector as SanityClient;
+    await connector
+      .patch(body._id)
+      .set({ status: body.status, review: body.review })
+      .commit();
+    return this.getById(body._id);
   }
 
   private async generateIdentifier() {
