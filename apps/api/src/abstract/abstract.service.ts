@@ -38,6 +38,14 @@ export class AbstractService {
       .map((abstract) => ({
         ...abstract,
         fileUrl: abstract.pdfFile.url,
+        keywords: (abstract.keywords as string)
+          .replaceAll('; ', ',')
+          .replaceAll('/', ',')
+          .replaceAll(';', ',')
+          .replaceAll(' , ', ',')
+          .replaceAll(', ', ',')
+          .replaceAll(' ,', ',')
+          .split(',')
       }))
       .sort((x: Abstract, y: Abstract) =>
         x.identifier.localeCompare(y.identifier, undefined, {
