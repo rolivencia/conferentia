@@ -19,12 +19,20 @@ export class AbstractService extends HttpService {
     return this.http.get<Abstract[]>(`${this.prefix}/user/${userId}`);
   }
 
+  public getById(id: string): Observable<Abstract> {
+    return this.http.get<Abstract>(`${this.prefix}/${id}`);
+  }
+
   public getByEventId(eventId: string): Observable<Abstract[]> {
     return this.http.get<Abstract[]>(`${this.prefix}/event/${eventId}`);
   }
 
   public create(payload: any): Observable<Abstract> {
     return this.http.post<any>(`${this.prefix}`, payload);
+  }
+
+  public review(payload: any): Observable<Abstract> {
+    return this.http.put<Abstract>(`${this.prefix}/review`, payload);
   }
 
   public uploadAbstractFile(fileData: File): Observable<File> {

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractService, EventService } from '@conferentia/angular-services';
 import { Observable, of, switchMap } from 'rxjs';
 import { Abstract, IEvent } from '@conferentia/models';
+import { Router } from '@angular/router';
+import { APP_ROUTE_TREE } from '../app.routes';
+import { colorStatusMap, statusesMap } from "../_providers/utils";
 
 @Component({
   selector: 'conferentia-admin-dashboard',
@@ -9,12 +12,16 @@ import { Abstract, IEvent } from '@conferentia/models';
   styleUrls: ['./admin-dashboard.page.scss'],
 })
 export class AdminDashboardPage implements OnInit {
+  public colorStatusMap = colorStatusMap;
+  public statusesMap = statusesMap;
+
   public abstracts$: Observable<Abstract[]> = of([]);
   public currentEvent$: Observable<IEvent | null> = of(null);
 
   constructor(
     private abstractService: AbstractService,
-    private eventService: EventService
+    private eventService: EventService,
+    private router: Router
   ) {
     this.currentEvent$ = eventService.currentEvent$;
   }
@@ -25,5 +32,15 @@ export class AdminDashboardPage implements OnInit {
         this.abstractService.getByEventId((event as IEvent)._id)
       )
     );
+  }
+
+  onDownloadClicked(href: string) {
+    window.open(href, '_blank');
+  }
+
+  onReviewClicked(abstractId: string) {
+    this.router.navigate([APP_ROUTE_TREE.ABSTRACT_REVIEW], {
+      queryParams: { abstractId: abstractId },
+    });
   }
 }

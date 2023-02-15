@@ -14,6 +14,8 @@ import { AlertController } from '@ionic/angular';
 import { AuthService } from '@auth0/auth0-angular';
 
 import dayjs from 'dayjs';
+// ToDo: Change this import. Move utils to lib.
+import { colorStatusMap } from "../../../../../apps/landing-unl-seminar-v1/src/app/_providers/utils";
 
 @Component({
   selector: 'conferentia-user-profile',
@@ -21,6 +23,9 @@ import dayjs from 'dayjs';
   styleUrls: ['./user-profile.page.scss'],
 })
 export class UserProfilePage implements OnInit {
+
+  public colorStatusMap = colorStatusMap;
+
   public currentUser$: Observable<User | null> = of(null);
   public abstracts$: Observable<Abstract[] | null> = of(null);
   public form: FormGroup | undefined;

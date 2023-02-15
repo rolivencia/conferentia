@@ -98,9 +98,9 @@ export default {
       options: {
         list: [
           { title: 'Submitted', value: 'submitted' },
-          { title: 'In Evaluation', value: 'inEvaluation' },
+          { title: 'In evaluation', value: 'inEvaluation' },
           {
-            title: 'AcceptedWithModifications',
+            title: 'Accepted with modifications',
             value: 'acceptedWithModifications',
           },
           { title: 'Accepted', value: 'accepted' },
@@ -116,6 +116,11 @@ export default {
         ],
       },
       initialValue: 'submitted',
+    },
+    {
+      title: 'Review',
+      name: 'review',
+      type: 'string',
     },
   ],
 };

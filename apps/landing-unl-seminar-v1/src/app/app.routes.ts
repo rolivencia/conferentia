@@ -15,10 +15,15 @@ import { ROUTE_TREE } from '@conferentia/ionic-pages';
 import { AuthService } from '@auth0/auth0-angular';
 import { adminDashboardGuard } from "../../../../libs/angular-services/src/lib/guards/admin-dashboard.guard";
 
+export const APP_ROUTE_TREE = {
+  HOME: 'home',
+  ABSTRACT_REVIEW: 'abstract-review',
+};
+
 export const appRoutes: ConferentiaRoute[] = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: APP_ROUTE_TREE.HOME,
     pathMatch: 'full',
   },
   {
@@ -146,6 +151,20 @@ export const appRoutes: ConferentiaRoute[] = [
       url: 'admin-dashboard',
       icon: 'bar-chart',
       render: adminDashboardGuard
+    },
+  },
+  {
+    path: APP_ROUTE_TREE.ABSTRACT_REVIEW,
+    loadChildren: () =>
+      import('./abstract-review/abstract-review.module').then(
+        (m) => m.AbstractReviewPageModule
+      ),
+    canLoad: [adminDashboardGuard],
+    data: {
+      title: 'Abstract Review',
+      url: APP_ROUTE_TREE.ABSTRACT_REVIEW,
+      icon: 'bar-chart',
+      render: () => of(false)
     },
   },
 ];
