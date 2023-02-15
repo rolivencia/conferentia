@@ -117,5 +117,10 @@ export default {
       },
       initialValue: 'submitted',
     },
+    {
+      title: 'Review',
+      name: 'review',
+      type: 'string',
+    },
   ],
 };
