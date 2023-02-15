@@ -11,7 +11,7 @@ export interface Abstract extends IAudit {
   identifier: string;
   authors: Author[];
   subjectArea: ISubjectArea;
-  keywords: string;
+  keywords: string[];
   fileUrl: string;
   status: string;
   format: string;
