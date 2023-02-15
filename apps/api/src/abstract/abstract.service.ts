@@ -35,18 +35,7 @@ export class AbstractService {
                   `;
     const results = await this.connector.fetch(query, {});
     return results
-      .map((abstract) => ({
-        ...abstract,
-        fileUrl: abstract.pdfFile.url,
-        keywords: (abstract.keywords as string)
-          .replaceAll('; ', ',')
-          .replaceAll('/', ',')
-          .replaceAll(';', ',')
-          .replaceAll(' , ', ',')
-          .replaceAll(', ', ',')
-          .replaceAll(' ,', ',')
-          .split(',')
-      }))
+      .map((abstract) => this.mapResponse(abstract))
       .sort((x: Abstract, y: Abstract) =>
         x.identifier.localeCompare(y.identifier, undefined, {
           numeric: true,
@@ -77,10 +66,7 @@ export class AbstractService {
                   `;
 
     const result: any[] = await this.connector.fetch(query, {});
-    return result.map((abstract) => {
-      const { pdfFile, ...data } = abstract;
-      return { ...data, fileUrl: pdfFile.url };
-    });
+    return result.map((abstract) => this.mapResponse(abstract));
   }
 
   public async getById(id: string): Promise<Abstract> {
@@ -188,5 +174,23 @@ export class AbstractService {
       {}
     );
     return `${abstractCount + 1}`;
+  }
+
+  private mapResponse(abstract: any): Abstract {
+    return {
+      ...abstract,
+      fileUrl: abstract.pdfFile.url,
+      format: (abstract.format as string)
+        .replaceAll('oralPresentation', 'Oral Presentation')
+        .replaceAll('flashPoster', 'Flash Poster'),
+      keywords: (abstract.keywords as string)
+        .replaceAll('; ', ',')
+        .replaceAll('/', ',')
+        .replaceAll(';', ',')
+        .replaceAll(' , ', ',')
+        .replaceAll(', ', ',')
+        .replaceAll(' ,', ',')
+        .split(','),
+    };
   }
 }
