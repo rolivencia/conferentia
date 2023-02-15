@@ -61,3 +61,26 @@
   max-width: unset !important;
   width: 560px !important;
 }
+
+// ToDo: Move these styles to the generic app theme, when one is ready
+
+.ion-flex-container {
+  display: flex;
+}
+
+.ion-flex-column {
+  flex-direction: column;
+}
+
+.ion-flex {
+  flex: 1;
+}
+
+/* And utilities for display attr. like: (or .ion-d-block) */
+.ion-display-block {
+  display: block;
+}
+
+.ion-display-flex {
+  display: flex;
+}
