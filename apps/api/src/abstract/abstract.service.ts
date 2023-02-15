@@ -90,8 +90,8 @@ export class AbstractService {
                   }
                   `;
 
-    const { pdfFile, ...data } = await this.connector.fetch(query, {});
-    return { ...data, fileUrl: pdfFile.url };
+    const result = await this.connector.fetch(query, {});
+    return this.mapResponse(result)
   }
 
   public async create(payload: SubmittedAbstractPayload) {
