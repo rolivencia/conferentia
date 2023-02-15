@@ -1,0 +1,98 @@
+<conferentia-fillable-content-page
+  [content]="abstractReview"></conferentia-fillable-content-page>
+
+<ng-template #abstractReview>
+  <ng-container *ngIf="abstract$ | async as abstract">
+    <ion-card-header> </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="ion-margin-bottom">
+              <p>
+                <ion-label>
+                  <strong>ID:</strong> {{abstract.subjectArea.code + '-' +
+                  abstract.identifier.toUpperCase()}}
+                </ion-label>
+              </p>
+              <p>
+                <ion-label
+                  ><strong>Title: </strong
+                  ><a [href]="abstract.fileUrl"
+                    >{{abstract.title}}</a
+                  ></ion-label
+                >
+              </p>
+              <p>
+                <ion-label>
+                  <strong>Subject Area: </strong
+                  >{{abstract.subjectArea.name}}</ion-label
+                >
+              </p>
+              <p>
+                <ion-label
+                  ><strong>Submitted Date: </strong>{{abstract._createdAt |
+                  date}}</ion-label
+                >
+              </p>
+            </div>
+            <div class="ion-margin-bottom">
+              <p>
+                <ion-label
+                  ><strong>Status: </strong
+                  >{{abstract.status.toUpperCase()}}</ion-label
+                >
+              </p>
+              <p>
+                <ion-label
+                  ><strong>Format: </strong>{{abstract.format}}</ion-label
+                >
+              </p>
+              <p>
+                <ion-label
+                  ><strong>Keywords: </strong>{{abstract.keywords.join(',')}}
+                </ion-label>
+              </p>
+              <p>
+                <ion-label
+                  ><strong>Authors: </strong>{{abstract.authors | authors
+                  }}</ion-label
+                >
+              </p>
+              <p>
+                <ion-label
+                  ><strong>Submitted by: </strong>{{abstract.user.firstName + '
+                  ' + abstract.user.lastName }}</ion-label
+                >
+              </p>
+            </div>
+            <ion-button (click)="onDownloadClicked(abstract.fileUrl)">
+              <ion-icon name="download-outline" slot="start"></ion-icon>
+              Download</ion-button
+            >
+          </ion-col>
+          <ion-col
+            class="ion-flex-container ion-flex-column ion-justify-content-between">
+            <ion-item class="ion-margin-bottom">
+              <ion-textarea
+                rows="5"
+                placeholder="Enter the review for the abstract here">
+              </ion-textarea>
+            </ion-item>
+            <ion-item>
+              <ion-label>Abstract Status</ion-label>
+              <ion-select [value]="abstract.status">
+                <ng-container *ngFor="let status of statuses">
+                  <ion-select-option [value]="status.value">
+                    {{status.title}}
+                  </ion-select-option>
+                </ng-container>
+              </ion-select>
+            </ion-item>
+            <ion-button>Save Changes</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ng-container>
+</ng-template>
