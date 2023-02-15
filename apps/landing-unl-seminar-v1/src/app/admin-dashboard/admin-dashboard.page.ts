@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractService, EventService } from '@conferentia/angular-services';
 import { Observable, of, switchMap } from 'rxjs';
 import { Abstract, IEvent } from '@conferentia/models';
+import { Router } from '@angular/router';
+import { APP_ROUTE_TREE } from '../app.routes';
 
 @Component({
   selector: 'conferentia-admin-dashboard',
@@ -14,7 +16,8 @@ export class AdminDashboardPage implements OnInit {
 
   constructor(
     private abstractService: AbstractService,
-    private eventService: EventService
+    private eventService: EventService,
+    private router: Router
   ) {
     this.currentEvent$ = eventService.currentEvent$;
   }
@@ -31,5 +34,9 @@ export class AdminDashboardPage implements OnInit {
     window.open(href, '_blank');
   }
 
-  onReviewClicked(abstractId: string) {}
+  onReviewClicked(abstractId: string) {
+    this.router.navigate([APP_ROUTE_TREE.ABSTRACT_REVIEW], {
+      queryParams: { abstractId: abstractId },
+    });
+  }
 }
