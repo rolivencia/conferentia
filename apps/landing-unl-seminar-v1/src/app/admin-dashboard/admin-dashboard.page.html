@@ -1,6 +1,5 @@
 <conferentia-fillable-content-page
-  [content]="adminDashboardContent"
-></conferentia-fillable-content-page>
+  [content]="adminDashboardContent"></conferentia-fillable-content-page>
 
 <ng-template #adminDashboardContent>
   <ion-card>
@@ -35,20 +34,20 @@
             </ion-col>
             <ion-col>{{abstract.format}}</ion-col>
             <ion-col class="ion-text-center"
-              ><ion-badge>{{abstract.status.toUpperCase()}}</ion-badge></ion-col
+              ><ion-badge [color]="colorStatusMap[abstract.status]"
+                >{{abstract.status.toUpperCase()}}</ion-badge
+              ></ion-col
             >
             <ion-col>
               <ion-button
                 expand="block"
-                (click)="onDownloadClicked(abstract.fileUrl)"
-              >
+                (click)="onDownloadClicked(abstract.fileUrl)">
                 <ion-icon name="download-outline" slot="start"></ion-icon>
                 Download</ion-button
               >
               <ion-button
                 expand="block"
-                (click)="onReviewClicked(abstract._id)"
-              >
+                (click)="onReviewClicked(abstract._id)">
                 <ion-icon name="search-circle-outline" slot="start"></ion-icon>
                 Review</ion-button
               >
