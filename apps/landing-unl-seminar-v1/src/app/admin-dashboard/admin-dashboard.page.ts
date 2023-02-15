@@ -4,7 +4,7 @@ import { Observable, of, switchMap } from 'rxjs';
 import { Abstract, IEvent } from '@conferentia/models';
 import { Router } from '@angular/router';
 import { APP_ROUTE_TREE } from '../app.routes';
-import { colorStatusMap } from '../_providers/utils';
+import { colorStatusMap, statusesMap } from "../_providers/utils";
 
 @Component({
   selector: 'conferentia-admin-dashboard',
@@ -13,6 +13,7 @@ import { colorStatusMap } from '../_providers/utils';
 })
 export class AdminDashboardPage implements OnInit {
   public colorStatusMap = colorStatusMap;
+  public statusesMap = statusesMap;
 
   public abstracts$: Observable<Abstract[]> = of([]);
   public currentEvent$: Observable<IEvent | null> = of(null);
