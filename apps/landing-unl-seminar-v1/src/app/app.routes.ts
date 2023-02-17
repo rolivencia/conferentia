@@ -1,23 +1,20 @@
 // Core
-import { inject } from '@angular/core';
-import { Observable, of, switchMap } from 'rxjs';
+import { of } from 'rxjs';
 
 // Guards
-import {
-  finishedRegistrationGuard,
-} from '@conferentia/angular-services';
+import { finishedRegistrationGuard } from '@conferentia/angular-services';
 
 // Models
 import { ConferentiaRoute } from '@conferentia/models';
 import { ROUTE_TREE } from '@conferentia/ionic-pages';
 
 // Services
-import { AuthService } from '@auth0/auth0-angular';
-import { adminDashboardGuard } from "../../../../libs/angular-services/src/lib/guards/admin-dashboard.guard";
+import { adminDashboardGuard } from '../../../../libs/angular-services/src/lib/guards/admin-dashboard.guard';
 
 export const APP_ROUTE_TREE = {
   HOME: 'home',
   ABSTRACT_REVIEW: 'abstract-review',
+  REGISTRATION: 'registration',
 };
 
 export const appRoutes: ConferentiaRoute[] = [
@@ -97,22 +94,15 @@ export const appRoutes: ConferentiaRoute[] = [
     data: { title: 'Committees', url: 'committees', icon: 'people' },
   },
   {
-    path: 'registration',
+    path: APP_ROUTE_TREE.REGISTRATION,
+    loadChildren: () =>
+      import('./registration/registration.module').then(
+        (m) => m.RegistrationPageModule
+      ),
     data: {
       title: 'Registration',
-      url: 'registration',
+      url: APP_ROUTE_TREE.REGISTRATION,
       icon: 'id-card',
-      action: (): void => {
-        const authService = inject(AuthService);
-        authService.loginWithRedirect();
-      },
-      render: (): Observable<boolean> => {
-        const authService = inject(AuthService);
-        return authService.isAuthenticated$.pipe(
-          switchMap((result) => of(!result))
-        );
-      },
-      type: 'external',
     },
   },
   {
@@ -150,7 +140,7 @@ export const appRoutes: ConferentiaRoute[] = [
       title: 'Abstracts Review Dashboard',
       url: 'admin-dashboard',
       icon: 'bar-chart',
-      render: adminDashboardGuard
+      render: adminDashboardGuard,
     },
   },
   {
@@ -164,7 +154,7 @@ export const appRoutes: ConferentiaRoute[] = [
       title: 'Abstract Review',
       url: APP_ROUTE_TREE.ABSTRACT_REVIEW,
       icon: 'bar-chart',
-      render: () => of(false)
+      render: () => of(false),
     },
   },
 ];
