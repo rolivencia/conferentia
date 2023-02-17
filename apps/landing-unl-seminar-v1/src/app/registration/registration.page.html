@@ -1,7 +1,116 @@
-<conferentia-fillable-content-page [content]="registrationContent"></conferentia-fillable-content-page>
+<conferentia-fillable-content-page
+  [content]="registrationContent"></conferentia-fillable-content-page>
 
 <ng-template #registrationContent>
-  <ion-card>
-    <ion-card-content>Available shortly.</ion-card-content>
-  </ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-content>
+            <div class="ion-margin-bottom">
+              <ion-text
+                >The payment of a registration fee allows the presentation of
+                two papers in any of the thematic areas.
+              </ion-text>
+            </div>
+            <div class="ion-margin-bottom">
+              <ion-grid>
+                <ion-row>
+                  <ion-col></ion-col>
+                  <ion-col><strong>Until 28 February</strong></ion-col>
+                  <ion-col><strong>From 1 March</strong></ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col><strong>Post degree student</strong></ion-col>
+                  <ion-col>ARS 7000</ion-col>
+                  <ion-col>ARS 9000</ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col><strong>General - Researchers</strong></ion-col>
+                  <ion-col>ARS 10000</ion-col>
+                  <ion-col>ARS 13000</ion-col>
+                </ion-row>
+              </ion-grid>
+              ARS: Argentinian pesos
+            </div>
+          </ion-card-content>
+        </ion-card>
+        <ion-card class="ion-text-justify">
+          <ion-card-content>
+            <div class="ion-margin-bottom">
+              <p>
+                El pago de las inscripciones se debe realizar mediante
+                transferencia o depósito a la Cuenta de la Fundación Facultad de
+                Ingeniería Química de la Universidad Nacional del Litoral.
+              </p>
+            </div>
+            <div class="ion-margin-bottom">
+              <p><strong>Banco Credicoop Sucursal Santa Fe</strong></p>
+              <p><strong>Cuenta Corriente Nº:</strong> 191.340.035713.2</p>
+              <p><strong>CBU:</strong> 1910340655034003571328</p>
+              <p><strong>CUIT:</strong> 30-62955696-2</p>
+            </div>
+            <div class="ion-margin-bottom">
+              Una vez realizada la operación deberá remitirse copia del
+              comprobante de transacción a los fines de informar el pago, vía
+              e-mail a: <strong>fundacion.fiq.unl@gmail.com</strong> con copia a
+              <strong>nveizaga@fiq.unl.edu.ar</strong>. En el mail con Asunto:
+              “Pago de inscripción WFAHC”, el mismo en el cual se adjunta el
+              comprobante, indicar los siguientes datos a fin de confeccionar la
+              factura:
+            </div>
+            <div>
+              <ul>
+                <li>Razón social o Nombre y apellido</li>
+                <li>CUIT o CUIL</li>
+                <li>
+                  Condición frente al IVA (consumidor final, responsable
+                  inscripto, exento)
+                </li>
+                <li>Domicilio</li>
+                <li>Concepto de la factura</li>
+              </ul>
+
+              Aclaración: la Fundación Facultad de Ingeniería Química de la
+              Universidad Nacional del Litoral, por ser exenta sólo emite
+              factura C.
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card>
+          <ion-card-header class="ion-text-center">
+            <ion-card-title>Platform Registration</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-text
+              ><h3 class="ion-text-justify">
+                To register to the digital platform and be granted access for
+                abstracts submission, please click in the
+                <strong>Login</strong> button available at the top of the page.
+              </h3></ion-text
+            >
+            <hr />
+          </ion-card-content>
+        </ion-card>
+        <ion-card>
+          <ion-card-header class="ion-text-center">
+            <ion-card-title>Important dates</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-text color="primary"><h2>Abstract submission</h2></ion-text>
+            <ion-text><h3>Available from 5 December 2022</h3></ion-text>
+            <hr />
+            <ion-text color="primary"
+              ><h2>Abstract submission deadline</h2></ion-text
+            >
+            <ion-text><h3>28 February 2023</h3></ion-text>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ng-template>
