@@ -60,7 +60,9 @@
               </p>
               <p>
                 <ion-label
-                  ><strong>Submitted by: </strong>{{abstract.user.firstName + ' ' + abstract.user.lastName }}</ion-label
+                  ><strong>Submitted by: </strong>{{abstract.user.firstName + ' ' + abstract.user.lastName }}
+                  (<a [href]="'mailto:' + abstract.user.email">{{abstract.user.email}}</a>)
+                </ion-label
                 >
               </p>
             </div>
