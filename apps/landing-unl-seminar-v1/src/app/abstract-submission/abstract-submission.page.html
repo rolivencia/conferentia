@@ -9,163 +9,31 @@
           <ion-col size="12" size-lg="8">
             <ion-card>
               <ion-card-content>
-                <div class="ion-margin-bottom">
-                  When preparing the work, keep in mind that the objectives of the
-                  workshop are:
-                  <ul>
-                    <li>
-                      Promote the updating of scientific-technological advances in the
-                      fields of heterogeneous catalysis and engineering.
-                    </li>
-                    <li>
-                      Promote the generation of new international cooperation
-                      agreements.
-                    </li>
-                  </ul>
-                  Therefore, the papers should focus on showing the line/s of research
-                  developed, the main results and future perspectives. Following the
-                  format of a scientific presentation:
-
-                  <ul>
-                    <li>
-                      You can <strong>download</strong> the template in DOCX format for
-                      sending works by
-                      <a [href]="'assets/templates/fawhc-2023-abstract-template.docx'"
-                      >clicking here</a
-                      >.
-                    </li>
-                    <li>
-                      You can submit your abstract (one page) in PDF file from 5
-                      December 2022. Registered users can access the submission of
-                      papers, with Email and password.
-                      <ng-container *ngIf="!(currentUser$ | async) as currentUser">
-                        Access the platform for submitting abstracts by clicking
-                        <a href (click)="navigateToRegistration()">here</a>.
-                      </ng-container>
-                    </li>
-                    <li>
-                      To check for your submitted abstracts and their statuses, please
-                      check your
-                      <a routerLink="/profile">User Profile</a> page.
-                    </li>
-                  </ul>
-                </div>
-              </ion-card-content>
-            </ion-card>
-            <ion-card *ngIf="(currentUser$ | async) as currentUser">
-              <ion-card-content>
-                <form *ngIf="!!form" [formGroup]="form">
-                  <ion-toolbar>
-                    <ion-title class="ion-no-padding" slot="start"
-                    >Abstract information</ion-title
-                    >
-                    <ion-spinner
-                      color="primary"
-                      slot="end"
-                      *ngIf="submitting"></ion-spinner>
-                    <ion-button
-                      *ngIf="!submitting"
-                      slot="end"
-                      [disabled]="this.form.invalid"
-                      (click)="onSubmitAbstractButtonClicked()"
-                    ><ion-icon name="send-outline" slot="start"></ion-icon
-                    >Submit</ion-button
-                    ></ion-toolbar
+                <p>
+                  <ion-text
+                    >Abstract submission deadline for the French Argentinian
+                    Workshop on Heterogeneous Catalysis has already passed. We
+                    appreciate the overwhelming response from the scientific
+                    community and thank you for your interest in contributing to
+                    our event.</ion-text
                   >
-                  <ion-list>
-                    <ion-item>
-                      <ion-label>Title</ion-label>
-                      <ion-input type="text" formControlName="title"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label>Keywords</ion-label>
-                      <ion-input
-                        type="text"
-                        formControlName="keywords"
-                        placeholder="Enter keywords (separated by slashes /)"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label>Subject Area</ion-label>
-                      <ion-select
-                        placeholder="Select the subject area"
-                        formControlName="subjectAreaId">
-                        <ng-container
-                          *ngFor="let subjectArea of currentEvent.subjectAreas">
-                          <ion-select-option [value]="subjectArea._id"
-                          >{{subjectArea.name}}</ion-select-option
-                          >
-                        </ng-container>
-                      </ion-select>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label>Suggested Modality</ion-label>
-                      <ion-select
-                        placeholder="Select a modality for your abstract"
-                        formControlName="format">
-                        <ion-select-option value="oralPresentation"
-                        >Oral Presentation</ion-select-option
-                        >
-                        <ion-select-option value="flashPoster"
-                        >Flash Poster</ion-select-option
-                        >
-                      </ion-select>
-                    </ion-item>
-                    <ion-item
-                    ><input
-                      type="file"
-                      class="form-control-file"
-                      id="uploaded-image"
-                      formControlName="file"
-                      accept="application/pdf"
-                      size="2048000"
-                      (change)="processUploadedAbstractFile($event)" />
-                    </ion-item>
-                  </ion-list>
-                  <hr />
-                  <ion-toolbar>
-                    <ion-title class="ion-no-padding" slot="start"
-                    >Author's information, in order
-                    </ion-title>
-                    <ion-button slot="end" (click)="onAddAuthorButtonClicked()"
-                    ><ion-icon name="add-circle-outline" slot="start"></ion-icon> Add
-                      Author</ion-button
-                    >
-                  </ion-toolbar>
-                  <div formArrayName="authors">
-                    <ng-container
-                      *ngFor="let authorControl of authorControls; let i = index"
-                      [formGroupName]="i">
-                      <ion-item class="ion-padding-bottom">
-                        <ion-item class="ion-padding-end">
-                          <ion-label position="stacked">First Name</ion-label>
-                          <ion-input
-                            type="text"
-                            formControlName="firstName"></ion-input>
-                        </ion-item>
-                        <ion-item class="ion-padding-horizontal">
-                          <ion-label position="stacked">Last Name</ion-label>
-                          <ion-input type="text" formControlName="lastName"></ion-input>
-                        </ion-item>
-                        <ion-item class="ion-padding-start">
-                          <ion-label position="stacked">Institution</ion-label>
-                          <ion-input
-                            type="text"
-                            formControlName="institution"></ion-input>
-                        </ion-item>
-                        <ion-button
-                          color="danger"
-                          class="ion-margin"
-                          [disabled]="i === 0"
-                          (click)="onRemoveAuthorButtonClicked(i)"
-                        ><ion-icon
-                          name="remove-circle-outline"
-                          slot="start"></ion-icon
-                        >Remove</ion-button
-                        >
-                      </ion-item>
-                    </ng-container>
-                  </div>
-                </form>
+                </p>
+
+                <p>
+                  <ion-text
+                    >For those who have submitted their abstracts, we will be
+                    reviewing them carefully and will get back to you soon with
+                    our decision via the plaform and via email. We look forward
+                    to welcoming all of you to our workshop and having an
+                    insightful and productive time together.</ion-text
+                  >
+                </p>
+
+                <p>
+                  <ion-text
+                    >Thank you for your understanding and cooperation.</ion-text
+                  >
+                </p>
               </ion-card-content>
             </ion-card>
           </ion-col>
@@ -180,14 +48,18 @@
               <ion-text><h3>Available from 5 December 2022</h3></ion-text>
               <hr />
               <ion-text color="primary"
-              ><h2>Abstract submission deadline</h2></ion-text
+                ><h2>Abstract submission deadline</h2></ion-text
               >
               <ion-text
-              ><h3>
-                <del>28 February 2023</del>
-              </h3></ion-text
+                ><h3>
+                  <del>28 February 2023</del>
+                </h3></ion-text
               >
-              <ion-text><h3>10 March 2023</h3></ion-text>
+              <ion-text
+                ><h3>
+                  <del>10 March 2023</del>
+                </h3></ion-text
+              >
             </ion-card-content>
           </ion-card>
           <ion-card>
@@ -202,7 +74,7 @@
               <ion-text><h3>3 min online only</h3></ion-text>
               <p class="ion-padding-top">
                 <ion-text
-                >The slides for oral presentations or flash posters must be in
+                  >The slides for oral presentations or flash posters must be in
                   English, it is suggested that the exposition be preferably in
                   English.
                 </ion-text>
@@ -239,29 +111,190 @@
     <ion-card-content>
       <p>
         <ion-text
-        >Abstract submission deadline for the French Argentinian
-          Workshop on Heterogeneous Catalysis has already passed. We
-          appreciate the overwhelming response from the scientific
-          community and thank you for your interest in contributing to
-          our event.</ion-text
+          >Abstract submission deadline for the French Argentinian Workshop on
+          Heterogeneous Catalysis has already passed. We appreciate the
+          overwhelming response from the scientific community and thank you for
+          your interest in contributing to our event.</ion-text
         >
       </p>
 
       <p>
         <ion-text
-        >For those who have submitted their abstracts, we will be
-          reviewing them carefully and will get back to you soon with
-          our decision via the plaform and via email. We look forward to
-          welcoming all of you to our workshop and having an insightful
-          and productive time together.</ion-text
+          >For those who have submitted their abstracts, we will be reviewing
+          them carefully and will get back to you soon with our decision via the
+          plaform and via email. We look forward to welcoming all of you to our
+          workshop and having an insightful and productive time
+          together.</ion-text
         >
       </p>
 
       <p>
-        <ion-text
-        >Thank you for your understanding and cooperation.</ion-text
-        >
+        <ion-text>Thank you for your understanding and cooperation.</ion-text>
       </p>
     </ion-card-content>
   </ion-card>
 </ng-template>
+
+<!--<ng-template>-->
+<!--  <ion-card>-->
+<!--    <ion-card-content>-->
+<!--      <div class="ion-margin-bottom">-->
+<!--        When preparing the work, keep in mind that the objectives of the-->
+<!--        workshop are:-->
+<!--        <ul>-->
+<!--          <li>-->
+<!--            Promote the updating of scientific-technological advances in the-->
+<!--            fields of heterogeneous catalysis and engineering.-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            Promote the generation of new international cooperation-->
+<!--            agreements.-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--        Therefore, the papers should focus on showing the line/s of research-->
+<!--        developed, the main results and future perspectives. Following the-->
+<!--        format of a scientific presentation:-->
+
+<!--        <ul>-->
+<!--          <li>-->
+<!--            You can <strong>download</strong> the template in DOCX format for-->
+<!--            sending works by-->
+<!--            <a [href]="'assets/templates/fawhc-2023-abstract-template.docx'"-->
+<!--            >clicking here</a-->
+<!--            >.-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            You can submit your abstract (one page) in PDF file from 5-->
+<!--            December 2022. Registered users can access the submission of-->
+<!--            papers, with Email and password.-->
+<!--            <ng-container *ngIf="!(currentUser$ | async) as currentUser">-->
+<!--              Access the platform for submitting abstracts by clicking-->
+<!--              <a href (click)="navigateToRegistration()">here</a>.-->
+<!--            </ng-container>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            To check for your submitted abstracts and their statuses, please-->
+<!--            check your-->
+<!--            <a routerLink="/profile">User Profile</a> page.-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </ion-card-content>-->
+<!--  </ion-card>-->
+<!--  <ion-card *ngIf="(currentUser$ | async) as currentUser">-->
+<!--    <ion-card-content>-->
+<!--      <form *ngIf="!!form" [formGroup]="form">-->
+<!--        <ion-toolbar>-->
+<!--          <ion-title class="ion-no-padding" slot="start"-->
+<!--          >Abstract information</ion-title-->
+<!--          >-->
+<!--          <ion-spinner-->
+<!--            color="primary"-->
+<!--            slot="end"-->
+<!--            *ngIf="submitting"></ion-spinner>-->
+<!--          <ion-button-->
+<!--            *ngIf="!submitting"-->
+<!--            slot="end"-->
+<!--            [disabled]="this.form.invalid"-->
+<!--            (click)="onSubmitAbstractButtonClicked()"-->
+<!--          ><ion-icon name="send-outline" slot="start"></ion-icon-->
+<!--          >Submit</ion-button-->
+<!--          ></ion-toolbar-->
+<!--        >-->
+<!--        <ion-list>-->
+<!--          <ion-item>-->
+<!--            <ion-label>Title</ion-label>-->
+<!--            <ion-input type="text" formControlName="title"></ion-input>-->
+<!--          </ion-item>-->
+<!--          <ion-item>-->
+<!--            <ion-label>Keywords</ion-label>-->
+<!--            <ion-input-->
+<!--              type="text"-->
+<!--              formControlName="keywords"-->
+<!--              placeholder="Enter keywords (separated by slashes /)"></ion-input>-->
+<!--          </ion-item>-->
+<!--          <ion-item>-->
+<!--            <ion-label>Subject Area</ion-label>-->
+<!--            <ion-select-->
+<!--              placeholder="Select the subject area"-->
+<!--              formControlName="subjectAreaId">-->
+<!--              <ng-container-->
+<!--                *ngFor="let subjectArea of currentEvent.subjectAreas">-->
+<!--                <ion-select-option [value]="subjectArea._id"-->
+<!--                >{{subjectArea.name}}</ion-select-option-->
+<!--                >-->
+<!--              </ng-container>-->
+<!--            </ion-select>-->
+<!--          </ion-item>-->
+<!--          <ion-item>-->
+<!--            <ion-label>Suggested Modality</ion-label>-->
+<!--            <ion-select-->
+<!--              placeholder="Select a modality for your abstract"-->
+<!--              formControlName="format">-->
+<!--              <ion-select-option value="oralPresentation"-->
+<!--              >Oral Presentation</ion-select-option-->
+<!--              >-->
+<!--              <ion-select-option value="flashPoster"-->
+<!--              >Flash Poster</ion-select-option-->
+<!--              >-->
+<!--            </ion-select>-->
+<!--          </ion-item>-->
+<!--          <ion-item-->
+<!--          ><input-->
+<!--            type="file"-->
+<!--            class="form-control-file"-->
+<!--            id="uploaded-image"-->
+<!--            formControlName="file"-->
+<!--            accept="application/pdf"-->
+<!--            size="2048000"-->
+<!--            (change)="processUploadedAbstractFile($event)" />-->
+<!--          </ion-item>-->
+<!--        </ion-list>-->
+<!--        <hr />-->
+<!--        <ion-toolbar>-->
+<!--          <ion-title class="ion-no-padding" slot="start"-->
+<!--          >Author's information, in order-->
+<!--          </ion-title>-->
+<!--          <ion-button slot="end" (click)="onAddAuthorButtonClicked()"-->
+<!--          ><ion-icon name="add-circle-outline" slot="start"></ion-icon> Add-->
+<!--            Author</ion-button-->
+<!--          >-->
+<!--        </ion-toolbar>-->
+<!--        <div formArrayName="authors">-->
+<!--          <ng-container-->
+<!--            *ngFor="let authorControl of authorControls; let i = index"-->
+<!--            [formGroupName]="i">-->
+<!--            <ion-item class="ion-padding-bottom">-->
+<!--              <ion-item class="ion-padding-end">-->
+<!--                <ion-label position="stacked">First Name</ion-label>-->
+<!--                <ion-input-->
+<!--                  type="text"-->
+<!--                  formControlName="firstName"></ion-input>-->
+<!--              </ion-item>-->
+<!--              <ion-item class="ion-padding-horizontal">-->
+<!--                <ion-label position="stacked">Last Name</ion-label>-->
+<!--                <ion-input type="text" formControlName="lastName"></ion-input>-->
+<!--              </ion-item>-->
+<!--              <ion-item class="ion-padding-start">-->
+<!--                <ion-label position="stacked">Institution</ion-label>-->
+<!--                <ion-input-->
+<!--                  type="text"-->
+<!--                  formControlName="institution"></ion-input>-->
+<!--              </ion-item>-->
+<!--              <ion-button-->
+<!--                color="danger"-->
+<!--                class="ion-margin"-->
+<!--                [disabled]="i === 0"-->
+<!--                (click)="onRemoveAuthorButtonClicked(i)"-->
+<!--              ><ion-icon-->
+<!--                name="remove-circle-outline"-->
+<!--                slot="start"></ion-icon-->
+<!--              >Remove</ion-button-->
+<!--              >-->
+<!--            </ion-item>-->
+<!--          </ng-container>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </ion-card-content>-->
+<!--  </ion-card>-->
+<!--</ng-template>-->
