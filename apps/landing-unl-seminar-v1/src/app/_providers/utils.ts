@@ -14,7 +14,7 @@ export const statusesMap: { [key: string]: string } = {
   accepted: 'Accepted',
   acceptedWithModifications: 'Accepted with modifications',
   rejected: 'Rejected',
-  'Assigned modality: Oral': 'Assigned Modality: Oral',
+  'Assigned modality: Oral presentation': 'Assigned Modality: Oral',
   'Assigned modality: Flash poster': 'Assigned Modality: Flash Poster',
 }
 
