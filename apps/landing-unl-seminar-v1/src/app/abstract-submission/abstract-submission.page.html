@@ -9,128 +9,6 @@
           <ion-col size="12" size-lg="8">
             <ng-container
               *ngTemplateOutlet="abstractSubmissionDisabled"></ng-container>
-            <ion-card *ngIf="(currentUser$ | async) as currentUser">
-              <ion-card-content>
-                <form *ngIf="!!form" [formGroup]="form">
-                  <ion-toolbar>
-                    <ion-title class="ion-no-padding" slot="start"
-                      >Abstract revision information</ion-title
-                    >
-                    <ion-spinner
-                      color="primary"
-                      slot="end"
-                      *ngIf="submitting"></ion-spinner>
-                    <ion-button
-                      *ngIf="!submitting"
-                      slot="end"
-                      [disabled]="this.form.invalid"
-                      (click)="onSubmitAbstractButtonClicked()"
-                      ><ion-icon name="send-outline" slot="start"></ion-icon
-                      >Submit</ion-button
-                    ></ion-toolbar
-                  >
-                  <ion-list>
-                    <ion-item>
-                      <ion-label>Title</ion-label>
-                      <ion-input
-                        type="text"
-                        formControlName="title"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label>Keywords</ion-label>
-                      <ion-input
-                        type="text"
-                        formControlName="keywords"
-                        placeholder="Enter keywords (separated by slashes /)"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label>Subject Area</ion-label>
-                      <ion-select
-                        placeholder="Select the subject area"
-                        formControlName="subjectAreaId">
-                        <ng-container
-                          *ngFor="let subjectArea of currentEvent.subjectAreas">
-                          <ion-select-option [value]="subjectArea._id"
-                            >{{subjectArea.name}}</ion-select-option
-                          >
-                        </ng-container>
-                      </ion-select>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label>Suggested Modality</ion-label>
-                      <ion-select
-                        placeholder="Select a modality for your abstract"
-                        formControlName="format">
-                        <ion-select-option value="oralPresentation"
-                          >Oral Presentation</ion-select-option
-                        >
-                        <ion-select-option value="flashPoster"
-                          >Flash Poster</ion-select-option
-                        >
-                      </ion-select>
-                    </ion-item>
-                    <ion-item
-                      ><input
-                        type="file"
-                        class="form-control-file"
-                        id="uploaded-image"
-                        formControlName="file"
-                        accept="application/pdf"
-                        size="2048000"
-                        (change)="processUploadedAbstractFile($event)" />
-                    </ion-item>
-                  </ion-list>
-                  <hr />
-                  <ion-toolbar>
-                    <ion-title class="ion-no-padding" slot="start"
-                      >Author's information, in order
-                    </ion-title>
-                    <ion-button slot="end" (click)="onAddAuthorButtonClicked()"
-                      ><ion-icon
-                        name="add-circle-outline"
-                        slot="start"></ion-icon>
-                      Add Author</ion-button
-                    >
-                  </ion-toolbar>
-                  <div formArrayName="authors">
-                    <ng-container
-                      *ngFor="let authorControl of authorControls; let i = index"
-                      [formGroupName]="i">
-                      <ion-item class="ion-padding-bottom">
-                        <ion-item class="ion-padding-end">
-                          <ion-label position="stacked">First Name</ion-label>
-                          <ion-input
-                            type="text"
-                            formControlName="firstName"></ion-input>
-                        </ion-item>
-                        <ion-item class="ion-padding-horizontal">
-                          <ion-label position="stacked">Last Name</ion-label>
-                          <ion-input
-                            type="text"
-                            formControlName="lastName"></ion-input>
-                        </ion-item>
-                        <ion-item class="ion-padding-start">
-                          <ion-label position="stacked">Institution</ion-label>
-                          <ion-input
-                            type="text"
-                            formControlName="institution"></ion-input>
-                        </ion-item>
-                        <ion-button
-                          color="danger"
-                          class="ion-margin"
-                          [disabled]="i === 0"
-                          (click)="onRemoveAuthorButtonClicked(i)"
-                          ><ion-icon
-                            name="remove-circle-outline"
-                            slot="start"></ion-icon
-                          >Remove</ion-button
-                        >
-                      </ion-item>
-                    </ng-container>
-                  </div>
-                </form>
-              </ion-card-content>
-            </ion-card>
           </ion-col>
         </ion-col>
         <ion-col size="12" size-lg="4">
@@ -159,7 +37,7 @@
               <ion-text color="primary"
                 ><h2>Abstract revisions submission deadline</h2></ion-text
               >
-              <ion-text><h3>27 March 2023</h3></ion-text>
+              <ion-text><h3>31 March 2023</h3></ion-text>
             </ion-card-content>
           </ion-card>
           <ion-card>
@@ -261,7 +139,8 @@
           overwhelming response from the scientific community and thank you for
           your interest in contributing to our event. Only
           <strong>revisions</strong> of the already sent abstracts will be
-          accepted, until March 27th.
+          accepted, until March 31st. To upload a revision of a sent abstract,
+          please refer to your <a routerLink="/profile">User Profile</a> page.
         </ion-text>
       </div>
 
