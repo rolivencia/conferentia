@@ -80,6 +80,12 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      title: 'URL de Video/Poster',
+      name: 'posterUrl',
+      type: 'string',
+      description: 'Link de YouTube o Vimeo para el video o el poster',
+    },
+    {
       title: 'Formato',
       name: 'format',
       type: 'string',

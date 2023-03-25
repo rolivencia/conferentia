@@ -31,7 +31,8 @@ export class AbstractService {
                         subjectArea->,
                         authors[]->,
                         pdfFile{ url },
-                        review
+                        review,
+                        posterUrl
                   } | order(identifier)
                   `;
     const results = await this.connector.fetch(query, {});
@@ -63,7 +64,8 @@ export class AbstractService {
                         subjectArea->,
                         authors[]->,
                         pdfFile{ url },
-                        review
+                        review,
+                        posterUrl
                   }
                   `;
 
@@ -89,7 +91,8 @@ export class AbstractService {
                         subjectArea->,
                         authors[]->,
                         pdfFile{ url },
-                        review
+                        review,
+                        posterUrl
                   }
                   `;
     const result = await this.connector.fetch(query, {});
