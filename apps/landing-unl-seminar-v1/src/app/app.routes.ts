@@ -15,6 +15,7 @@ export const APP_ROUTE_TREE = {
   HOME: 'home',
   ABSTRACT_REVIEW: 'abstract-review',
   REGISTRATION: 'registration',
+  SUBMIT_ABSTRACT_REVISION: 'submit-abstract-revision'
 };
 
 export const appRoutes: ConferentiaRoute[] = [
@@ -153,6 +154,20 @@ export const appRoutes: ConferentiaRoute[] = [
     data: {
       title: 'Abstract Review',
       url: APP_ROUTE_TREE.ABSTRACT_REVIEW,
+      icon: 'bar-chart',
+      render: () => of(false),
+    },
+  },
+  {
+    path: APP_ROUTE_TREE.SUBMIT_ABSTRACT_REVISION,
+    loadChildren: () =>
+      import('./submit-abstract-revision/submit-abstract-revision.module').then(
+        (m) => m.SubmitAbstractRevisionPageModule
+      ),
+    canLoad: [adminDashboardGuard],
+    data: {
+      title: 'Submit Abstract Revision',
+      url: APP_ROUTE_TREE.SUBMIT_ABSTRACT_REVISION,
       icon: 'bar-chart',
       render: () => of(false),
     },
