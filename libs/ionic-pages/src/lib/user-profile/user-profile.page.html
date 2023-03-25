@@ -148,6 +148,21 @@
                     >
                   </ion-col>
                 </ion-row>
+                <ion-row *ngIf="abstract.status === 'Assigned modality: Flash poster'">
+                  <ion-col>
+                    <ion-text class="ion-margin-top"
+                    ><strong>Flash Poster URL/Link: </strong>
+
+                      <ng-container *ngIf="abstract.posterUrl">
+                        <a [href]="abstract.posterUrl">{{ abstract.posterUrl }}</a>
+                      </ng-container>
+
+                      <ng-container *ngIf="!abstract.posterUrl">
+                        Not Submitted
+                      </ng-container>
+                    </ion-text>
+                  </ion-col>
+                </ion-row>
               </ion-grid>
             </ion-item>
           </ion-list>

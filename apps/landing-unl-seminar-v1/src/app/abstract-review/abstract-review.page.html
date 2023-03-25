@@ -60,10 +60,25 @@
               </p>
               <p>
                 <ion-label
-                  ><strong>Submitted by: </strong>{{abstract.user.firstName + ' ' + abstract.user.lastName }}
-                  (<a [href]="'mailto:' + abstract.user.email">{{abstract.user.email}}</a>)
-                </ion-label
-                >
+                  ><strong>Submitted by: </strong>{{abstract.user.firstName + '
+                  ' + abstract.user.lastName }} (<a
+                    [href]="'mailto:' + abstract.user.email"
+                    >{{abstract.user.email}}</a
+                  >)
+                </ion-label>
+              </p>
+              <p *ngIf="abstract.status === 'Assigned modality: Flash poster'">
+                <ion-label class="ion-margin-top"
+                  ><strong>Flash Poster URL/Link: </strong>
+
+                  <ng-container *ngIf="abstract.posterUrl">
+                    <a [href]="abstract.posterUrl">{{ abstract.posterUrl }}</a>
+                  </ng-container>
+
+                  <ng-container *ngIf="!abstract.posterUrl">
+                    Not Submitted
+                  </ng-container>
+                </ion-label>
               </p>
             </div>
             <ion-button (click)="onDownloadClicked(abstract.fileUrl)">
