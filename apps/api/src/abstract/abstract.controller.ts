@@ -4,10 +4,11 @@ import {
   Controller,
   Get,
   Param,
-  Post, Put,
+  Post,
+  Put,
   UploadedFile,
-  UseInterceptors
-} from "@nestjs/common";
+  UseInterceptors,
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 // Models
@@ -19,6 +20,7 @@ import { AbstractService } from './abstract.service';
 // Typings
 import { Express } from 'express';
 import { Multer } from 'multer';
+import { SubmittedAbstractRevisionPayload } from '../../../../libs/models/src/lib/abstract.interface';
 
 @Controller('abstract')
 export class AbstractController {
@@ -56,8 +58,16 @@ export class AbstractController {
   }
 
   @Put('review')
-  update(@Body() body: Pick<Abstract, '_id' | 'review' | 'status'>): Promise<Abstract> {
+  public update(
+    @Body() body: Pick<Abstract, '_id' | 'review' | 'status'>
+  ): Promise<Abstract> {
     return this.abstractService.updateAbstractReview(body);
   }
 
+  @Put('revision')
+  public revision(
+    @Body() body: Abstract
+  ): Promise<SubmittedAbstractRevisionPayload> {
+    return this.abstractService.updateAbstractLinkAndFlashPoster(body);
+  }
 }
