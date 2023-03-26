@@ -16,6 +16,7 @@ import { AuthService } from '@auth0/auth0-angular';
 import dayjs from 'dayjs';
 // ToDo: Change this import. Move utils to lib.
 import { colorStatusMap } from "../../../../../apps/landing-unl-seminar-v1/src/app/_providers/utils";
+import { APP_ROUTE_TREE } from "../../../../../apps/landing-unl-seminar-v1/src/app/app.routes";
 
 @Component({
   selector: 'conferentia-user-profile',
@@ -106,6 +107,11 @@ export class UserProfilePage implements OnInit {
   onLogoutButtonClicked() {
     this.userService.logout();
     this.router.navigate([ROUTE_TREE.HOME]);
+  }
+  onSubmitRevisionButtonClicked(abstractId: string) {
+    this.router.navigate([APP_ROUTE_TREE.SUBMIT_ABSTRACT_REVISION], {
+      queryParams: { abstractId: abstractId },
+    });
   }
 
   private buildForm() {
