@@ -1,4 +1,116 @@
 <conferentia-fillable-content-page
   [content]="submitAbstractRevisionContent"></conferentia-fillable-content-page>
 
-<ng-template #submitAbstractRevisionContent> </ng-template>
+<ng-template #submitAbstractRevisionContent>
+  <ng-container *ngIf="abstract$ | async as abstract">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="5">
+            <div class="ion-margin-bottom">
+              <p>
+                <ion-label>
+                  <strong>ID:</strong> {{abstract.subjectArea.code + '-' +
+                  abstract.identifier.toUpperCase()}}
+                </ion-label>
+              </p>
+              <p>
+                <ion-label
+                  ><strong>Title: </strong
+                  ><a [href]="abstract.fileUrl"
+                    >{{abstract.title}}</a
+                  ></ion-label
+                >
+              </p>
+              <p>
+                <ion-label>
+                  <strong>Subject Area: </strong
+                  >{{abstract.subjectArea.name}}</ion-label
+                >
+              </p>
+              <p>
+                <ion-label
+                  ><strong>Submitted Date: </strong>{{abstract._createdAt |
+                  date}}</ion-label
+                >
+              </p>
+            </div>
+            <div class="ion-margin-bottom">
+              <p>
+                <ion-label
+                  ><strong>Status: </strong
+                  >{{abstract.status.toUpperCase()}}</ion-label
+                >
+              </p>
+              <p>
+                <ion-label
+                  ><strong>Format: </strong>{{abstract.format}}</ion-label
+                >
+              </p>
+              <p>
+                <ion-label
+                  ><strong>Keywords: </strong>{{abstract.keywords.join(', ')}}
+                </ion-label>
+              </p>
+              <p>
+                <ion-label
+                  ><strong>Authors: </strong>{{abstract.authors | authors
+                  }}</ion-label
+                >
+              </p>
+              <p>
+                <ion-label
+                  ><strong>Submitted by: </strong>{{abstract.user.firstName + '
+                  ' + abstract.user.lastName }} (<a
+                    [href]="'mailto:' + abstract.user.email"
+                    >{{abstract.user.email}}</a
+                  >)
+                </ion-label>
+              </p>
+              <p *ngIf="abstract.status === 'Assigned modality: Flash poster'">
+                <ion-label class="ion-margin-top"
+                  ><strong>Flash Poster URL/Link: </strong>
+
+                  <ng-container *ngIf="abstract.posterUrl">
+                    <a [href]="abstract.posterUrl">{{ abstract.posterUrl }}</a>
+                  </ng-container>
+
+                  <ng-container *ngIf="!abstract.posterUrl">
+                    Not Submitted
+                  </ng-container>
+                </ion-label>
+              </p>
+              <p class="ion-padding-top"><strong>Abstract Review</strong></p>
+              <p>{{abstract.review}}</p>
+            </div>
+            <ion-button (click)="onDownloadClicked(abstract.fileUrl)">
+              <ion-icon name="download-outline" slot="start"></ion-icon>
+              Download Submitted Abstract File</ion-button
+            >
+          </ion-col >
+          <ion-col size="6" offset="1">
+            <ion-list-header
+              ><strong
+                >Submit Abstract Revision & Flash Poster link</strong
+              ></ion-list-header
+            >
+
+            <ion-item>
+              <ion-label><strong>Abstract Revision</strong></ion-label>
+              <ion-input type="file"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label><strong>Flash Poster URL/Link</strong></ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>
+            <ion-button
+              (click)="onSaveClicked()"
+              [disabled]="form.pristine || !form.valid || submitted"
+              >Submit Changes
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ng-container>
+</ng-template>
