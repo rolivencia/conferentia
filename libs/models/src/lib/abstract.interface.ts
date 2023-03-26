@@ -34,6 +34,12 @@ export interface SubmittedAbstractPayload {
   uploaderUserId: string;
 }
 
+export interface SubmittedAbstractRevisionPayload {
+  _id: string;
+  file?: File;
+  posterUrl?: string;
+}
+
 export type AuthorPayload = {
   firstName: string;
   lastName: string;
