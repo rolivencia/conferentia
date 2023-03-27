@@ -46,5 +46,5 @@ export class ActivityService extends HttpService {
 
 const formatActivitiesTime = (
   dateTime: string | Date,
-  timeZone: number | string = 0
+  timeZone: number = 0
 ) => dayjs(dateTime).utcOffset(timeZone).format('hh:mm');
