@@ -3,6 +3,7 @@ import { HttpService } from './http.service';
 import { HttpClient } from '@angular/common/http';
 import { Abstract, IFrontendEnvironmentConfig } from '@conferentia/models';
 import { Observable } from 'rxjs';
+import { SubmittedAbstractRevisionPayload } from "../../../../models/src/lib/abstract.interface";
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +34,9 @@ export class AbstractService extends HttpService {
 
   public review(payload: any): Observable<Abstract> {
     return this.http.put<Abstract>(`${this.prefix}/review`, payload);
+  }
+  public sendRevision(payload: SubmittedAbstractRevisionPayload): Observable<Abstract> {
+    return this.http.put<Abstract>(`${this.prefix}/revision`, payload);
   }
 
   public uploadAbstractFile(fileData: File): Observable<File> {
