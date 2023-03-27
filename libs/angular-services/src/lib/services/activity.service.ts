@@ -6,6 +6,8 @@ import { Observable, of, switchMap } from 'rxjs';
 
 // Libraries
 import dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 @Injectable({
   providedIn: 'root',
@@ -26,8 +28,14 @@ export class ActivityService extends HttpService {
             ...scheduleDay,
             activities: scheduleDay.activities.map((activity) => ({
               ...activity,
-              startDate: formatActivitiesTime(activity.startDate),
-              endDate: formatActivitiesTime(activity.endDate),
+              startDate: formatActivitiesTime(
+                activity.startDate,
+                this.env.timeZone
+              ),
+              endDate: formatActivitiesTime(
+                activity.endDate,
+                this.env.timeZone
+              ),
             })),
           }))
         );
@@ -36,5 +44,7 @@ export class ActivityService extends HttpService {
   }
 }
 
-const formatActivitiesTime = (dateTime: string | Date) =>
-  dayjs(dateTime).format('hh:mm');
+const formatActivitiesTime = (
+  dateTime: string | Date,
+  timeZone: number | string = 0
+) => dayjs(dateTime).utcOffset(timeZone).format('hh:mm');
