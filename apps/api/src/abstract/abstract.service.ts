@@ -182,8 +182,8 @@ export class AbstractService {
 
     const patch = {};
 
-    if (!!payload.file) {
-      const fileUploaded = await this.uploadAbstractFile(payload.file);
+    if (!!payload.pdfFile) {
+      const fileUploaded = await this.uploadAbstractFile(payload.pdfFile);
       if (!fileUploaded) {
         throw new Error('Transaction failed when uploading the abstract file.');
       }
