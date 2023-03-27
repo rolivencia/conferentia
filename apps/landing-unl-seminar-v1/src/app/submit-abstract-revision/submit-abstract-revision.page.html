@@ -87,27 +87,39 @@
               <ion-icon name="download-outline" slot="start"></ion-icon>
               Download Submitted Abstract File</ion-button
             >
-          </ion-col >
+          </ion-col>
           <ion-col size="6" offset="1">
-            <ion-list-header
-              ><strong
-                >Submit Abstract Revision & Flash Poster link</strong
-              ></ion-list-header
-            >
+            <form [formGroup]="form">
+              <ion-list-header
+                ><strong>Submit Abstract Revision & Flash Poster link</strong>
+              </ion-list-header>
+              <ion-list-header>
+                Use this form to upload a new PDF with a revision of your
+                abstract and, in case your presentation is a Flash Poster, the
+                URL/Link with the Flash Poster video.
+              </ion-list-header>
 
-            <ion-item>
-              <ion-label><strong>Abstract Revision</strong></ion-label>
-              <ion-input type="file"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label><strong>Flash Poster URL/Link</strong></ion-label>
-              <ion-input type="text"></ion-input>
-            </ion-item>
-            <ion-button
-              (click)="onSaveClicked()"
-              [disabled]="form.pristine || !form.valid || submitted"
-              >Submit Changes
-            </ion-button>
+              <ion-item>
+                <ion-label><strong>Abstract Revision</strong></ion-label>
+                <ion-input
+                  type="file"
+                  formControlName="pdfFile"
+                  class="form-control-file"
+                  id="uploaded-image"
+                  accept="application/pdf"
+                  size="2048000"
+                  (change)="processUploadedAbstractFile($event)"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label><strong>Flash Poster URL/Link</strong></ion-label>
+                <ion-input type="text" formControlName="posterUrl"></ion-input>
+              </ion-item>
+              <ion-button
+                (click)="onSaveClicked()"
+                [disabled]="form.pristine || !form.valid || submitted"
+                >Submit Revision / Flash Poster Link
+              </ion-button>
+            </form>
           </ion-col>
         </ion-row>
       </ion-grid>
