@@ -8,8 +8,7 @@ import { AbstractReviewPageRoutingModule } from './abstract-review-routing.modul
 
 import { AbstractReviewPage } from './abstract-review.page';
 import { IonicComponentsModule } from '@conferentia/ionic-components';
-
-import { AuthorsPipe } from '../_providers/authors.pipe';
+import { PipesModule } from "../_providers/pipes/pipes.module";
 
 @NgModule({
   imports: [
@@ -19,7 +18,8 @@ import { AuthorsPipe } from '../_providers/authors.pipe';
     ReactiveFormsModule,
     AbstractReviewPageRoutingModule,
     IonicComponentsModule,
+    PipesModule
   ],
-  declarations: [AbstractReviewPage, AuthorsPipe],
+  declarations: [AbstractReviewPage],
 })
 export class AbstractReviewPageModule {}

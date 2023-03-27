@@ -18,7 +18,7 @@ export class SubmitAbstractRevisionPage implements OnInit {
   public submitted = false;
   public statuses = statusesList;
 
-  public form: FormGroup | undefined;
+  public form!: FormGroup;
 
   private fileData: File | undefined;
 

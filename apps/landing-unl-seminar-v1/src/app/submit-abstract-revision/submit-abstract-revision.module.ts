@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// Modules
 import { IonicModule } from '@ionic/angular';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubmitAbstractRevisionPageRoutingModule } from './submit-abstract-revision-routing.module';
-
-import { SubmitAbstractRevisionPage } from './submit-abstract-revision.page';
 import { IonicComponentsModule } from '@conferentia/ionic-components';
-import { AuthorsPipe } from '../_providers/authors.pipe';
+import { PipesModule } from '../_providers/pipes/pipes.module';
+
+// Pages
+import { SubmitAbstractRevisionPage } from './submit-abstract-revision.page';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { AuthorsPipe } from '../_providers/authors.pipe';
     SubmitAbstractRevisionPageRoutingModule,
     IonicComponentsModule,
     ReactiveFormsModule,
+    PipesModule,
   ],
-  declarations: [SubmitAbstractRevisionPage, AuthorsPipe],
+  declarations: [SubmitAbstractRevisionPage],
 })
 export class SubmitAbstractRevisionPageModule {}
