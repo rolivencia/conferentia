@@ -18,6 +18,7 @@ export interface Abstract extends IAudit {
   event: IEvent;
   user: User;
   review?: string;
+  posterUrl?: string;
 }
 
 export interface SubmittedAbstractPayload {
@@ -31,6 +32,12 @@ export interface SubmittedAbstractPayload {
   };
   eventId: string;
   uploaderUserId: string;
+}
+
+export interface SubmittedAbstractRevisionPayload {
+  _id: string;
+  pdfFile?: File;
+  posterUrl?: string;
 }
 
 export type AuthorPayload = {

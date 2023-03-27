@@ -1,12 +1,12 @@
 <conferentia-fillable-content-page
-  [content]="abstractReview"></conferentia-fillable-content-page>
+  [content]="submitAbstractRevisionContent"></conferentia-fillable-content-page>
 
-<ng-template #abstractReview>
+<ng-template #submitAbstractRevisionContent>
   <ng-container *ngIf="abstract$ | async as abstract">
     <ion-card-content>
       <ion-grid>
         <ion-row>
-          <ion-col>
+          <ion-col size="5">
             <div class="ion-margin-bottom">
               <p>
                 <ion-label>
@@ -49,7 +49,7 @@
               </p>
               <p>
                 <ion-label
-                  ><strong>Keywords: </strong>{{abstract.keywords.join(',')}}
+                  ><strong>Keywords: </strong>{{abstract.keywords.join(', ')}}
                 </ion-label>
               </p>
               <p>
@@ -80,42 +80,47 @@
                   </ng-container>
                 </ion-label>
               </p>
+              <p class="ion-padding-top"><strong>Abstract Review</strong></p>
+              <p>{{abstract.review}}</p>
             </div>
             <ion-button (click)="onDownloadClicked(abstract.fileUrl)">
               <ion-icon name="download-outline" slot="start"></ion-icon>
-              Download</ion-button
+              Download Submitted Abstract File</ion-button
             >
           </ion-col>
-          <ng-container *ngIf="!!form">
-            <ion-col
-              [formGroup]="form"
-              class="ion-flex-container ion-flex-column ion-justify-content-between">
-              <ion-item class="ion-margin-bottom">
-                <ion-textarea
-                  formControlName="review"
-                  rows="5"
-                  placeholder="Enter the review for the abstract here">
-                </ion-textarea>
+          <ion-col size="6" offset="1">
+            <form [formGroup]="form">
+              <ion-list-header
+                ><strong>Submit Abstract Revision & Flash Poster link</strong>
+              </ion-list-header>
+              <ion-list-header>
+                Use this form to upload a new PDF with a revision of your
+                abstract and, in case your presentation is a Flash Poster, the
+                URL/Link with the Flash Poster video.
+              </ion-list-header>
+
+              <ion-item>
+                <ion-label><strong>Abstract Revision</strong></ion-label>
+                <ion-input
+                  type="file"
+                  formControlName="pdfFile"
+                  class="form-control-file"
+                  id="uploaded-image"
+                  accept="application/pdf"
+                  size="2048000"
+                  (change)="processUploadedAbstractFile($event)"></ion-input>
               </ion-item>
               <ion-item>
-                <ion-label>Abstract Status</ion-label>
-                <ion-select
-                  placeholder="Select the abstract new status"
-                  formControlName="status">
-                  <ng-container *ngFor="let status of statuses">
-                    <ion-select-option [value]="status.value">
-                      {{status.title}}
-                    </ion-select-option>
-                  </ng-container>
-                </ion-select>
+                <ion-label><strong>Flash Poster URL/Link</strong></ion-label>
+                <ion-input type="text" formControlName="posterUrl"></ion-input>
               </ion-item>
               <ion-button
                 (click)="onSaveClicked()"
                 [disabled]="form.pristine || !form.valid || submitted"
-                >Save Changes
+                >Submit Revision / Flash Poster Link
               </ion-button>
-            </ion-col>
-          </ng-container>
+            </form>
+          </ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>

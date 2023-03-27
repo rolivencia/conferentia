@@ -3,6 +3,7 @@ import { ConnectorService } from '../shared/connectors/connector.service';
 import { SanityClient } from '@sanity/client';
 import { Abstract, SubmittedAbstractPayload } from '@conferentia/models';
 import * as fs from 'fs';
+import { SubmittedAbstractRevisionPayload } from '../../../../libs/models/src/lib/abstract.interface';
 
 @Injectable()
 export class AbstractService {
@@ -31,7 +32,8 @@ export class AbstractService {
                         subjectArea->,
                         authors[]->,
                         pdfFile{ url },
-                        review
+                        review,
+                        posterUrl
                   } | order(identifier)
                   `;
     const results = await this.connector.fetch(query, {});
@@ -63,7 +65,8 @@ export class AbstractService {
                         subjectArea->,
                         authors[]->,
                         pdfFile{ url },
-                        review
+                        review,
+                        posterUrl
                   }
                   `;
 
@@ -89,7 +92,8 @@ export class AbstractService {
                         subjectArea->,
                         authors[]->,
                         pdfFile{ url },
-                        review
+                        review,
+                        posterUrl
                   }
                   `;
     const result = await this.connector.fetch(query, {});
@@ -97,16 +101,7 @@ export class AbstractService {
   }
 
   public async create(payload: SubmittedAbstractPayload) {
-    // Upload the file from the file system to Sanity assets
-    const readStream = fs.createReadStream(
-      `./files/${payload.abstract.file['filename']}`
-    ) as unknown as ReadableStream;
-    const fileUploaded = await this.connector.assets.upload(
-      'file',
-      readStream,
-      { filename: payload.abstract.file['originalname'] }
-    );
-
+    const fileUploaded = await this.uploadAbstractFile(payload.abstract.file);
     if (!fileUploaded) {
       throw new Error('Transaction failed when uploading the abstract file.');
     }
@@ -180,6 +175,36 @@ export class AbstractService {
     return this.getById(body._id);
   }
 
+  public async updateAbstractLinkAndFlashPoster(
+    payload: SubmittedAbstractRevisionPayload
+  ) {
+    // throw new Error('Method not implemented!');
+
+    const patch = {};
+
+    if (!!payload.pdfFile) {
+      const fileUploaded = await this.uploadAbstractFile(payload.pdfFile);
+      if (!fileUploaded) {
+        throw new Error('Transaction failed when uploading the abstract file.');
+      }
+
+      patch['pdfFile'] = {
+        _type: 'file',
+        url: fileUploaded.url,
+        asset: { _type: 'reference', _ref: fileUploaded._id },
+      };
+    }
+
+    if (!!payload.posterUrl) {
+      patch['posterUrl'] = payload.posterUrl;
+    }
+
+    const connector = this.connectorService.connector as SanityClient;
+    await connector.patch(payload._id).set(patch).commit();
+
+    return this.getById(payload._id);
+  }
+
   private async generateIdentifier() {
     // Fetch count of existing abstracts to generate an ID
     const abstractCount = await this.connector.fetch(
@@ -205,5 +230,15 @@ export class AbstractService {
         .replaceAll(' ,', ',')
         .split(','),
     };
+  }
+
+  private async uploadAbstractFile(file: File) {
+    // Upload the file from the file system to Sanity assets
+    const readStream = fs.createReadStream(
+      `./files/${file['filename']}`
+    ) as unknown as ReadableStream;
+    return await this.connector.assets.upload('file', readStream, {
+      filename: file['originalname'],
+    });
   }
 }
