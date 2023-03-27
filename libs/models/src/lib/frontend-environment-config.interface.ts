@@ -3,7 +3,7 @@ export interface IFrontendEnvironmentConfig {
   apiUrl: string;
   //TODO: Check if eventId is still required after moving the config to .env files (2022/11/04 - RO - #39)
   eventId: string;
-  timeZone: string | number;
+  timeZone: number;
   auth0: {
     domain: string;
     clientId: string;
