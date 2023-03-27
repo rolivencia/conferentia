@@ -18,6 +18,7 @@ export const environment = {
    production: ${isProduction},
    apiUrl: '${process.env.API_URL}',
    eventId: '${process.env.EVENT_ID}',
+   timeZone: '${process.env.TIME_ZONE},
    auth0: {
      domain: '${process.env.AUTH0_DOMAIN}',
      clientId: '${process.env.CLIENT_ID}',
