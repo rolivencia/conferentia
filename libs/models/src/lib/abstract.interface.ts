@@ -36,7 +36,7 @@ export interface SubmittedAbstractPayload {
 
 export interface SubmittedAbstractRevisionPayload {
   _id: string;
-  file?: File;
+  pdfFile?: File;
   posterUrl?: string;
 }
 
