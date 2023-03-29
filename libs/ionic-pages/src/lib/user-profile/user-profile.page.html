@@ -111,7 +111,8 @@
                     <ng-container
                       *ngIf="!['rejected', 'submitted', 'inEvaluation'].includes(abstract.status)">
                       <ion-button
-                        (click)="onSubmitRevisionButtonClicked(abstract._id)"
+                        [routerLink]="'../' + appRouteTree.SUBMIT_ABSTRACT_REVISION"
+                        [queryParams]="{ abstractId: abstract._id }"
                         color="primary">
                         <ion-icon name="send-outline" slot="end"></ion-icon>
                         Abstract Revision Panel

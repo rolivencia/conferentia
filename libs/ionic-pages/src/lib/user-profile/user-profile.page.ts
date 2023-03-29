@@ -45,6 +45,7 @@ export class UserProfilePage implements OnInit {
   ];
 
   public countries: Country[] = countries;
+  public appRouteTree = APP_ROUTE_TREE;
 
   constructor(
     private abstractService: AbstractService,
@@ -107,11 +108,6 @@ export class UserProfilePage implements OnInit {
   onLogoutButtonClicked() {
     this.userService.logout();
     this.router.navigate([ROUTE_TREE.HOME]);
-  }
-  onSubmitRevisionButtonClicked(abstractId: string) {
-    this.router.navigate([APP_ROUTE_TREE.SUBMIT_ABSTRACT_REVISION], {
-      queryParams: { abstractId: abstractId },
-    });
   }
 
   private buildForm() {
