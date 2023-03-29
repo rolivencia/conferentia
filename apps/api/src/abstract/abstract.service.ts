@@ -217,7 +217,7 @@ export class AbstractService {
   private mapResponse(abstract: any): Abstract {
     return {
       ...abstract,
-      fileUrl: abstract.pdfFile.url,
+      fileUrl: abstract.pdfFile?.url ?? '',
       format: (abstract.format as string)
         .replaceAll('oralPresentation', 'Oral Presentation')
         .replaceAll('flashPoster', 'Flash Poster'),
