@@ -164,6 +164,7 @@ export const appRoutes: ConferentiaRoute[] = [
       import('./submit-abstract-revision/submit-abstract-revision.module').then(
         (m) => m.SubmitAbstractRevisionPageModule
       ),
+    canLoad: [finishedRegistrationGuard],
     data: {
       title: 'Submit Abstract Revision',
       url: APP_ROUTE_TREE.SUBMIT_ABSTRACT_REVISION,
