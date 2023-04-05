@@ -5,17 +5,27 @@ export default {
   preview: {
     select: {
       title: 'title',
+      identifier: 'identifier',
       subjectArea: 'subjectArea',
       status: 'status',
     },
     prepare(selection) {
-      const { title, subjectArea, status } = selection;
+      const { identifier, title, subjectArea, status } = selection;
       return {
-        title: `${title} | ${subjectArea.name}`,
+        title: `${identifier} - ${title} | ${subjectArea.name}`,
         subtitle: status.toUpperCase(),
       };
     },
   },
+  orderings: [
+    {
+      title: 'Identificador, ascendente',
+      name: 'identifier',
+      by: [
+        {field: 'identifier', direction: 'asc'}
+      ]
+    },
+  ],
   fields: [
     {
       title: 'Evento',
