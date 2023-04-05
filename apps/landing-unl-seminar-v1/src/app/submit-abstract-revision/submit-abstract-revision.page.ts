@@ -97,7 +97,8 @@ export class SubmitAbstractRevisionPage implements OnInit {
     this.form = this.formBuilder.group({
       _id: [abstract._id, Validators.required],
       pdfFile: [''],
-      posterUrl: [abstract.posterUrl, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
+      // posterUrl: [abstract.posterUrl, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
+      posterUrl: [abstract.posterUrl],
     });
   }
 }
