@@ -3,3 +3,9 @@
   height: 100%;
   margin-right: 16px;
 }
+
+.activity-container {
+  overflow: hidden;
+  white-space: nowrap;
+  width: calc(100% - 16px);
+}
