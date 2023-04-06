@@ -1,5 +1,5 @@
 import { Component, EnvironmentInjector, inject, OnInit } from '@angular/core';
-import { combineLatest, first, Observable, of, switchMap, tap } from 'rxjs';
+import { first, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { Abstract } from '@conferentia/models';
 import { statusesList } from '../_providers/utils';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -48,49 +48,55 @@ export class SubmitAbstractRevisionPage implements OnInit {
     window.open(href, '_blank');
   }
 
-  onSaveClicked() {
-    if (!this.fileData) {
-      return;
-    }
-
-    if (
-      this.fileData.size > 2048000 ||
-      this.fileData.type !== 'application/pdf'
-    ) {
+  private uploadFile(fileData: File): Observable<any> {
+    if (fileData.size > 2048000 || fileData.type !== 'application/pdf') {
       this.injector.runInContext(() => {
         errorInFileUploadAlert();
       });
-      return;
+      return throwError('Incompatible file.');
     }
 
     this.submitted = true;
 
-    this.abstractService
-      .uploadAbstractFile(this.fileData)
-      .pipe(
-        switchMap((uploadedFileData) => {
-          const { _id, posterUrl } = this.form?.value;
-          return this.abstractService.sendRevision({
-            _id,
-            posterUrl,
-            pdfFile: uploadedFileData,
-          });
-        })
-      )
-      .subscribe({
-        next: (abstract) => {
-          this.injector.runInContext(() => {
-            updateAlert();
-            this.submitted = false;
-          });
-        },
-        error: (error) => {
-          this.injector.runInContext(() => {
-            updateAlert(true);
-            this.submitted = false;
-          });
-        },
-      });
+    return this.abstractService.uploadAbstractFile(fileData).pipe(
+      switchMap((uploadedFileData) => {
+        const { _id, posterUrl } = this.form.value;
+        return this.abstractService.sendRevision({
+          _id,
+          posterUrl,
+          pdfFile: uploadedFileData,
+        });
+      })
+    );
+  }
+
+  private uploadPosterUrl(): Observable<any> {
+    const { _id, posterUrl } = this.form.value;
+    return this.abstractService.sendRevision({
+      _id,
+      posterUrl,
+    });
+  }
+
+  onSaveClicked() {
+    const actionObservable = this.fileData
+      ? this.uploadFile(this.fileData)
+      : this.uploadPosterUrl();
+
+    actionObservable.subscribe({
+      next: (abstract) => {
+        this.injector.runInContext(() => {
+          updateAlert();
+          this.submitted = false;
+        });
+      },
+      error: (error) => {
+        this.injector.runInContext(() => {
+          updateAlert(true);
+          this.submitted = false;
+        });
+      },
+    });
   }
 
   private load(abstract: Abstract) {
