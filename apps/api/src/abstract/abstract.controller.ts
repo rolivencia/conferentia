@@ -66,8 +66,8 @@ export class AbstractController {
 
   @Put('revision')
   public revision(
-    @Body() body: Abstract
-  ): Promise<SubmittedAbstractRevisionPayload> {
+    @Body() body: SubmittedAbstractRevisionPayload
+  ): Promise<Abstract> {
     return this.abstractService.updateAbstractLinkAndFlashPoster(body);
   }
 }
