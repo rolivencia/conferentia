@@ -2,7 +2,7 @@
 import { Injectable } from '@nestjs/common';
 
 // Models
-import { Schedule } from '@conferentia/models';
+import { IActivity, Schedule } from '@conferentia/models';
 
 // Services
 import { ConnectorService } from '../shared/connectors/connector.service';
@@ -14,6 +14,55 @@ import imageUrlBuilder from '@sanity/image-url';
 @Injectable()
 export class ActivityService {
   constructor(private connectorService: ConnectorService) {}
+
+  public async getActivityById(
+    activityId: number | string
+  ): Promise<IActivity> {
+    const builder = imageUrlBuilder(this.connectorService.connector);
+    const query = `*[_type == 'activities' && _id == '${activityId}'][0]
+                          {
+                            _id,
+                            _createdAt,
+                            _updatedAt,
+                            _type,
+                            _rev,
+                            title,
+                            type->{name, fontColor, backgroundColor, image},
+                            image,
+                            participants[]->,
+                            'abstracts': abstracts[]-> {..., authors[]->, subjectArea->},
+                            description,
+                            startDate,
+                            endDate
+                          }`;
+    // 'author': author-> { name, image, nationality-> }
+
+    const result: any = await this.connectorService.connector.fetch(query, {});
+
+    return {
+      ...result,
+      abstracts: result.abstracts
+        ? result.abstracts.map((abstract) => ({
+            ...abstract,
+            fileUrl: abstract.pdfFile?.url ?? '',
+          }))
+        : [],
+      participants: result.participants
+        ? result.participants.map((participant: any) => ({
+            ...participant,
+            avatar: participant.avatar
+              ? builder.image(participant.avatar).url()
+              : null,
+          }))
+        : [],
+      type: {
+        ...result.type,
+        backgroundColor: result.type?.backgroundColor?.hex,
+        fontColor: result.type?.fontColor?.hex,
+      },
+      image: result.image ? builder.image(result.image).url() : undefined,
+    } as IActivity;
+  }
 
   public async getScheduleByEventId(
     eventId: number | string
@@ -61,10 +110,9 @@ export class ActivityService {
     eventDays.forEach((day) => {
       schedule.push({
         day: dayjs(day).format('dddd, D MMMM'),
-        activities: activities
-          .filter(
-            (activity) => day === activity.startDate.toString().split('T')[0]
-          )
+        activities: activities.filter(
+          (activity) => day === activity.startDate.toString().split('T')[0]
+        ),
       });
     });
 

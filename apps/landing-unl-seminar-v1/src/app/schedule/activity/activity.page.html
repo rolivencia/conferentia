@@ -1,0 +1,8 @@
+<conferentia-fillable-content-page
+  [content]="activityContent"></conferentia-fillable-content-page>
+
+<ng-template #activityContent>
+  <ng-container *ngIf="activity$ | async as activity">
+    <conferentia-activity-card [activity]="activity"></conferentia-activity-card>
+  </ng-container>
+</ng-template>

@@ -1,10 +1,135 @@
-<ion-card>
-  <ion-card-header>
-    <ion-card-title>Card Title</ion-card-title>
-    <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-  </ion-card-header>
+<ng-container *ngIf="!!sanitizedActivity">
+  <ion-card>
+    <ng-container *ngTemplateOutlet="header"></ng-container>
+    <ng-container [ngSwitch]="sanitizedActivity.type.name">
+      <ng-container *ngSwitchDefault>
+        <ng-container *ngTemplateOutlet="description"></ng-container>
+        <ng-container *ngTemplateOutlet="participants"></ng-container>
+      </ng-container>
+      <ng-container *ngSwitchCase="'Poster Session'">
+        <ng-container *ngTemplateOutlet="flashPosterTemplate"></ng-container>
+      </ng-container>
+      <ng-container *ngSwitchCase="'Presentation'">
+        <ng-container
+          *ngTemplateOutlet="oralPresentationTemplate"></ng-container>
+      </ng-container>
+    </ng-container>
+  </ion-card>
+</ng-container>
 
+<ng-template #header>
+  <ion-card-header>
+    <ion-card-title>{{ sanitizedActivity.title }}</ion-card-title>
+    <ion-card-subtitle
+      >{{ sanitizedActivity.startDate | date }} |
+      {{ sanitizedActivity.startDate | date: 'HH:mm' }} -
+      {{ sanitizedActivity.endDate | date: 'HH:mm' }}</ion-card-subtitle
+    >
+  </ion-card-header>
+</ng-template>
+
+<ng-template #participants>
+  <ng-container *ngIf="sanitizedActivity.participants as participants">
+    <ng-container *ngFor="let participant of participants">
+      <conferentia-participant-card
+        [participant]="participant"></conferentia-participant-card>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #description>
   <ion-card-content>
-    Here's a small text description for the card content. Nothing more, nothing less.
+    {{ sanitizedActivity.description }}
   </ion-card-content>
-</ion-card>
+</ng-template>
+
+<ng-template #flashPosterTemplate>
+  <ion-grid class="ion-padding">
+    <ng-container *ngFor="let abstract of sanitizedActivity.abstracts">
+      <ion-row>
+        <ion-col>
+          <p>
+            <ion-text
+              ><strong
+                >{{ abstract.subjectArea.code }}-{{
+                  abstract.identifier
+                }}:</strong
+              >
+              "{{ abstract.title }}"
+            </ion-text>
+          </p>
+          <p>
+            <ion-text
+              ><strong>Subject Area:</strong>
+              {{ abstract.subjectArea.name }}
+            </ion-text>
+          </p>
+          <p>
+            <ion-text
+              ><strong>Authors:</strong>
+              {{ abstract.authors | authors }}
+            </ion-text>
+          </p>
+          <p>
+            <ion-text
+              ><strong>Keywords:</strong>
+              {{ abstract.keywords }}
+            </ion-text>
+          </p>
+          <ion-button [href]="abstract.fileUrl" [target]="'_blank'">
+            <ion-icon name="download-outline" slot="start"></ion-icon>
+            Download Abstract
+          </ion-button>
+        </ion-col>
+        <ng-container *ngIf="abstract.posterUrl">
+          <ion-col>
+            <iframe [src]="abstract.posterUrl" allowfullscreen></iframe>
+          </ion-col>
+        </ng-container>
+      </ion-row>
+    </ng-container>
+  </ion-grid>
+</ng-template>
+
+<ng-template #oralPresentationTemplate>
+  <ion-grid class="ion-padding">
+    <ng-container *ngFor="let abstract of sanitizedActivity.abstracts">
+      <ion-row>
+        <ion-col>
+          <p>
+            <ion-text
+              ><strong
+                >{{ abstract.subjectArea.code }}-{{
+                  abstract.identifier
+                }}:</strong
+              >
+              "{{ abstract.title }}"
+            </ion-text>
+          </p>
+          <p>
+            <ion-text
+              ><strong>Subject Area:</strong>
+              {{ abstract.subjectArea.name }}
+            </ion-text>
+          </p>
+          <p>
+            <ion-text
+              ><strong>Authors:</strong>
+              {{ abstract.authors | authors }}
+            </ion-text>
+          </p>
+          <p>
+            <ion-text
+              ><strong>Keywords:</strong>
+              {{ abstract.keywords }}
+            </ion-text>
+          </p>
+          <ion-button [href]="abstract.fileUrl" [target]="'_blank'">
+            <ion-icon name="download-outline" slot="start"></ion-icon>
+            Download Abstract
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+  </ion-grid>
+</ng-template>
