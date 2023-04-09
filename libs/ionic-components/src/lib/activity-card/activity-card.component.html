@@ -1,14 +1,6 @@
 <ng-container *ngIf="!!activity">
   <ion-card>
-    <ion-card-header>
-      <ion-card-title>{{ activity.title }}</ion-card-title>
-      <ion-card-subtitle
-      >{{ activity.startDate | date }} |
-        {{ activity.startDate | date: 'HH:mm' }} -
-        {{ activity.endDate | date: 'HH:mm' }}</ion-card-subtitle
-      >
-    </ion-card-header>
-
+    <ng-container *ngTemplateOutlet="header"></ng-container>
     <ion-card-content>
       {{ activity.description }}
     </ion-card-content>
@@ -21,3 +13,14 @@
     </ng-container>
   </ng-container>
 </ng-container>
+
+<ng-template #header>
+  <ion-card-header>
+    <ion-card-title>{{ activity.title }}</ion-card-title>
+    <ion-card-subtitle
+      >{{ activity.startDate | date }} |
+      {{ activity.startDate | date: 'HH:mm' }} -
+      {{ activity.endDate | date: 'HH:mm' }}</ion-card-subtitle
+    >
+  </ion-card-header>
+</ng-template>
