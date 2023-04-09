@@ -10,10 +10,10 @@ import { IActivity } from '@conferentia/models';
   styleUrls: ['./activity.page.scss'],
 })
 export class ActivityPage {
+  activity$!: Observable<IActivity>;
+
   private activityService: ActivityService = inject(ActivityService);
   private route: ActivatedRoute = inject(ActivatedRoute);
-
-  private activity$!: Observable<IActivity>;
 
   constructor() {
     this.activity$ = this.route.paramMap.pipe(
