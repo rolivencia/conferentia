@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ActivityService } from './activity.service';
 import { IActivity, Schedule } from '@conferentia/models';
 
