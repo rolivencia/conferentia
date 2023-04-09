@@ -38,6 +38,14 @@ export class ActivityService {
 
     return {
       ...result,
+      participants: result.participants
+        ? result.participants.map((participant: any) => ({
+            ...participant,
+            avatar: participant.avatar
+              ? builder.image(participant.avatar).url()
+              : null,
+          }))
+        : [],
       type: {
         ...result.type,
         backgroundColor: result.type?.backgroundColor?.hex,
