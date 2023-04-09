@@ -8,6 +8,11 @@ const routes: Routes = [
     path: '',
     component: SchedulePage,
   },
+  {
+    path: ':id',
+    loadChildren: () =>
+      import('./activity/activity.module').then((m) => m.ActivityPageModule),
+  },
 ];
 
 @NgModule({
