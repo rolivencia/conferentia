@@ -3,6 +3,7 @@ import { IAudit } from './audit.interface';
 import { IEvent } from './event.interface';
 import { ILocation } from './location.interface';
 import { IParticipant } from './participant.interface';
+import { Abstract } from './abstract.interface';
 
 export interface IActivity extends IAudit {
   title: string;
@@ -14,4 +15,5 @@ export interface IActivity extends IAudit {
   type: IActivityType;
   image: string;
   location: ILocation;
+  abstracts?: Abstract[];
 }
