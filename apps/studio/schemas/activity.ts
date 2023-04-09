@@ -1,4 +1,4 @@
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
 
 export default {
   title: 'Actividades',
@@ -14,8 +14,12 @@ export default {
     },
     prepare(selection) {
       const { title, image, startDate, endDate } = selection;
-      const displayedStartDate = `${dayjs(new Date(startDate)).format('YYYY-MM-DD')}`;
-      const displayedStartTime = `${dayjs(new Date(startDate)).format('HH:mm')}`;
+      const displayedStartDate = `${dayjs(new Date(startDate)).format(
+        'YYYY-MM-DD'
+      )}`;
+      const displayedStartTime = `${dayjs(new Date(startDate)).format(
+        'HH:mm'
+      )}`;
       const displayedEndTime = `${dayjs(new Date(endDate)).format('HH:mm')}`;
       return {
         title: `${title}`,
@@ -28,17 +32,23 @@ export default {
     {
       title: 'Hora de Inicio, desde más temprano',
       name: 'startDateDesc',
-      by: [
-        {field: 'startDate', direction: 'asc'}
-      ]
+      by: [{ field: 'startDate', direction: 'asc' }],
     },
     {
       title: 'Hora de Inicio, desde más tarde',
       name: 'startDateDesc',
-      by: [
-        {field: 'startDate', direction: 'desc'}
-      ]
-    }
+      by: [{ field: 'startDate', direction: 'desc' }],
+    },
+    {
+      title: 'Alfabético, ascendente',
+      name: 'alphabeticAsc',
+      by: [{ field: 'title', direction: 'asc' }],
+    },
+    {
+      title: 'Alfabético, descendente',
+      name: 'alphabeticDesc',
+      by: [{ field: 'title', direction: 'desc' }],
+    },
   ],
   fields: [
     {
@@ -109,6 +119,12 @@ export default {
       name: 'description',
       type: 'text',
       description: 'Descripción en detalle de la actividad.',
+    },
+    {
+      title: 'Abstracts Relacionados',
+      name: 'abstracts',
+      type: 'array',
+      of: [{ type: 'reference', to: { type: 'abstract' } }],
     },
   ],
 };
