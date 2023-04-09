@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { IActivity } from '@conferentia/models';
+import { map, tap } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'conferentia-activity-card',
@@ -8,7 +10,26 @@ import { IActivity } from '@conferentia/models';
 })
 export class ActivityCardComponent implements OnInit {
   @Input() activity!: IActivity;
+
+  sanitizedActivity!: IActivity;
+
+  private sanitizer: DomSanitizer = inject(DomSanitizer);
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.sanitizedActivity = {
+      ...this.activity,
+      abstracts: !this.activity.abstracts
+        ? []
+        : this.activity.abstracts.map((abstract) => ({
+            ...abstract,
+            posterUrl: abstract.posterUrl
+              ? this.sanitizer.bypassSecurityTrustResourceUrl(
+                  abstract.posterUrl as string
+                )
+              : undefined,
+          })),
+    };
+  }
 }
