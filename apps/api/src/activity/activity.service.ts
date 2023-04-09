@@ -30,14 +30,23 @@ export class ActivityService {
                             type->{name, fontColor, backgroundColor, image},
                             image,
                             participants[]->,
+                            'abstracts': abstracts[]-> {..., authors[]->, subjectArea->},
                             description,
                             startDate,
                             endDate
                           }`;
+    // 'author': author-> { name, image, nationality-> }
+
     const result: any = await this.connectorService.connector.fetch(query, {});
 
     return {
       ...result,
+      abstracts: result.abstracts
+        ? result.abstracts.map((abstract) => ({
+            ...abstract,
+            fileUrl: abstract.pdfFile?.url ?? '',
+          }))
+        : [],
       participants: result.participants
         ? result.participants.map((participant: any) => ({
             ...participant,
