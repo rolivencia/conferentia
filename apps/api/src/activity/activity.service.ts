@@ -2,7 +2,7 @@
 import { Injectable } from '@nestjs/common';
 
 // Models
-import { Schedule } from '@conferentia/models';
+import { IActivity, Schedule } from '@conferentia/models';
 
 // Services
 import { ConnectorService } from '../shared/connectors/connector.service';
@@ -14,6 +14,38 @@ import imageUrlBuilder from '@sanity/image-url';
 @Injectable()
 export class ActivityService {
   constructor(private connectorService: ConnectorService) {}
+
+  public async getActivityById(
+    activityId: number | string
+  ): Promise<IActivity> {
+    const builder = imageUrlBuilder(this.connectorService.connector);
+    const query = `*[_type == 'activities' && _id == '${activityId}'][0]
+                          {
+                            _id,
+                            _createdAt,
+                            _updatedAt,
+                            _type,
+                            _rev,
+                            title,
+                            type->{name, fontColor, backgroundColor, image},
+                            image,
+                            participants[]->,
+                            description,
+                            startDate,
+                            endDate
+                          }`;
+    const result: any = await this.connectorService.connector.fetch(query, {});
+
+    return {
+      ...result,
+      type: {
+        ...result.type,
+        backgroundColor: result.type?.backgroundColor?.hex,
+        fontColor: result.type?.fontColor?.hex,
+      },
+      image: result.image ? builder.image(result.image).url() : undefined,
+    } as IActivity;
+  }
 
   public async getScheduleByEventId(
     eventId: number | string
@@ -61,10 +93,9 @@ export class ActivityService {
     eventDays.forEach((day) => {
       schedule.push({
         day: dayjs(day).format('dddd, D MMMM'),
-        activities: activities
-          .filter(
-            (activity) => day === activity.startDate.toString().split('T')[0]
-          )
+        activities: activities.filter(
+          (activity) => day === activity.startDate.toString().split('T')[0]
+        ),
       });
     });
 
