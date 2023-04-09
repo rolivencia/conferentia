@@ -31,11 +31,11 @@ export class ActivityService extends HttpService {
         switchMap((activity) => {
           return of({
             ...activity,
-            startDate: formatActivityDetailDateTime(
+            startDate: shiftDateTimeToTimeZone(
               activity.startDate,
               this.env.timeZone
             ),
-            endDate: formatActivityDetailDateTime(
+            endDate: shiftDateTimeToTimeZone(
               activity.endDate,
               this.env.timeZone
             ),
@@ -54,11 +54,11 @@ export class ActivityService extends HttpService {
               ...scheduleDay,
               activities: scheduleDay.activities.map((activity) => ({
                 ...activity,
-                startDate: formatActivitiesTime(
+                startDate: shiftDateTimeToTimeZone(
                   activity.startDate,
                   this.env.timeZone
                 ),
-                endDate: formatActivitiesTime(
+                endDate: shiftDateTimeToTimeZone(
                   activity.endDate,
                   this.env.timeZone
                 ),
@@ -70,12 +70,7 @@ export class ActivityService extends HttpService {
   }
 }
 
-const formatActivitiesTime = (
-  dateTime: string | Date,
-  timeZone: number = 0
-): string => dayjs(dateTime).utcOffset(timeZone).format('hh:mm');
-
-const formatActivityDetailDateTime = (
+const shiftDateTimeToTimeZone = (
   dateTime: string | Date,
   timeZone: number = 0
 ): Date => dayjs(dateTime).utcOffset(timeZone).toDate();

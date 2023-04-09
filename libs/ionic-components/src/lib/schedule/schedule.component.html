@@ -26,7 +26,10 @@
               <div class="activity-container">
                 <ion-label>{{ activity.title }}</ion-label>
                 <ion-label>
-                  <p>{{ activity.startDate }} - {{ activity.endDate }}</p>
+                  <p>
+                    {{ activity.startDate | date: 'HH:mm' }} -
+                    {{ activity.endDate | date: 'HH:mm' }}
+                  </p>
                 </ion-label>
               </div>
               <ion-icon
