@@ -15,7 +15,8 @@ export const APP_ROUTE_TREE = {
   HOME: 'home',
   ABSTRACT_REVIEW: 'abstract-review',
   REGISTRATION: 'registration',
-  SUBMIT_ABSTRACT_REVISION: 'submit-abstract-revision'
+  SUBMIT_ABSTRACT_REVISION: 'submit-abstract-revision',
+  SCHEDULE: 'schedule',
 };
 
 export const appRoutes: ConferentiaRoute[] = [
@@ -75,13 +76,13 @@ export const appRoutes: ConferentiaRoute[] = [
     },
   },
   {
-    path: 'schedule',
+    path: APP_ROUTE_TREE.SCHEDULE,
     loadChildren: () =>
       import('./schedule/schedule.module').then((m) => m.SchedulePageModule),
     canLoad: [finishedRegistrationGuard],
     data: {
       title: 'Programme',
-      url: 'schedule',
+      url: APP_ROUTE_TREE.SCHEDULE,
       icon: 'calendar',
     },
   },

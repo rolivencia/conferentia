@@ -4,26 +4,38 @@
       <ion-col>
         <ion-list>
           <ion-list-header>
-            <ion-card-title>{{scheduleDay.day}}</ion-card-title>
+            <ion-card-title>{{ scheduleDay.day }}</ion-card-title>
           </ion-list-header>
           <ng-container *ngFor="let activity of scheduleDay.activities">
-            <ion-item>
+            <ion-item
+              [routerLink]="
+                navigableActivityTypes.includes(activity.type.name)
+                  ? [activity._id]
+                  : []
+              ">
               <div
                 class="detail"
-                [ngStyle]="{backgroundColor: activity.type.backgroundColor}"
-              ></div>
+                [ngStyle]="{
+                  backgroundColor: activity.type.backgroundColor
+                }"></div>
               <ion-thumbnail slot="start" *ngIf="activity.image">
                 <img
                   [alt]="'Icon of ' + activity.title"
-                  [src]="activity.image"
-                />
+                  [src]="activity.image" />
               </ion-thumbnail>
               <div class="activity-container">
-                <ion-label>{{activity.title}}</ion-label>
+                <ion-label>{{ activity.title }}</ion-label>
                 <ion-label>
-                  <p>{{activity.startDate}} - {{activity.endDate}}</p>
+                  <p>{{ activity.startDate }} - {{ activity.endDate }}</p>
                 </ion-label>
               </div>
+              <ion-icon
+                aria-label="Go to activity"
+                name="arrow-forward-circle-outline"
+                slot="end"
+                *ngIf="
+                  navigableActivityTypes.includes(activity.type.name)
+                "></ion-icon>
             </ion-item>
           </ng-container>
         </ion-list>
