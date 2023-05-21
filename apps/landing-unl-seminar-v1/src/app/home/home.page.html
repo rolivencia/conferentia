@@ -1,6 +1,5 @@
 <conferentia-fillable-content-page
-  [content]="homeContent"
-></conferentia-fillable-content-page>
+  [content]="homeContent"></conferentia-fillable-content-page>
 
 <ng-template #homeContent>
   <ng-container *ngIf="(currentEvent$ | async) as currentEvent">
@@ -27,10 +26,17 @@
                 d’olefines”. The entire scientific community is invited to
                 participate, from April 11 to 13, 2023 in Santa Fe, Argentina.
               </p>
+              <br />
               <p>
                 We invite you to discover more about the conference on this
                 website, which will be regularly updated. We are looking forward
                 to your participation!
+              </p>
+              <br />
+              <p>
+                Workshop proceedings, which condense information about the
+                submitted works, the keynotes and plenary conferences about
+                FAWHC 2023 can be downloaded <a [href]="'/assets/files/FAWHC 2023 - Workshop Proceedings.pdf'">here</a>.
               </p>
             </ion-card-content>
           </ion-card>
@@ -54,12 +60,10 @@
               <ion-grid>
                 <ion-row>
                   <ng-container
-                    *ngFor="let subjectArea of currentEvent.subjectAreas"
-                  >
+                    *ngFor="let subjectArea of currentEvent.subjectAreas">
                     <ion-col size="12" size-md="6">
                       <conferentia-subject-area
-                        [subjectArea]="subjectArea"
-                      ></conferentia-subject-area>
+                        [subjectArea]="subjectArea"></conferentia-subject-area>
                     </ion-col>
                   </ng-container>
                 </ion-row>

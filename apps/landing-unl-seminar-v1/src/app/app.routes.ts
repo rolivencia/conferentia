@@ -14,6 +14,7 @@ import { adminDashboardGuard } from '../../../../libs/angular-services/src/lib/g
 export const APP_ROUTE_TREE = {
   HOME: 'home',
   ABSTRACT_REVIEW: 'abstract-review',
+  PROCEEDINGS: 'assets/files/FAWHC 2023 - Workshop Proceedings.pdf',
   REGISTRATION: 'registration',
   SUBMIT_ABSTRACT_REVISION: 'submit-abstract-revision',
   SCHEDULE: 'schedule',
@@ -35,6 +36,16 @@ export const appRoutes: ConferentiaRoute[] = [
       url: ROUTE_TREE.HOME,
       icon: 'home',
     },
+  },
+  {
+    path: APP_ROUTE_TREE.PROCEEDINGS,
+    data: {
+      title: 'Proceedings',
+      url: APP_ROUTE_TREE.PROCEEDINGS,
+      icon: 'book',
+      type: 'external',
+      action: () => window.open(APP_ROUTE_TREE.PROCEEDINGS, '_blank'),
+    }
   },
   {
     path: 'general-information',
