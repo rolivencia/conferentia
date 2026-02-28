@@ -1,8 +1,12 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, Inject, Input, OnInit, TemplateRef } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { NavigationService, UserService } from '@conferentia/angular-services';
-import { AuthService } from '@auth0/auth0-angular';
+import {
+  AUTH_ADAPTER,
+  AuthAdapter,
+  NavigationService,
+  UserService,
+} from '@conferentia/angular-services';
 import { ROUTE_TREE } from '@conferentia/ionic-pages';
 import { User } from '@conferentia/models';
 
@@ -15,11 +19,11 @@ export class FillableContentPageComponent implements OnInit {
   @Input() content: TemplateRef<any> | null = null;
 
   public currentRoute$: Observable<ActivatedRouteSnapshot | null> = of(null);
-  public isAuthenticated$: Observable<any | null> = of(null);
+  public isAuthenticated$: Observable<boolean> = of(false);
   public currentUser$: Observable<User | null> = of(null);
 
   constructor(
-    private auth0Service: AuthService,
+    @Inject(AUTH_ADAPTER) private authAdapter: AuthAdapter,
     private navigationService: NavigationService,
     private router: Router,
     private userService: UserService
@@ -28,11 +32,11 @@ export class FillableContentPageComponent implements OnInit {
   ngOnInit() {
     this.currentRoute$ = this.navigationService.currentRoute$.asObservable();
     this.currentUser$ = this.userService.currentUser$.asObservable();
-    this.isAuthenticated$ = this.auth0Service.isAuthenticated$;
+    this.isAuthenticated$ = this.authAdapter.isAuthenticated$;
   }
 
   onLoginClicked() {
-    this.auth0Service.loginWithRedirect();
+    this.authAdapter.loginWithRedirect();
   }
 
   onUserProfileClicked() {

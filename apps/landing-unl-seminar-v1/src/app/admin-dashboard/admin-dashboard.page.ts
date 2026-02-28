@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractService, EventService } from '@conferentia/angular-services';
 import { Observable, of, switchMap } from 'rxjs';
-import { Abstract, IEvent } from '@conferentia/models';
+import {
+  Abstract,
+  colorStatusMap,
+  IEvent,
+  statusesMap,
+} from '@conferentia/models';
 import { Router } from '@angular/router';
 import { APP_ROUTE_TREE } from '../app.routes';
-import { colorStatusMap, statusesMap } from "../_providers/utils";
 
 @Component({
   selector: 'conferentia-admin-dashboard',

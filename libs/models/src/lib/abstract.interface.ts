@@ -5,7 +5,6 @@ import {
   IEvent,
   User,
 } from '@conferentia/models';
-import { SafeResourceUrl } from "@angular/platform-browser";
 
 export interface Abstract extends IAudit {
   title: string;
@@ -19,7 +18,7 @@ export interface Abstract extends IAudit {
   event: IEvent;
   user: User;
   review?: string;
-  posterUrl?: string | SafeResourceUrl;
+  posterUrl?: string;
 }
 
 export interface SubmittedAbstractPayload {

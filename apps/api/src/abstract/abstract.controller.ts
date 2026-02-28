@@ -12,7 +12,11 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 
 // Models
-import { Abstract, SubmittedAbstractPayload } from '@conferentia/models';
+import {
+  Abstract,
+  SubmittedAbstractPayload,
+  SubmittedAbstractRevisionPayload,
+} from '@conferentia/models';
 
 // Services
 import { AbstractService } from './abstract.service';
@@ -20,7 +24,6 @@ import { AbstractService } from './abstract.service';
 // Typings
 import { Express } from 'express';
 import { Multer } from 'multer';
-import { SubmittedAbstractRevisionPayload } from '../../../../libs/models/src/lib/abstract.interface';
 
 @Controller('abstract')
 export class AbstractController {

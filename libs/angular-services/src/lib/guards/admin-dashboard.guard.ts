@@ -1,10 +1,7 @@
-import { combineLatest, Observable, of, switchMap } from 'rxjs';
-import { Router, UrlTree } from '@angular/router';
-import { UserService } from '@conferentia/angular-services';
+import { Observable, of, switchMap } from 'rxjs';
 import { inject } from '@angular/core';
-import { ROUTE_TREE } from '@conferentia/ionic-pages';
-import { AuthService } from '@auth0/auth0-angular';
-import { EUserRole } from "../../../../models/src/lib/user.interface";
+import { EUserRole } from '@conferentia/models';
+import { UserService } from '../services/user.service';
 
 /**
  * This guard checks if a given logged-in user has the Administrator or Reviewer roles

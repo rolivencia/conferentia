@@ -1,6 +1,12 @@
 export * from './lib/services/angular-services.module';
 
+// Auth
+export { AuthAdapter } from './lib/auth/auth-adapter.interface';
+export { AUTH_ADAPTER } from './lib/auth/auth-adapter.token';
+export { Auth0AuthAdapter } from './lib/auth/auth0-auth-adapter';
+
 // Guards
+export { adminDashboardGuard } from './lib/guards/admin-dashboard.guard';
 export { authenticationGuard } from './lib/guards/authentication.guard';
 export { finishedRegistrationGuard } from './lib/guards/finished-registration.guard';
 

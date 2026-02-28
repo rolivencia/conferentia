@@ -1,7 +1,6 @@
 import { Component, EnvironmentInjector, inject, OnInit } from '@angular/core';
 import { first, Observable, of, switchMap, tap, throwError } from 'rxjs';
-import { Abstract } from '@conferentia/models';
-import { statusesList } from '../_providers/utils';
+import { Abstract, statusesList } from '@conferentia/models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbstractService } from '@conferentia/angular-services';
 import { ActivatedRoute } from '@angular/router';

@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubmitAbstractRevisionPageRoutingModule } from './submit-abstract-revision-routing.module';
 import { IonicComponentsModule } from '@conferentia/ionic-components';
-import { PipesModule } from '../_providers/pipes/pipes.module';
+import { PipesModule } from '@conferentia/ionic-components';
 
 // Pages
 import { SubmitAbstractRevisionPage } from './submit-abstract-revision.page';

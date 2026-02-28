@@ -11,10 +11,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from '@auth0/auth0-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicComponentsModule } from '@conferentia/ionic-components';
+import { APP_ROUTE_TREE_TOKEN } from '@conferentia/ionic-pages';
+import { APP_ROUTE_TREE } from './app.routes';
 
 // Providers
 import {
   AngularServicesModule,
+  AUTH_ADAPTER,
+  Auth0AuthAdapter,
   EventService,
   NavigationService,
   UserService,
@@ -54,6 +58,8 @@ function loadEventFactory(eventService: EventService) {
     EventService,
     NavigationService,
     UserService,
+    { provide: AUTH_ADAPTER, useClass: Auth0AuthAdapter },
+    { provide: APP_ROUTE_TREE_TOKEN, useValue: APP_ROUTE_TREE },
     // TODO: Load event data based on SaaS-oriented configuration (2022/11/04 - RO - #40)
     loadCurrentEvent,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

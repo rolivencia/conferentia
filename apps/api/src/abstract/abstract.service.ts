@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { ConnectorService } from '../shared/connectors/connector.service';
 import { SanityClient } from '@sanity/client';
-import { Abstract, SubmittedAbstractPayload } from '@conferentia/models';
+import {
+  Abstract,
+  SubmittedAbstractPayload,
+  SubmittedAbstractRevisionPayload,
+} from '@conferentia/models';
 import * as fs from 'fs';
-import { SubmittedAbstractRevisionPayload } from '../../../../libs/models/src/lib/abstract.interface';
 
 @Injectable()
 export class AbstractService {

@@ -2,3 +2,4 @@
 
 export { UserProfilePageModule } from './lib/user-profile/user-profile.module';
 export { libRoutes, ROUTE_TREE } from './lib-routes';
+export { APP_ROUTE_TREE_TOKEN } from './lib/app-route-tree.token';

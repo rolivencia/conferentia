@@ -8,7 +8,7 @@ import { ParticipantCardComponent } from './participant-card/participant-card.co
 import { ScheduleComponent } from './schedule/schedule.component';
 import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component';
 import { RouterModule } from '@angular/router';
-import { PipesModule } from "../../../../apps/landing-unl-seminar-v1/src/app/_providers/pipes/pipes.module";
+import { PipesModule } from './pipes/pipes.module';
 
 @NgModule({
   imports: [CommonModule, IonicModule, RouterModule, PipesModule],

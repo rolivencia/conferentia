@@ -1,7 +1,16 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { IActivity } from '@conferentia/models';
-import { map, tap } from 'rxjs';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Abstract, IActivity } from '@conferentia/models';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
+/** View-model extending Abstract with a sanitized poster URL for iframe binding */
+interface SanitizedAbstract extends Omit<Abstract, 'posterUrl'> {
+  posterUrl?: SafeResourceUrl;
+}
+
+/** View-model extending IActivity with sanitized abstracts */
+interface SanitizedActivity extends Omit<IActivity, 'abstracts'> {
+  abstracts?: SanitizedAbstract[];
+}
 
 @Component({
   selector: 'conferentia-activity-card',
@@ -11,7 +20,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ActivityCardComponent implements OnInit {
   @Input() activity!: IActivity;
 
-  sanitizedActivity!: IActivity;
+  sanitizedActivity!: SanitizedActivity;
 
   private sanitizer: DomSanitizer = inject(DomSanitizer);
 
@@ -26,7 +35,7 @@ export class ActivityCardComponent implements OnInit {
             ...abstract,
             posterUrl: abstract.posterUrl
               ? this.sanitizer.bypassSecurityTrustResourceUrl(
-                  abstract.posterUrl as string
+                  abstract.posterUrl
                 )
               : undefined,
           })),

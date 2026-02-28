@@ -1,20 +1,10 @@
 import { Component, EnvironmentInjector, inject, OnInit } from '@angular/core';
 import { first, Observable, of, switchMap, tap } from 'rxjs';
-import { Abstract } from '@conferentia/models';
+import { Abstract, statusesList } from '@conferentia/models';
 import { AbstractService } from '@conferentia/angular-services';
-import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-  Router,
-} from '@angular/router';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
-import { statusesList } from "../_providers/utils";
 
 @Component({
   selector: 'conferentia-abstract-review',

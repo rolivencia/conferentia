@@ -10,14 +10,23 @@ export { ICommitteeMember } from './lib/committee-member.interface';
 export { ISubjectArea } from './lib/subject-area.interface';
 export { IEventSponsor } from './lib/event-sponsor.interface';
 
-export { Abstract, SubmittedAbstractPayload } from './lib/abstract.interface';
+export {
+  Abstract,
+  SubmittedAbstractPayload,
+  SubmittedAbstractRevisionPayload,
+} from './lib/abstract.interface';
 export { Author } from './lib/author.interface';
 export { Country, countries } from './lib/country.interface';
 export { Schedule } from './lib/schedule.interface';
-export { User } from './lib/user.interface';
+export { User, Role, EUserRole } from './lib/user.interface';
 
 export { IAudit } from './lib/audit.interface';
 export { IImage } from './lib/image.interface';
+export {
+  colorStatusMap,
+  statusesMap,
+  statusesList,
+} from './lib/abstract-status.utils';
 
 // Infrastructure-related models
 // TODO: Explore if these models should be moved to their own specific library (2022/11/07 - RO - #47)

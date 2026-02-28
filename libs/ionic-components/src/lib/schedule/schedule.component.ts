@@ -3,7 +3,13 @@ import { Component, Input, OnInit } from '@angular/core';
 
 // Models
 import { Schedule } from '@conferentia/models';
-import { APP_ROUTE_TREE } from '../../../../../apps/landing-unl-seminar-v1/src/app/app.routes';
+
+const DEFAULT_NAVIGABLE_ACTIVITY_TYPES: string[] = [
+  'Keynote',
+  'Presentation',
+  'Poster Session',
+  'Conference',
+];
 
 @Component({
   selector: 'conferentia-schedule',
@@ -12,14 +18,7 @@ import { APP_ROUTE_TREE } from '../../../../../apps/landing-unl-seminar-v1/src/a
 })
 export class ScheduleComponent implements OnInit {
   @Input() schedule: Schedule | undefined;
-
-  // ToDo: Parametrize which activity types are navigable based on config
-  navigableActivityTypes: string[] = [
-    'Keynote',
-    'Presentation',
-    'Poster Session',
-    'Conference',
-  ];
+  @Input() navigableActivityTypes: string[] = DEFAULT_NAVIGABLE_ACTIVITY_TYPES;
 
   constructor() {}
 

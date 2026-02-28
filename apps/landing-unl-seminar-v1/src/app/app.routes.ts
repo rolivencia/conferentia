@@ -2,14 +2,14 @@
 import { of } from 'rxjs';
 
 // Guards
-import { finishedRegistrationGuard } from '@conferentia/angular-services';
+import {
+  adminDashboardGuard,
+  finishedRegistrationGuard,
+} from '@conferentia/angular-services';
 
 // Models
 import { ConferentiaRoute } from '@conferentia/models';
 import { ROUTE_TREE } from '@conferentia/ionic-pages';
-
-// Services
-import { adminDashboardGuard } from '../../../../libs/angular-services/src/lib/guards/admin-dashboard.guard';
 
 export const APP_ROUTE_TREE = {
   HOME: 'home',

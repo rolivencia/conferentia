@@ -8,7 +8,7 @@ import { AbstractReviewPageRoutingModule } from './abstract-review-routing.modul
 
 import { AbstractReviewPage } from './abstract-review.page';
 import { IonicComponentsModule } from '@conferentia/ionic-components';
-import { PipesModule } from "../_providers/pipes/pipes.module";
+import { PipesModule } from '@conferentia/ionic-components';
 
 @NgModule({
   imports: [

@@ -1,22 +1,32 @@
 // Core
-import { Component, EnvironmentInjector, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  EnvironmentInjector,
+  Inject,
+  inject,
+  OnInit,
+  Optional,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { filter, first, map, Observable, of, switchMap } from 'rxjs';
 
 // Models
 import { ROUTE_TREE } from '@conferentia/ionic-pages';
-import { Abstract, countries, Country, User } from '@conferentia/models';
+import {
+  Abstract,
+  colorStatusMap,
+  countries,
+  Country,
+  User,
+} from '@conferentia/models';
 
 // Services
 import { AbstractService, UserService } from '@conferentia/angular-services';
 import { AlertController } from '@ionic/angular';
-import { AuthService } from '@auth0/auth0-angular';
 
 import dayjs from 'dayjs';
-// ToDo: Change this import. Move utils to lib.
-import { colorStatusMap } from "../../../../../apps/landing-unl-seminar-v1/src/app/_providers/utils";
-import { APP_ROUTE_TREE } from "../../../../../apps/landing-unl-seminar-v1/src/app/app.routes";
+import { APP_ROUTE_TREE_TOKEN } from '../app-route-tree.token';
 
 @Component({
   selector: 'conferentia-user-profile',
@@ -24,7 +34,6 @@ import { APP_ROUTE_TREE } from "../../../../../apps/landing-unl-seminar-v1/src/a
   styleUrls: ['./user-profile.page.scss'],
 })
 export class UserProfilePage implements OnInit {
-
   public colorStatusMap = colorStatusMap;
 
   public currentUser$: Observable<User | null> = of(null);
@@ -45,16 +54,20 @@ export class UserProfilePage implements OnInit {
   ];
 
   public countries: Country[] = countries;
-  public appRouteTree = APP_ROUTE_TREE;
+  public appRouteTree: Record<string, string>;
 
   constructor(
     private abstractService: AbstractService,
-    private authService: AuthService,
     private formBuilder: FormBuilder,
     private injector: EnvironmentInjector,
     private router: Router,
-    private userService: UserService
-  ) {}
+    private userService: UserService,
+    @Optional()
+    @Inject(APP_ROUTE_TREE_TOKEN)
+    appRouteTree: Record<string, string> | null
+  ) {
+    this.appRouteTree = appRouteTree ?? {};
+  }
 
   ngOnInit() {
     this.currentUser$ = this.userService.currentUser$.asObservable();

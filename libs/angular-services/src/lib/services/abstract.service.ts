@@ -1,9 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { HttpClient } from '@angular/common/http';
-import { Abstract, IFrontendEnvironmentConfig } from '@conferentia/models';
+import {
+  Abstract,
+  IFrontendEnvironmentConfig,
+  SubmittedAbstractRevisionPayload,
+} from '@conferentia/models';
 import { Observable } from 'rxjs';
-import { SubmittedAbstractRevisionPayload } from "../../../../models/src/lib/abstract.interface";
 
 @Injectable({
   providedIn: 'root',
