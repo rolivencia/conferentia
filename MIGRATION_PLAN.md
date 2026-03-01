@@ -81,15 +81,109 @@ These pages are currently app-specific but represent reusable conference concept
 
 | Pipe | Location | Migration notes |
 |------|----------|----------------|
-| `AuthorsPipe` | `apps/landing-unl-seminar-v1/src/app/_providers/` | **Must move** into `libs/ionic-components` or a new `libs/pipes` library. Currently imported via relative path from the shared components module — a structural violation. |
+| `AuthorsPipe` | `libs/ionic-components/src/lib/pipes/` _(moved from app)_ | **Done** — moved into `libs/ionic-components`. Transforms `Author[]` into a comma-separated name string. |
 
-### 1.5 Routing & Navigation
+### 1.5 Ionic Framework Components (to replace in v2)
+
+The following 33 Ionic-provided components are used across the codebase and must be replaced if migrating away from Ionic. They are grouped by function.
+
+#### 1.5.1 Layout & Structure (5 components)
+
+| Component | Usage count | Where used | Replacement notes |
+|-----------|:-----------:|------------|-------------------|
+| `ion-app` | 2 | Root shell in both apps | Replace with a plain `<div>` or framework root element. |
+| `ion-split-pane` | 2 | Root shell (`contentId="main-content"`, `type="overlay"`) | Replace with a CSS sidebar layout (flexbox/grid with a responsive breakpoint). |
+| `ion-grid` | 11 | Shared components, pages (schedule, activity-card, participant-card, home, registration, admin-dashboard, etc.) | Replace with CSS Grid or a utility framework (Tailwind `grid`). Responsive breakpoints (`size-md`, `size-lg`, `size-xl`) must be preserved. |
+| `ion-row` | 12+ | Same locations as `ion-grid` | Replace with `display: flex` row or CSS Grid row. |
+| `ion-col` | 15+ | Same locations — uses responsive sizing (`size="12"`, `size-md="6"`, `size-lg="8"`, `size-xl="4"`, `offset="1"`) | Replace with CSS Grid columns or flex items with media queries. Map Ionic's 12-column system to the new grid. |
+
+#### 1.5.2 Navigation & App Shell (9 components)
+
+| Component | Usage count | Where used | Replacement notes |
+|-----------|:-----------:|------------|-------------------|
+| `ion-menu` | 2 | `app.component.html`, `navigation-menu.component.html` (`type="overlay"`, `contentId="main-content"`) | Replace with a custom sidebar/drawer component. Needs open/close logic and overlay behavior. |
+| `ion-menu-button` | 1 | `fillable-content-page` (`slot="start"`) | Replace with a hamburger icon button that toggles the menu. |
+| `ion-menu-toggle` | 2 | `app.component.html`, `navigation-menu` (`auto-hide="false"`) | Replace with a click handler that closes the menu on item selection. |
+| `ion-router-outlet` | 2 | Root app shells (`id="main-content"`) | Replace with Angular `<router-outlet>` (or framework equivalent). |
+| `ion-header` | 1 | `fillable-content-page` | Replace with a `<header>` element + sticky CSS. |
+| `ion-toolbar` | 1 | `fillable-content-page` | Replace with a flex container inside `<header>`. |
+| `ion-title` | 2 | `fillable-content-page`, `schedule` | Replace with `<h1>`/`<h2>` or a styled span. |
+| `ion-content` | 3 | `app.component`, `fillable-content-page`, `navigation-menu` | Replace with a scrollable `<main>` element. Ionic's scroll virtualization is not used here. |
+| `ion-buttons` | 1 | `fillable-content-page` (`slot="start"`) | Replace with a flex container for button groups. |
+
+#### 1.5.3 Data Display (12 components)
+
+| Component | Usage count | Where used | Replacement notes |
+|-----------|:-----------:|------------|-------------------|
+| `ion-card` | 25+ | Every content page, shared components | Replace with a styled card `<div>` (border, shadow, border-radius). Most heavily used component. |
+| `ion-card-header` | 20+ | Inside all cards | Replace with a card header `<div>` with padding/background. |
+| `ion-card-title` | 15+ | Inside all card headers | Replace with `<h3>` or similar heading. |
+| `ion-card-subtitle` | 2 | `activity-card`, `participant-card` | Replace with a `<p>` or `<small>` element. |
+| `ion-card-content` | 25+ | Inside all cards | Replace with a card body `<div>` with padding. |
+| `ion-text` | 15+ | General-information, home, travel, activity-card, user-profile, admin-dashboard | Replace with `<span>` + CSS class for color (`color="primary"`). |
+| `ion-note` | 3 | `fillable-content-page` (`class="ion-hide-md-down"`), `navigation-menu` | Replace with a `<small>` or `<span class="note">`. Note the responsive hide class. |
+| `ion-badge` | 2 | `admin-dashboard`, `user-profile` (dynamic `[color]="colorStatusMap[...]"`) | Replace with a `<span class="badge">` with color variants via CSS classes. |
+| `ion-avatar` | 2 | `participant-card`, `subject-area` | Replace with a rounded `<img>` wrapper (`border-radius: 50%`). |
+| `ion-img` | 4 | `app.component`, `home` (sponsors), `general-information`, `navigation-menu` (logo, featured image) | Replace with native `<img>` with lazy loading (`loading="lazy"`). Ionic's `ion-img` adds lazy loading by default. |
+| `ion-thumbnail` | 1 | `schedule` (`slot="start"`, conditional `*ngIf`) | Replace with a fixed-size `<img>` wrapper. |
+| `ion-icon` | 20+ | Menu items, buttons, actions throughout | Replace with an icon library (Lucide, Heroicons, Material Icons, or keep Ionicons standalone). Uses `name`, `slot`, `size`, and iOS/MD variants (`[ios]`, `[md]`). |
+
+#### 1.5.4 List & Item (4 components)
+
+| Component | Usage count | Where used | Replacement notes |
+|-----------|:-----------:|------------|-------------------|
+| `ion-list` | 5 | `app.component`, `navigation-menu`, `schedule`, `fillable-content-page`, `user-profile` | Replace with `<ul>` or `<div role="list">`. |
+| `ion-list-header` | 4 | `app.component`, `navigation-menu`, `schedule`, `submit-abstract-revision` | Replace with a styled heading above the list. |
+| `ion-item` | 25+ | Menu links, form fields, schedule rows, abstract lists | **Most complex to replace.** Ionic `ion-item` provides: label/input layout, ripple effect, `routerLink` integration, `detail` arrow, `lines` dividers, slot-based content placement. Replace with a custom list-item component or styled `<li>` / `<div>`. |
+| `ion-label` | 28+ | Inside every `ion-item` for form fields, list items, display text | Replace with `<label>` for forms or `<span>` for display. The `position="stacked"` variant needs floating-label CSS. |
+
+#### 1.5.5 Form Controls (5 components)
+
+| Component | Usage count | Where used | Replacement notes |
+|-----------|:-----------:|------------|-------------------|
+| `ion-input` | 5 | `user-profile` (email, name fields), `submit-abstract-revision` (file upload) | Replace with native `<input>` + styling. Supports `type="text"`, `type="email"`, `type="file"`, `formControlName`, `[disabled]`. |
+| `ion-select` | 3 | `user-profile` (courtesy title, country), `abstract-review` (status) | Replace with native `<select>` or a custom dropdown. Used with `formControlName` and `placeholder`. |
+| `ion-select-option` | 3 | Inside `ion-select` components | Replace with native `<option>` elements. |
+| `ion-textarea` | 1 | `abstract-review` (`formControlName="review"`, `rows="5"`) | Replace with native `<textarea>`. |
+| `ion-toggle` | 1 | `user-profile` (`formControlName="wantsToEvaluatePapers"`) | Replace with a custom toggle/switch component or a styled `<input type="checkbox">`. |
+
+#### 1.5.6 Actions (1 component)
+
+| Component | Usage count | Where used | Replacement notes |
+|-----------|:-----------:|------------|-------------------|
+| `ion-button` | 20+ | Everywhere — login, logout, submit, download, navigation, abstract actions | Replace with `<button>` + CSS classes. Uses: `color="primary"/"danger"`, `expand="block"`, `[disabled]`, `[href]`+`[target]` (acts as `<a>`), `slot`, `[routerLink]`+`[queryParams]`. The `[href]` variant needs a separate `<a>` element. |
+
+#### 1.5.7 Programmatic Overlays (1 controller)
+
+| Controller | Usage count | Where used | Replacement notes |
+|------------|:-----------:|------------|-------------------|
+| `AlertController` | 4 | `user-profile`, `abstract-review`, `abstract-submission`, `submit-abstract-revision` — used via `inject(AlertController).create({ header, message, buttons })` | Replace with a custom modal/toast service or a library (e.g. SweetAlert2, Radix Dialog, headless UI). All 4 usages follow the same pattern: success/error feedback after form submission. |
+
+#### 1.5.8 Ionic CSS Utilities used in templates
+
+These Ionic utility classes are used directly in templates and need CSS replacements:
+
+| Utility class | Purpose | Occurrences |
+|---------------|---------|:-----------:|
+| `ion-padding` | Padding on all sides | 10+ |
+| `ion-padding-horizontal` | Horizontal padding | 3 |
+| `ion-padding-top` | Top padding | 1 |
+| `ion-no-padding` | Remove padding | 3 |
+| `ion-margin-bottom` | Bottom margin | 2 |
+| `ion-margin-top` | Top margin | 1 |
+| `ion-text-center` | Center text | 5 |
+| `ion-text-justify` | Justify text | 3 |
+| `ion-text-right` | Right-align text | 1 |
+| `ion-hide-md-down` | Hide on medium and smaller screens | 1 |
+| `ion-flex-container` | Flex container | 1 |
+
+### 1.6 Routing & Navigation
 
 | Asset | Location | Migration notes |
 |-------|----------|-----------------|
 | `ConferentiaRoute` / `ConferentiaRouteData` | `libs/models` | Good — already framework-agnostic interfaces. Keep. |
 | `ROUTE_TREE` | `libs/ionic-pages` | Only has `HOME` and `USER_PROFILE`. Extend or make configurable per-app. |
-| `APP_ROUTE_TREE` | `apps/landing-unl-seminar-v1` | Event-specific. Should be generated from config in v2. |
+| `APP_ROUTE_TREE` | `apps/landing-unl-seminar-v1` | Event-specific. Now injectable via `APP_ROUTE_TREE_TOKEN`. |
 | `appRoutes` | Each app has its own | Unify into a single route-builder that composes routes from enabled modules. |
 
 ---
@@ -228,18 +322,21 @@ Currently: Auth0 Angular SDK (`@auth0/auth0-angular` v1.x) used directly in:
 
 ## Part 3 — Structural Issues to Fix During Migration
 
-### 3.1 Cross-project coupling (critical)
+### 3.1 Cross-project coupling — RESOLVED
 
-These must be resolved before or during migration:
+All 7 cross-boundary relative imports have been eliminated:
 
-1. **`IonicComponentsModule`** imports `PipesModule` from `apps/landing-unl-seminar-v1` via relative path — a library should never import from an app.
-2. **`ScheduleComponent`** imports `APP_ROUTE_TREE` from `apps/landing-unl-seminar-v1` — couples a shared component to a specific app.
-3. **`AbstractController`** imports `SubmittedAbstractRevisionPayload` via relative path from `libs/models` instead of using the `@conferentia/models` alias — inconsistent.
-4. **`adminDashboardGuard`** is imported via relative path in `app.routes.ts` instead of being exported from `@conferentia/angular-services`.
+1. ~~`IonicComponentsModule` imports `PipesModule` from app~~ — **Fixed**: `AuthorsPipe` + `PipesModule` moved to `libs/ionic-components/src/lib/pipes/`.
+2. ~~`ScheduleComponent` imports `APP_ROUTE_TREE` from app~~ — **Fixed**: Removed import; `navigableActivityTypes` is now an `@Input()`.
+3. ~~`AbstractController` uses relative path to models~~ — **Fixed**: Uses `@conferentia/models` alias.
+4. ~~`adminDashboardGuard` imported via relative path~~ — **Fixed**: Exported from `@conferentia/angular-services` barrel.
+5. ~~`AbstractService` (API) uses relative path to models~~ — **Fixed**: Uses `@conferentia/models` alias.
+6. ~~`AbstractService` (frontend) uses relative path to models~~ — **Fixed**: Uses `@conferentia/models` alias.
+7. ~~`UserProfilePage` imports `colorStatusMap` and `APP_ROUTE_TREE` from app~~ — **Fixed**: `colorStatusMap` moved to `@conferentia/models`; routes injected via `APP_ROUTE_TREE_TOKEN`.
 
-### 3.2 Framework leaks in domain models
+### 3.2 Framework leaks in domain models — RESOLVED
 
-- `abstract.interface.ts` imports `SafeResourceUrl` from `@angular/platform-browser` — a domain model should be framework-agnostic. Move the sanitized URL to a view-model or component-level type.
+- ~~`abstract.interface.ts` imports `SafeResourceUrl` from `@angular/platform-browser`~~ — **Fixed**: `posterUrl` is now `string`; `SafeResourceUrl` moved to component-level `SanitizedActivity` view-model in `ActivityCardComponent`.
 
 ### 3.3 Existing TODOs from the codebase
 
