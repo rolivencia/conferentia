@@ -381,3 +381,329 @@ All 7 cross-boundary relative imports have been eliminated:
 - Add missing unit tests for all shared components and services
 - Add E2E tests for critical workflows (registration, abstract submission, schedule viewing)
 - Validate Capacitor mobile builds on iOS and Android
+
+---
+
+## Part 5 — Legacy v1 Codebase Analysis (`conferentia-v1`)
+
+> Source: [github.com/rolivencia/conferentia-v1](https://github.com/rolivencia/conferentia-v1)
+> This is the original production version of Conferentia, built for the ENIEF 2019 conference.
+
+### 5.1 v1 Tech Stack
+
+| Layer | Technology | Version | v2 Equivalent |
+|-------|-----------|---------|---------------|
+| Frontend framework | Angular | 5.0.2 | Angular 14 |
+| UI toolkit | Ionic | 3.9.9 | Ionic 6 |
+| Native bridge | Cordova | — | Capacitor 4 |
+| Backend API | PHP (REST) | — | NestJS 9 |
+| Database | MySQL (+ Airtable) | — | Sanity CMS |
+| Auth | JWT (custom) | — | Auth0 |
+| Push notifications | OneSignal (`@ionic-native/onesignal` 4.5.2) | — | Not implemented in v2 |
+| Barcode scanner | `@ionic-native/barcode-scanner` 4.5.2 | — | Not implemented in v2 |
+| Geolocation | `@ionic-native/geolocation` 4.3.2 | — | Not implemented in v2 |
+| i18n | `@ngx-translate/core` 9.x | — | Not implemented in v2 |
+| QR codes | `ng-qrcode` 1.x | — | Not implemented in v2 |
+| Date handling | `moment.js` 2.24 | — | Not used in v2 |
+| Local storage | `@ionic/storage` 2.1.3 | — | Not implemented in v2 |
+| HTTP (legacy) | `@angular/http` (deprecated) | 5.0.2 | `HttpClient` |
+| RxJS | 5.5.2 | — | RxJS 7.x |
+
+### 5.2 v1 Frontend Components — Shared (`src/components/`)
+
+These 7 shared components should be evaluated for migration into the new platform:
+
+| # | Component | Purpose | v2 Status | Migration recommendation |
+|---|-----------|---------|-----------|--------------------------|
+| 1 | **CardActividadComponent** | Activity card with favorites toggle (star icon), date/time, type badge, location | Partially covered by `ActivityCardComponent` | **Merge** — v1 has favorites support that v2 lacks. Port the favorites toggle. |
+| 2 | **CardDisertanteComponent** | Speaker card with avatar, name, institution | Covered by `ParticipantCardComponent` | **Skip** — v2 version is more complete. |
+| 3 | **CardDiaOcupadoComponent** | Day grouping header card for schedule view (shows day name + date) | Not in v2 | **Migrate** — useful schedule UI element for grouping activities by day. |
+| 4 | **HeaderBarComponent** | Page header with profile button and navigation | Partially covered by `FillableContentPageComponent` | **Skip** — v2 has a more complete app shell. |
+| 5 | **ButtonBarComponent** | Social media / action button bar (WhatsApp, competitions link, external URLs) | Not in v2 | **Migrate as optional module** — useful for events that want social links. |
+| 6 | **SponsorComponent** | Sponsor carousel/slider with auto-rotation | Not in v2 (v2 has a sponsors page but no carousel) | **Migrate** — carousel display is a common sponsor showcase pattern. |
+| 7 | **AssistanceCounterComponent** | Visual attendance progress counter | Not in v2 | **Migrate** — needed for QR attendance workflow. |
+
+### 5.3 v1 Frontend Pages — Full Inventory (`src/pages/`)
+
+The v1 app has 21 page components. This table maps each to its v2 status and migration priority.
+
+| # | Page | Purpose | v2 equivalent | Priority | Migration notes |
+|---|------|---------|---------------|----------|-----------------|
+| 1 | **InicioPage** | Home/landing with logo, sponsors carousel, button bar | `home` page (both apps) | — | Already exists in v2. Port sponsor carousel. |
+| 2 | **MiCronogramaPage** | Full schedule with multi-dimensional filtering (day, type, area, venue) + favorites system | `schedule` (shared component) | **High** | v2 schedule is simpler. **Port filtering system and favorites.** ~450 lines of rich logic. |
+| 3 | **ActividadPage** | Single activity detail view | `activity-detail` (landing app) | — | Already exists in v2. |
+| 4 | **AsistenciaPage** | QR-based attendance with barcode scanner (different UIs for organizers vs attendees) | Not in v2 | **High** | **Migrate** — core event workflow. Needs Capacitor barcode plugin. |
+| 5 | **ProximaActividadPage** | "Next activity" — shows upcoming activities with countdown timer | Not in v2 | **High** | **Migrate** — valuable UX feature for live events. Uses `moment.js` for time calculations. |
+| 6 | **DisertantesPage** | Speaker list | `participants` / `invited-speakers` | — | Already exists in v2. |
+| 7 | **DisertantePage** | Speaker detail with their activities and moderated sessions | `participant-detail` variant | — | Partially in v2. Port "moderated sessions" view. |
+| 8 | **ChairsPage** | Organizing committee list | `committees` (landing app) | — | Already exists in v2. |
+| 9 | **ChairPage** | Committee member detail | Part of `committees` | — | Already in v2. |
+| 10 | **AreasTematicasPage** | Subject/thematic areas list | Not a standalone page in v2 | **Medium** | **Migrate** — useful for larger conferences. v2 uses subject areas only in abstract submission. |
+| 11 | **AreaTematicaPage** | Single thematic area detail | Not in v2 | **Medium** | **Migrate** — paired with AreasTematicasPage. |
+| 12 | **LocalizacionPage** | Location hub with links to maps, transit apps | Not in v2 | **Medium** | **Migrate** — valuable for in-person events. Platform-specific deep links (Google Maps, Apple Maps, transit). |
+| 13 | **MapaCiudadPage** | Interactive Google Maps with markers, search, category filtering | Not in v2 | **Medium** | **Migrate** — rich feature (~250 lines). Needs Google Maps API integration. |
+| 14 | **MapaInstalacionesPage** | Facility floor plans via iframe (DomSanitizer) | Not in v2 | **Low** | **Migrate as optional** — simple iframe page. |
+| 15 | **InicioSesionPage** | Login page with username/password | Handled by Auth0 redirect in v2 | — | **Skip** — v2 uses Auth0 hosted login. |
+| 16 | **PerfilPage** | User profile with QR code display and logout | `user-profile` (shared) | — | Already in v2. **Port QR code display.** |
+| 17 | **SponsorsPage** | Sponsor list with optional detail view | `sponsors` (app) | — | Already in v2. |
+| 18 | **SettingsPage** | Language selection | Not in v2 | **Medium** | **Migrate** — needed if i18n is implemented. |
+| 19 | **CompetitionsPage** | Competition standings/leaderboard | Not in v2 | **Low** | **Migrate as optional module** — niche feature for gamified events. |
+| 20 | **AboutPage** | Developer/app info | Not in v2 | **Low** | **Migrate as optional** — standard mobile app page. |
+| 21 | **TabsPage** | Tab bar controller with dynamic visibility per page | Root navigation in v2 | — | v2 uses side menu instead. Consider offering both layouts. |
+
+### 5.4 v1 Services — Full Inventory (`src/shared/`)
+
+| # | Service | Purpose | v2 equivalent | Migration recommendation |
+|---|---------|---------|---------------|--------------------------|
+| 1 | **GlobalService** | Static singleton with feature flags, page access config, JWT token, event name | `IFrontendEnvironmentConfig` (partial) | **Replace** with a dynamic feature-flag system and runtime configuration service. See §6.3. |
+| 2 | **ActividadService** | Activity CRUD, 22 activity types, filtering, sorting, image assignment | `ActivityService` | **Covered** — v2 version is cleaner. Port the 22 activity-type definitions. |
+| 3 | **DisertanteService** | Speaker fetching with random avatar generation | `ParticipantService` | **Covered** — v2 version is cleaner. |
+| 4 | **AsistenciaService** | Attendance registration (entry/exit) via legacy `@angular/http` | Not in v2 | **Migrate** — core workflow for live events. Rewrite with `HttpClient`. |
+| 5 | **DataBaseAccess** | HTTP wrapper for PHP/MySQL API calls | `HttpService` (abstract base) | **Skip** — replaced by NestJS + Sanity in v2. |
+| 6 | **LoginService** | Credential management, activity assignment to users | Auth0 in v2 | **Skip** — replaced by Auth0. Security issues noted (plaintext password storage). |
+| 7 | **UsuarioService** | User CRUD with static logged-in user state | `UserService` | **Covered** — v2 version uses BehaviorSubject properly. |
+| 8 | **AreaTematicaService** | 23 hardcoded thematic areas | `SubjectAreaService` (via Sanity) | **Skip** — v2 fetches from CMS. |
+| 9 | **ChairService** | 25+ hardcoded committee members | `CommitteeService` (via Sanity) | **Skip** — v2 fetches from CMS. |
+| 10 | **LugarService** | Venue/room definitions (hardcoded) | Not standalone in v2 (part of Activity model) | **Skip** — locations should be CMS-managed in v2. |
+| 11 | **MarcadorService** | Hundreds of location markers (restaurants, hotels, landmarks in Santa Fe) | Not in v2 | **Migrate pattern** — implement a map marker service backed by a database, not hardcoded data. |
+| 12 | **SponsorService** | Sponsor fetching with timestamp-based cache invalidation | `SponsorService` (via Sanity) | **Covered** — but port the **caching pattern** (timestamp comparison for local vs remote). |
+| 13 | **CompetitionService** | Competition/standings management | Not in v2 | **Migrate as optional** — backed by API. |
+| 14 | **NotificacionesService** | OneSignal push notifications | Not in v2 | **Migrate** — push notifications are critical for live events. See §6.6. |
+| 15 | **RouterService** | Static navigation methods for all pages (~200 lines) | `NavigationService` | **Skip** — v2 uses Angular Router. v1 used imperative `NavController.push()`. |
+| 16 | **OrganizadorService** | Organizer contact info with phone load balancing | Not in v2 | **Migrate as optional** — useful for "Contact" pages. |
+| 17 | **AlertasService** | Alert/confirmation dialog helpers | `AlertController` (Ionic) | **Covered** — standardize as a notification service in v2. |
+| 18 | **LayoutService** | Empty placeholder (TODO) | — | **Skip** — never implemented. |
+| 19 | **SponsorService (v2)** | (duplicate entry — same as #12) | — | — |
+| 20 | **MarcadorObject** | Marker class with getters/setters | — | **Skip** — use a plain interface. |
+
+### 5.5 v1 Domain Models (`src/shared/dtoClasses.ts`)
+
+All ~20 DTOs defined in a single file. This table maps them to v2 equivalents:
+
+| v1 DTO | Fields | v2 Equivalent | Gap |
+|--------|--------|---------------|-----|
+| `Actividad` | id, nombre, descripcion, moderadores, disertantes, lugar, fecha, areaTematica, tipoActividad, etc. | `IActivity` | v1 has `lugar` (venue/room) as a first-class field |
+| `ActividadRaw` | Same but with IDs instead of nested objects | — | Internal API DTO; v2 uses Sanity references |
+| `ActividadList` / `ActividadLink` | Simplified activity references | — | Not needed in v2 |
+| `Disertante` | idDisertante, nombreCompleto, gender, institucion, imgString, curriculum | `IParticipant` | v1 has `gender` field (used for avatar generation) |
+| `Chair` | idChair, nombreCompleto, cargo, email, etc. | `ICommitteeMember` | Equivalent |
+| `AreaTematica` | idAreaTematica, nombre, descripcion, imgString | `ISubjectArea` | Equivalent |
+| `TipoActividad` | idTipo, nombre, color, backgroundColor | `IActivityType` | v1 has **22 hardcoded types with colors** — v2 should load from CMS |
+| `Lugar` | idLugar, nombre, marcador | `ILocation` | v1 ties venue to map markers |
+| `Usuario` | id, registration_id, names, dni, username, password, is_organizer, assigned_activities, team | `User` | v1 has `is_organizer` flag, `assigned_activities`, `team` — v2 has roles |
+| `Team` | id, name, members | — | **New in v1** — used for competitions |
+| `Marcador` | lat, lng, name, type, color, icon | — | **New in v1** — map markers |
+| `TipoMarcador` | id, name, icon, color | — | **New in v1** — marker categories |
+| `Organizador` | name, phones, email, social | — | **New in v1** — organizer contact |
+| `Sponsor` | id, name, image, url | `IEventSponsor` | Equivalent |
+| `Asistencia` | user, activity, timestamp, type | `IAttendance` | v2 has the model but no workflow |
+| `Favorito` | IdUsuario, IdActividad | — | **New in v1** — personal schedule favorites |
+| `Developer` | imgSource, fullName, institution, email, resume | — | App meta (not needed) |
+| `MapaInstalaciones` | nombre, url | — | Facility map links |
+| `ButtonBarEnabledElements` | Booleans for each button | — | Feature flags for UI |
+| `ImplementedModuleStatus` | Module on/off flags | — | Feature flags for pages |
+| `NotificationParameters` | OneSignal config | — | Push notification config |
+| `PageInterface` | title, icon, component, tabEnabled | `ConferentiaRouteData` | v2 equivalent exists |
+
+### 5.6 v1 Features Missing in v2 — Carry Forward
+
+These features existed in v1 but are **not present in the current v2 codebase**. They represent functional regressions that should be restored in the new platform:
+
+| # | Feature | v1 Implementation | Priority | New platform recommendation |
+|---|---------|-------------------|----------|----------------------------|
+| 1 | **QR-based attendance tracking** | `AsistenciaPage` + `AsistenciaService` + BarcodeScanner. Organizers scan attendee QR codes; attendees show their QR. Time-frame validation. | **Critical** | Implement with Capacitor barcode plugin. Add backend attendance API. |
+| 2 | **Personal schedule / Favorites** | `MiCronogramaPage` stores favorited activities in `@ionic/storage`. Star toggle on activity cards. | **Critical** | Implement with local storage + optional server sync. Add `Favorito` model. |
+| 3 | **Advanced schedule filtering** | Multi-dimensional: day, activity type, thematic area, venue/room. ActionSheet-based filter UI. | **High** | Port filtering logic into the shared ScheduleComponent. |
+| 4 | **"Next activity" view** | `ProximaActividadPage` with countdown timers using `moment.js`. | **High** | Implement with `date-fns` or native `Intl.RelativeTimeFormat`. |
+| 5 | **Push notifications** | OneSignal integration (`NotificacionesService`). | **High** | Implement with Firebase Cloud Messaging or OneSignal. Abstract behind a notification adapter. |
+| 6 | **Internationalization (i18n)** | `@ngx-translate` with JSON files (`assets/i18n/`). `SettingsPage` for language selection. | **High** | Use Angular's built-in i18n or `@ngx-translate` (maintained for Angular 17+). |
+| 7 | **Interactive maps** | Google Maps integration with marker management, search, filtering by place type. | **Medium** | Use `@angular/google-maps` or Mapbox. Abstract behind a map adapter. |
+| 8 | **Facility floor plans** | Iframe-based floor plan viewer with multiple map selection. | **Medium** | Implement as a configurable image/PDF viewer component. |
+| 9 | **Offline data caching** | `@ionic/storage` with timestamp-based cache invalidation for activities, speakers, sponsors. | **Medium** | Implement a service worker caching strategy or use `@ionic/storage` with Capacitor. |
+| 10 | **Competitions / Gamification** | `CompetitionsPage` + `CompetitionService` with team leaderboards. | **Low** | Implement as an optional module with dedicated API endpoints. |
+| 11 | **Platform-specific navigation** | Deep links to Google Maps, Apple Maps, Uber, transit apps based on platform. | **Low** | Use Capacitor App Launcher plugin. |
+| 12 | **Dynamic page visibility** | `GlobalService.pageAccessEnabled` controls which pages appear in tabs/menu per event. | **High** | Implement as part of the SaaS configuration system. See §6.3. |
+
+---
+
+## Part 6 — Architectural Concerns for the New SaaS Platform
+
+Based on analysis of both v1 (conferentia-v1) and v2 (conferentia), the following architectural concerns must be addressed when building the new modern Angular-based SaaS platform.
+
+### 6.1 Multi-Tenancy & Event Configuration
+
+**Current state**: Both v1 and v2 are single-event apps. v1 hardcodes "ENIEF 2019" in `GlobalService`. v2 loads a single event ID from the environment config file.
+
+**Requirements**:
+- Support multiple concurrent events under a single deployment
+- Each event should have its own branding, feature set, and URL (subdomain or path-based routing)
+- Event configuration should be runtime-loaded, not build-time (no separate builds per event)
+- Admin portal to manage events, configure features, and customize branding
+
+**Recommended approach**:
+- Tenant-aware routing (`{eventSlug}.conferentia.app` or `conferentia.app/{eventSlug}`)
+- Runtime configuration service that fetches event config on app bootstrap
+- Feature-flag system (see §6.3) to enable/disable modules per event
+- Shared database with tenant isolation (row-level or schema-level)
+
+### 6.2 Backend Architecture
+
+**Current state**: v1 uses PHP + MySQL with raw SQL queries and no input validation. v2 uses NestJS + Sanity CMS with GROQ queries inlined in services.
+
+**Requirements**:
+- Replace Sanity CMS with a self-hosted database for full control over data and pricing
+- Proper input validation and error handling
+- RESTful or GraphQL API with consistent patterns
+- File upload management (abstract PDFs, images)
+- Authentication and authorization middleware
+
+**Recommended approach**:
+- Keep NestJS as the backend framework
+- Replace Sanity with PostgreSQL + Prisma (or TypeORM) for relational data
+- Add `class-validator` and `class-transformer` for DTO validation
+- Implement a repository pattern to decouple business logic from data access
+- Use cloud storage (S3, Cloudinary, or similar) for file uploads via an adapter
+- Implement proper RBAC (Role-Based Access Control) middleware
+
+### 6.3 Feature Flag & Module System
+
+**Current state**: v1 has a primitive feature-flag system in `GlobalService` (`pageAccessEnabled`, `ButtonBarEnabledElements`, `ImplementedModuleStatus`). v2 has no feature-flag system.
+
+**Requirements**:
+- Enable/disable entire page modules per event (attendance, competitions, maps, abstracts, etc.)
+- Control UI elements dynamically (button bars, menu items, tab visibility)
+- Support A/B testing and gradual rollouts
+
+**Recommended approach**:
+- Define a `ModuleRegistry` where each feature module registers itself with metadata (name, routes, menu items, required role)
+- Store enabled modules per event in the database
+- Frontend loads the module manifest at bootstrap and conditionally renders routes, menu items, and components
+- Consider a lazy-loading strategy: only load JS bundles for enabled modules
+
+### 6.4 Authentication & Authorization
+
+**Current state**: v1 uses custom JWT with plaintext password storage (security vulnerability). v2 uses Auth0 with `@auth0/auth0-angular`.
+
+**Requirements**:
+- Support multiple auth providers (Auth0, Firebase, Supabase, custom OAuth)
+- Role-based access control (admin, organizer, reviewer, attendee, speaker)
+- Per-event role assignments (a user can be admin for one event and attendee for another)
+
+**Recommended approach**:
+- Keep the `AuthAdapter` interface created in Phase 2 and extend it
+- Add role/permission resolution per event context
+- Backend: JWT validation middleware with event-scoped claims
+- Consider OAuth 2.0 / OpenID Connect as the standard protocol
+
+### 6.5 Data Caching & Offline Support
+
+**Current state**: v1 has timestamp-based caching via `@ionic/storage` (compares local data timestamp against server). v2 has no caching strategy.
+
+**Requirements**:
+- Conference apps are used in venues with poor connectivity
+- Schedule, speaker, and map data should work offline
+- Data should sync when connectivity is restored
+
+**Recommended approach**:
+- Service Worker with `@angular/service-worker` for asset caching
+- IndexedDB (via `@ionic/storage` or `idb`) for data caching
+- Implement a `SyncService` with last-modified timestamp comparison (port v1 pattern)
+- Cache-first strategy for read-heavy data (schedule, speakers, sponsors)
+- Network-first strategy for write operations (attendance, abstract submission)
+
+### 6.6 Push Notifications
+
+**Current state**: v1 uses OneSignal via `@ionic-native/onesignal`. v2 has no push notification support.
+
+**Requirements**:
+- Notify attendees of schedule changes, new announcements, upcoming sessions
+- Per-event notification channels
+- Support both web push (PWA) and native push (iOS/Android via Capacitor)
+
+**Recommended approach**:
+- Abstract behind a `NotificationAdapter` interface
+- Implement Firebase Cloud Messaging (FCM) adapter (free, widely supported)
+- Backend: notification scheduling service with event-scoped topics
+- Frontend: Capacitor Push Notifications plugin + Web Push API fallback
+
+### 6.7 Internationalization (i18n)
+
+**Current state**: v1 uses `@ngx-translate` with JSON translation files and a language settings page. v2 has no i18n support.
+
+**Requirements**:
+- Support at least English and Spanish (the two languages used in prior events)
+- Per-event default language
+- RTL support for future expansion
+
+**Recommended approach**:
+- Use `@ngx-translate/core` (well-maintained, works with Angular 17+) or Angular built-in i18n
+- Translation keys organized by module (shared, schedule, abstracts, etc.)
+- Language selector in settings with `@ionic/storage` persistence
+- Backend: Accept-Language header support for API responses
+
+### 6.8 Navigation Architecture
+
+**Current state**: v1 uses Ionic 3 imperative navigation (`NavController.push/pop`). v2 uses Angular Router with Ionic router-outlet.
+
+**Requirements**:
+- Support both tab-based and side-menu navigation layouts (v1 used tabs, v2 uses side menu)
+- Dynamic navigation based on enabled modules and user role
+- Deep linking support for web sharing
+
+**Recommended approach**:
+- Angular Router with lazy-loaded feature modules
+- Navigation layout as a configurable option per event (tabs, side menu, or both)
+- Route guards composed from the module registry + auth adapter
+- Dynamic route registration based on enabled modules
+
+### 6.9 Activity Type System
+
+**Current state**: v1 defines 22 activity types with hardcoded colors/names in `ActividadService`. v2 stores activity types in Sanity CMS with no fixed set.
+
+**Activity types from v1**:
+1. Conferencia Plenaria (Keynote)
+2. Presentación de Trabajo (Paper Presentation)
+3. Presentación de Poster (Poster Presentation)
+4. Sesión de Posters (Poster Session)
+5. Sesión de Trabajos (Paper Session)
+6. Inauguración (Opening Ceremony)
+7. Ceremonia de Clausura (Closing Ceremony)
+8. Almuerzo (Lunch)
+9. Pausa Café (Coffee Break)
+10. Asamblea (Assembly)
+11. Recepción (Reception)
+12. Mesa Redonda (Round Table)
+13. Mini Symposium
+14. Evento Cultural (Cultural Event)
+15. Clase Especial (Special Class)
+16. Tutoriales (Tutorials)
+17. Competencias (Competitions)
+18. Reunión de Comisión Directiva (Board Meeting)
+19. Tour
+20. Cocktail
+21. Foto Grupal (Group Photo)
+22. Cena (Dinner)
+
+**Recommended approach**:
+- Store activity types in the database with configurable colors, icons, and behavior flags
+- Flag properties: `isNavigable` (can be tapped to see details), `isSchedulable`, `isAttendanceTracked`, `showInPublicSchedule`
+- Seed common types but allow per-event customization
+
+### 6.10 Migration from Hardcoded Data
+
+**Current state**: v1 has enormous amounts of hardcoded data — 23 thematic areas, 25+ committee members, hundreds of map markers, venue/room definitions, all embedded directly in service files.
+
+**Recommendation**:
+- All conference-specific data must live in the database, managed via the admin portal
+- Provide seed data scripts and CSV/JSON import tools for event setup
+- Map markers should be managed per-event via an admin interface, not hardcoded
+
+### 6.11 Deployment Model
+
+**Recommended approach for a SaaS platform**:
+- **Web**: Angular SSR (or CSR with CDN) deployed as a single instance serving all events
+- **Mobile**: Single Capacitor app with event selection / deep linking
+- **Backend**: Containerized NestJS API (Docker) with horizontal scaling
+- **Database**: Managed PostgreSQL (e.g., Supabase, Neon, or AWS RDS)
+- **File storage**: S3-compatible object storage
+- **CI/CD**: GitHub Actions with Nx affected builds for monorepo efficiency
